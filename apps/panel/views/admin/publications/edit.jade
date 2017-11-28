@@ -1,0 +1,41 @@
+extends ../layout
+include ../_forms.jade
+
+block header_meta
+	- var content_title= 'РЕДАКТИРОВАТЬ ПУБЛИКАЦИЮ'
+
+block header_include
+	- var include_libs_css = ['pickmeup.min.css', 'font-awesome.css', 'wysiwyg-editor.min.css']
+	- var include_css = ['add.css']
+	- var include_libs_js = ['jquery.pickmeup.min.js', 'wysiwyg.min.js', 'wysiwyg-editor.min.js']
+	- var include_js = ['editor.js', 'add.js', 'a_events.js']
+
+block sub_menu
+	a.sub_item.back_link(href='/admin/publications') Назад
+	span.sub_item.toggle_eng Перевод
+	.sub_right_block
+		input.form_cancel(type='submit', value='Отменить')
+		input.form_submit(type='submit', value='Сохранить')
+
+block content
+	.form_block
+		.title= content_title
+		form(action="", method="post", enctype="multipart/form-data")
+			.form_title Название:
+			+form_text_single('title', publication)
+			.form_title Подзаголовок:
+			+form_text_single('s_title', publication)
+			.form_title Год:
+			input(type='number', name='year', value=publication.year)
+			.form_title Ссылка:
+			input(type='text', name='link', value=publication.link)
+			.form_title Файл ZIP / PDF:
+			+form_single_file('attach', publication)(accept='application/pdf,application/zip')
+			.form_title Обложка:
+			+form_single_file('poster', publication)(accept='image/jpeg,image/png,image/gif')
+			.form_title Статус:
+			select(name='status')
+				option(value='base') Обычный
+				option(value='hidden', selected= publication.status == 'hidden' && 'hidden') Скрытый
+			.form_title Дата публикации:
+			+form_date('date', publication.date)

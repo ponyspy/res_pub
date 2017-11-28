@@ -1,0 +1,19 @@
+{
+	"apps": [
+		{
+			"name": "resp_panel",
+			"script": "./apps/panel/app.js",
+			"exec_mode": "fork",
+			"watch": ["apps/panel/app.js", "apps/panel/models", "apps/panel/routes", "locales/ru.json", "locales/en.json"],
+			"min_uptime": "300s",
+			"autorestart": false,
+			"max_restarts": 1,
+			"restart_delay" : 2000,
+			"kill_timeout": 1600,
+			"env": {
+				"PORT": 3000,
+				"NODE_ENV": "development"
+			}
+		},
+	]
+}
