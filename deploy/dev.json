@@ -1,7 +1,7 @@
 {
 	"apps": [
 		{
-			"name": "resp_panel",
+			"name": "res_pub_panel",
 			"script": "./apps/panel/app.js",
 			"exec_mode": "fork",
 			"watch": ["apps/panel/app.js", "apps/panel/models", "apps/panel/routes", "locales/ru.json", "locales/en.json"],

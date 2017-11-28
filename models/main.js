@@ -6,7 +6,7 @@ var Schema = mongoose.Schema,
 		ObjectId = Schema.ObjectId;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/' +  __app_name, { useMongoClient: true });
+mongoose.connect('mongodb://localhost/res_pub', { useMongoClient: true });
 
 
 // ------------------------

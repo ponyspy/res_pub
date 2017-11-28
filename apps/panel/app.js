@@ -1,4 +1,4 @@
-global.__app_name = 'kosmos';
+global.__app_name = 'res_pub_panel';
 global.__glob_root = __dirname.replace('/apps/' + __app_name, '');
 global.__app_root = __dirname;
 
@@ -62,12 +62,10 @@ app.use(function(req, res, next) {
 
 
 var admin = require('./routes/admin/_admin.js');
-var main = require('./routes/main/_main.js');
 var auth = require('./routes/auth/_auth.js');
 var error = require('./routes/_error.js');
 
 
-app.use('/', main);
 app.use('/admin', admin);
 app.use('/auth', auth);
 app.use(error.err_500, error.err_404);
