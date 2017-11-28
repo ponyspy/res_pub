@@ -1,13 +1,15 @@
+var rimraf = require('rimraf');
+
 module.exports = function(Model) {
 	var module = {};
 
-	var Event = Model.Event;
+	var Ribbon = Model.Ribbon;
 
 
 	module.index = function(req, res, next) {
 		var id = req.body.id;
 
-		Event.findByIdAndRemove(id).exec(function(err) {
+		Ribbon.findByIdAndRemove(id).exec(function(err) {
 			if (err) return next(err);
 
 			res.send('ok');

@@ -3,10 +3,11 @@ var express = require('express');
 var Model = require(__glob_root + '/models/main.js');
 
 var Params = {
-	locale: require('../_params/locale')
+	locale: require('../_params/locale'),
+	upload: require('../_params/upload')
 };
 
-var awards = {
+var ads = {
 	list: require('./list.js')(Model),
 	add: require('./add.js')(Model, Params),
 	edit: require('./edit.js')(Model, Params),
@@ -17,19 +18,19 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/')
-		.get(awards.list.index)
-		.post(awards.list.get_list);
+		.get(ads.list.index)
+		.post(ads.list.get_list);
 
 	router.route('/add')
-		.get(awards.add.index)
-		.post(awards.add.form);
+		.get(ads.add.index)
+		.post(ads.add.form);
 
-	router.route('/edit/:award_id')
-		.get(awards.edit.index)
-		.post(awards.edit.form);
+	router.route('/edit/:ad_id')
+		.get(ads.edit.index)
+		.post(ads.edit.form);
 
 	router.route('/remove')
-		.post(awards.remove.index);
+		.post(ads.remove.index);
 
 	return router;
 })();

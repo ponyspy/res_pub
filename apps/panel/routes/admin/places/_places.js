@@ -3,11 +3,10 @@ var express = require('express');
 var Model = require(__glob_root + '/models/main.js');
 
 var Params = {
-	locale: require('../_params/locale'),
-	upload: require('../_params/upload')
+	locale: require('../_params/locale')
 };
 
-var peoples = {
+var places = {
 	list: require('./list.js')(Model),
 	add: require('./add.js')(Model, Params),
 	edit: require('./edit.js')(Model, Params),
@@ -18,19 +17,23 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/')
-		.get(peoples.list.index)
-		.post(peoples.list.get_list);
+		.get(places.list.index)
+		.post(places.list.get_list);
+
+	router.route('/:place_type/:place_parent_id')
+		.get(places.list.index)
+		.post(places.list.get_list);
 
 	router.route('/add')
-		.get(peoples.add.index)
-		.post(peoples.add.form);
+		.get(places.add.index)
+		.post(places.add.form);
 
-	router.route('/edit/:people_id')
-		.get(peoples.edit.index)
-		.post(peoples.edit.form);
+	router.route('/edit/:place_id')
+		.get(places.edit.index)
+		.post(places.edit.form);
 
 	router.route('/remove')
-		.post(peoples.remove.index);
+		.post(places.remove.index);
 
 	return router;
 })();

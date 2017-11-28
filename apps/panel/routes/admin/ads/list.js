@@ -3,17 +3,17 @@ var jade = require('jade');
 module.exports = function(Model) {
 	var module = {};
 
-	var Event = Model.Event;
+	var Ad = Model.Ad;
 
 
 	module.index = function(req, res, next) {
-		Event.find().sort('-date').limit(10).exec(function(err, events) {
+		Ad.find().sort('-date').limit(10).exec(function(err, ads) {
 			if (err) return next(err);
 
-			Event.count().exec(function(err, count) {
+			Ad.count().exec(function(err, count) {
 				if (err) return next(err);
 
-				res.render('admin/events', {events: events, count: Math.ceil(count / 10)});
+				res.render('admin/ads', {ads: ads, count: Math.ceil(count / 10)});
 			});
 		});
 	};
@@ -23,8 +23,8 @@ module.exports = function(Model) {
 		var post = req.body;
 
 		var Query = (post.context.text && post.context.text !== '')
-			? Event.find({ $text : { $search : post.context.text } } )
-			: Event.find();
+			? Ad.find({ $text : { $search : post.context.text } } )
+			: Ad.find();
 
 		if (post.context.status && post.context.status != 'all') {
 			Query.where('status').equals(post.context.status);
@@ -33,19 +33,19 @@ module.exports = function(Model) {
 		Query.count(function(err, count) {
 			if (err) return next(err);
 
-			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, events) {
+			Query.find().sort('-date').skip(+post.context.skip).limit(+post.context.limit).exec(function(err, ads) {
 				if (err) return next(err);
 
-				if (events.length > 0) {
+				if (ads.length > 0) {
 					var opts = {
-						events: events,
+						ads: ads,
 						load_list: true,
 						count: Math.ceil(count / 10),
 						skip: +post.context.skip,
 						compileDebug: false, debug: false, cache: true, pretty: false
 					};
 
-					res.send(jade.renderFile(__app_root + '/views/admin/events/_events.jade', opts));
+					res.send(jade.renderFile(__app_root + '/views/admin/ads/_ads.jade', opts));
 				} else {
 					res.send('end');
 				}

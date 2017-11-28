@@ -5,14 +5,11 @@ var upload = multer({ dest: __glob_root + '/uploads/' });
 
 var admin = {
 	main: require('./main.js'),
-	works: require('./works/_works.js'),
-	publications: require('./publications/_publications.js'),
-	awards: require('./awards/_awards.js'),
-	events: require('./events/_events.js'),
-	peoples: require('./peoples/_peoples.js'),
-	categorys: require('./categorys/_categorys.js'),
-	cv: require('./cv.js'),
+	ribbons: require('./ribbons/_ribbons.js'),
+	ads: require('./ads/_ads.js'),
+	places: require('./places/_places.js'),
 	users: require('./users/_users.js'),
+	media: require('./media.js'),
 	options: require('./options.js')
 };
 
@@ -27,16 +24,10 @@ module.exports = (function() {
 
 	router.route('/').get(checkAuth, admin.main.index);
 
-	router.route('/cv')
-		.get(checkAuth, admin.cv.edit)
-		.post(checkAuth, admin.cv.edit_form);
-
-	router.use('/works', checkAuth, upload.fields([ { name: 'attach' }, { name: 'poster' }, { name: 'poster_column' } ]), admin.works);
-	router.use('/publications', checkAuth, upload.fields([ { name: 'poster' }, { name: 'attach' } ]), admin.publications);
-	router.use('/awards', checkAuth, admin.awards);
-	router.use('/events', checkAuth, admin.events);
-	router.use('/peoples', checkAuth, upload.fields([ { name: 'attach_cv' }, { name: 'photo' } ]), admin.peoples);
-	router.use('/categorys', checkAuth, admin.categorys);
+	router.use('/ribbons', checkAuth, admin.ribbons);
+	router.use('/media', checkAuth, admin.media);
+	router.use('/ads', checkAuth, admin.ads);
+	router.use('/places', checkAuth, admin.places);
 	router.use('/users', checkAuth, admin.users);
 
 	router.post('/preview', checkAuth, upload.single('image'), admin.options.preview);
