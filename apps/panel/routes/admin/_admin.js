@@ -23,9 +23,9 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/').get(checkAuth, admin.main.index);
+	router.route('/media').get(checkAuth, admin.media.edit);
 
 	router.use('/ribbons', checkAuth, admin.ribbons);
-	router.use('/media', checkAuth, admin.media);
 	router.use('/ads', checkAuth, admin.ads);
 	router.use('/places', checkAuth, admin.places);
 	router.use('/users', checkAuth, admin.users);

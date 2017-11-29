@@ -1,4 +1,4 @@
-global.__app_name = 'res_pub_panel';
+global.__app_name = 'panel';
 global.__glob_root = __dirname.replace('/apps/' + __app_name, '');
 global.__app_root = __dirname;
 
