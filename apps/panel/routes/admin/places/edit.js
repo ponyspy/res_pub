@@ -37,6 +37,8 @@ module.exports = function(Model, Params) {
 				checkNested(post, [locale, 'title'])
 					&& place.setPropertyLocalised('title', post[locale].title, locale);
 
+				checkNested(post, [locale, 'comment'])
+					&& place.setPropertyLocalised('comment', post[locale].comment, locale);
 			});
 
 			place.save(function(err, place) {

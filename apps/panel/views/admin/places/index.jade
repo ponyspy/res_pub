@@ -1,8 +1,8 @@
 extends ../layout
-include _events.jade
+include _places.jade
 
 block header_meta
-	- var content_title= 'СОБЫТИЯ'
+	- var content_title= 'ЛОКАЦИИ'
 
 block header_include
 	- var include_css = ['add.css']
@@ -25,11 +25,11 @@ block sub_menu
 block content
 	.title= content_title
 	br
-	a.add(href='/admin/events/add') + Добавить событие
+	a.add(href='/admin/places/add') + Добавить локацию
 	br
 	br
 	.lists_block
 		.list_items
-			+items(events)
+			+items(places)
 		.list_counter
 			+counters(count)

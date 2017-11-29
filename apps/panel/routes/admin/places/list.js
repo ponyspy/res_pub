@@ -7,13 +7,13 @@ module.exports = function(Model) {
 
 
 	module.index = function(req, res, next) {
-		Place.find().sort('-date').limit(10).exec(function(err, Places) {
+		Place.find().sort('-date').limit(10).exec(function(err, places) {
 			if (err) return next(err);
 
 			Place.count().exec(function(err, count) {
 				if (err) return next(err);
 
-				res.render('admin/Places', {Places: Places, count: Math.ceil(count / 10)});
+				res.render('admin/Places', {places: places, count: Math.ceil(count / 10)});
 			});
 		});
 	};

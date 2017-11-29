@@ -29,6 +29,9 @@ module.exports = function(Model, Params) {
 		locales.forEach(function(locale) {
 			checkNested(post, [locale, 'title'])
 				&& place.setPropertyLocalised('title', post[locale].title, locale);
+
+			checkNested(post, [locale, 'comment'])
+				&& place.setPropertyLocalised('comment', post[locale].comment, locale);
 		});
 
 		place.save(function(err, place) {

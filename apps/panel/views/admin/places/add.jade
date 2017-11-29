@@ -2,7 +2,7 @@ extends ../layout
 include ../_forms.jade
 
 block header_meta
-	- var content_title= 'ДОБАВИТЬ СОБЫТИЕ'
+	- var content_title= 'ДОБАВИТЬ ЛОКАЦИЮ'
 
 block header_include
 	- var include_libs_css = ['pickmeup.min.css', 'font-awesome.css', 'wysiwyg-editor.min.css']
@@ -23,14 +23,8 @@ block content
 		form(action="", method="post")
 			.form_title Название:
 			+form_text_single('title')
-			.form_title Подзаголовок:
-			+form_text_single('s_title')
-			.form_title Ссылка:
-			input(type='text', name='link')
-			.form_title Место:
-			+form_text_single('place')
-			.form_title Год:
-			input(type='number', name='year', value=new Date().getFullYear())
+			.form_title Комментарий:
+			+form_text_single('comment')
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный

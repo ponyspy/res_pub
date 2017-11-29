@@ -62,6 +62,7 @@ var adSchema = new Schema({
 
 var placeSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
+	comment: { type: String, trim: true, locale: true },
 	ribbon: { type: ObjectId, ref: 'Ribbon' },
 	type: String, // city, shop, device
 	inheritance: Boolean,
@@ -79,6 +80,7 @@ var placeSchema = new Schema({
 // ------------------------
 
 
+placeSchema.index({'title.value': 'text', 'comment.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 ribbonSchema.index({'title.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 adSchema.index({'title.value': 'text'}, {language_override: 'lg', default_language: 'ru'});
 
@@ -92,6 +94,7 @@ userSchema.plugin(mongooseBcrypt, { fields: ['password'] });
 
 ribbonSchema.plugin(mongooseLocale);
 adSchema.plugin(mongooseLocale);
+placeSchema.plugin(mongooseLocale);
 
 
 // ------------------------

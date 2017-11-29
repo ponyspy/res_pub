@@ -20,9 +20,9 @@ module.exports = (function() {
 		.get(places.list.index)
 		.post(places.list.get_list);
 
-	router.route('/:place_type/:place_parent_id')
-		.get(places.list.index)
-		.post(places.list.get_list);
+	// router.route('/:place_type/:place_parent_id')
+	// 	.get(places.list.index)
+	// 	.post(places.list.get_list);
 
 	router.route('/add')
 		.get(places.add.index)

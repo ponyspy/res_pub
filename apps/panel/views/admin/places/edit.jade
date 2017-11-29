@@ -2,7 +2,7 @@ extends ../layout
 include ../_forms.jade
 
 block header_meta
-	- var content_title= 'РЕДАКТИРОВАТЬ СОБЫТИЕ'
+	- var content_title= 'РЕДАКТИРОВАТЬ ЛОКАЦИЮ'
 
 block header_include
 	- var include_libs_css = ['pickmeup.min.css', 'font-awesome.css', 'wysiwyg-editor.min.css']
@@ -11,7 +11,7 @@ block header_include
 	- var include_js = ['editor.js', 'add.js', 'a_events.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/admin/events') Назад
+	a.sub_item.back_link(href='/admin/places') Назад
 	span.sub_item.toggle_eng Перевод
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')
@@ -22,19 +22,13 @@ block content
 		.title= content_title
 		form(action="", method="post")
 			.form_title Название:
-			+form_text_single('title', event)
-			.form_title Подзаголовок:
-			+form_text_single('s_title', event)
-			.form_title Ссылка:
-			input(type='text', name='link', value=event.link)
-			.form_title Место:
-			+form_text_single('place', event)
-			.form_title Год:
-			input(type='number', name='year', value=event.year)
+			+form_text_single('title', place)
+			.form_title Комментарий:
+			+form_text_single('comment', place)
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный
-				option(value='hidden', selected= event.status == 'hidden' && 'hidden') Скрытый
+				option(value='hidden', selected= place.status == 'hidden' && 'hidden') Скрытый
 			.form_title Дата публикации:
-			+form_date('date', event.date)
+			+form_date('date', place.date)
 
