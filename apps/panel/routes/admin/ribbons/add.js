@@ -29,8 +29,14 @@ module.exports = function(Model, Params) {
 		locales.forEach(function(locale) {
 			checkNested(post, [locale, 'title'])
 				&& ribbon.setPropertyLocalised('title', post[locale].title, locale);
-
 		});
+
+		ribbon.save(function(err, ribbon) {
+			if (err) return next(err);
+
+			res.redirect('/admin/ribbons');
+		});
+
 	};
 
 

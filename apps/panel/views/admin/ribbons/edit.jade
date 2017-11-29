@@ -2,7 +2,7 @@ extends ../layout
 include ../_forms
 
 block header_meta
-	- var content_title= 'РЕДАКТИРОВАТЬ КАТЕГОРИЮ'
+	- var content_title= 'РЕДАКТИРОВАТЬ ЛЕНТУ'
 
 block header_include
 	- var include_libs_css = ['font-awesome.css', 'wysiwyg-editor.min.css']
@@ -11,7 +11,7 @@ block header_include
 	- var include_js = ['editor.js', 'add.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/admin/categorys') Назад
+	a.sub_item.back_link(href='/admin/ribbons') Назад
 	span.sub_item.toggle_eng Перевод
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')
@@ -23,11 +23,10 @@ block content
 		.title= content_title
 		form(action="", method="post")
 			.form_title Название:
-			+form_text_single('title', category)
-			.form_title Синоним (обязательно):
-			input(type='text', name='sym', value=category.sym)
+			+form_text_single('title', ribbon)
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный
-				option(value='hidden', selected= category.status == 'hidden' && 'hidden') Скрытый
-				option(value='special', selected= category.status == 'special' && 'special') Особый
+				option(value='hidden', selected= ribbon.status == 'hidden' && 'hidden') Скрытый
+			.form_title Дата публикации:
+			+form_date('date', ribbon.date)

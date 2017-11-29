@@ -2,7 +2,7 @@ extends ../layout
 include ../_forms.jade
 
 block header_meta
-	- var content_title= 'ДОБАВИТЬ НАГРАДУ'
+	- var content_title= 'ДОБАВИТЬ ОБЪЯВЛЕНИЕ'
 
 block header_include
 	- var include_libs_css = ['pickmeup.min.css', 'font-awesome.css', 'wysiwyg-editor.min.css']
@@ -23,12 +23,6 @@ block content
 		form(action="", method="post")
 			.form_title Название:
 			+form_text_single('title')
-			.form_title Подзаголовок:
-			+form_text_single('s_title')
-			.form_title Место:
-			+form_text_single('place')
-			.form_title Год:
-			input(type='number', name='year', value=new Date().getFullYear())
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный

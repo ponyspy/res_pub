@@ -32,6 +32,12 @@ module.exports = function(Model, Params) {
 
 		});
 
+		ad.save(function(err, ad) {
+			if (err) return next(err);
+
+			res.redirect('/admin/ads');
+		});
+
 	};
 
 

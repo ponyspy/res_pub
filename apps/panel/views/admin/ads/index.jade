@@ -1,8 +1,8 @@
 extends ../layout
-include _awards.jade
+include _ads.jade
 
 block header_meta
-	- var content_title= 'НАГРАДЫ'
+	- var content_title= 'ОБЪЯВЛЕНИЯ'
 
 block header_include
 	- var include_css = ['add.css']
@@ -25,11 +25,11 @@ block sub_menu
 block content
 	.title= content_title
 	br
-	a.add(href='/admin/awards/add') + Добавить награду
+	a.add(href='/admin/ads/add') + Добавить объявление
 	br
 	br
 	.lists_block
 		.list_items
-			+items(awards)
+			+items(ads)
 		.list_counter
 			+counters(count)

@@ -1,8 +1,8 @@
 extends ../layout
-include _categorys
+include _ribbons
 
 block header_meta
-	- var content_title= 'КАТЕГОРИИ'
+	- var content_title= 'ЛЕНТЫ'
 
 block header_include
 	- var include_css = ['add.css']
@@ -20,18 +20,17 @@ block sub_menu
 				.drop_item(class='all').select Все
 				.drop_item(class='base') Обычный
 				.drop_item(class='hidden') Скрытый
-				.drop_item(class='special') Особый
 
 		input.sub_search(type='text', placeholder='Поиск...')
 
 block content
 	.title= content_title
 	br
-	a.add(href='/admin/categorys/add') + Добавить категорию
+	a.add(href='/admin/ribbons/add') + Добавить ленту
 	br
 	br
 	.lists_block
 		.list_items
-			+items(categorys)
+			+items(ribbons)
 		.list_counter
 			+counters(count)

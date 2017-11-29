@@ -39,6 +39,12 @@ module.exports = function(Model, Params) {
 
 			});
 
+			ribbon.save(function(err, ribbon) {
+				if (err) return next(err);
+
+				res.redirect('back');
+			});
+
 		});
 	};
 

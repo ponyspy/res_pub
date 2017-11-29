@@ -2,7 +2,7 @@ extends ../layout
 include ../_forms
 
 block header_meta
-	- var content_title= 'ДОБАВИТЬ КАТЕГОРИЮ'
+	- var content_title= 'ДОБАВИТЬ ЛЕНТУ'
 
 block header_include
 	- var include_libs_css = ['font-awesome.css', 'wysiwyg-editor.min.css']
@@ -11,7 +11,7 @@ block header_include
 	- var include_js = ['editor.js', 'add.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/admin/categorys') Назад
+	a.sub_item.back_link(href='/admin/ribbons') Назад
 	span.sub_item.toggle_eng Перевод
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')
@@ -24,10 +24,9 @@ block content
 		form(action="", method="post")
 			.form_title Название:
 			+form_text_single('title')
-			.form_title Синоним (обязательно):
-			input(type='text', name='sym')
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный
 				option(value='hidden') Скрытый
-				option(value='special') Особый
+			.form_title Дата публикации:
+			+form_date('date')
