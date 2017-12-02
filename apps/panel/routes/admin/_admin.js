@@ -9,7 +9,7 @@ var admin = {
 	ads: require('./ads/_ads.js'),
 	places: require('./places/_places.js'),
 	users: require('./users/_users.js'),
-	media: require('./media.js'),
+	stat: require('./stat.js'),
 	options: require('./options.js')
 };
 
@@ -23,7 +23,9 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/').get(checkAuth, admin.main.index);
-	router.route('/media').get(checkAuth, admin.media.edit);
+
+	router.route('/media').get(checkAuth, admin.stat.media);
+	router.route('/monitor').get(checkAuth, admin.stat.monitor);
 
 	router.use('/ribbons', checkAuth, admin.ribbons);
 	router.use('/ads', checkAuth, admin.ads);

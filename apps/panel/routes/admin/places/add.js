@@ -16,13 +16,19 @@ module.exports = function(Model, Params) {
 
 	module.form = function(req, res, next) {
 		var post = req.body;
-		var file = req.file;
+		var query = req.query;
 
 		var place = new Place();
 
 		place._short_id = shortid.generate();
 		place.status = post.status;
 		place.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
+		place.inheritance = post.inheritance;
+
+		place.type = query.type || 'city';
+		if (query.parent) {
+			place.meta.parent = query.parent;
+		}
 
 		var locales = post.en ? ['ru', 'en'] : ['ru'];
 

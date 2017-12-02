@@ -30,6 +30,7 @@ module.exports = function(Model, Params) {
 
 			place.status = post.status;
 			place.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
+			place.inheritance = post.inheritance;
 
 			var locales = post.en ? ['ru', 'en'] : ['ru'];
 

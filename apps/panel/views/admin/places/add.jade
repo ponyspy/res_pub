@@ -11,7 +11,7 @@ block header_include
 	- var include_js = ['editor.js', 'add.js', 'a_events.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/admin/events') Назад
+	a.sub_item.back_link(href='/admin/places') Назад
 	span.sub_item.toggle_eng Перевод
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')
@@ -25,6 +25,10 @@ block content
 			+form_text_single('title')
 			.form_title Комментарий:
 			+form_text_single('comment')
+			.form_title Наследование лент:
+			select(name='inheritance')
+				option(value='true') Вкл.
+				option(value='false') Выкл.
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный

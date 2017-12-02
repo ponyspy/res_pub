@@ -25,7 +25,8 @@ block sub_menu
 block content
 	.title= content_title
 	br
-	a.add(href='/admin/places/add') + Добавить локацию
+	- var locations = { 'shop': 'магазин', 'city': 'город', 'device': 'устройство' }
+	a.add(href='/admin/places/add/' + ((type && parent) ? ('?type=' + type) + '&' + ('parent=' + parent) : ''))= '+ Добавить ' + (type ? locations[type] : locations['city'])
 	br
 	br
 	.lists_block

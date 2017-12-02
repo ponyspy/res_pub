@@ -25,6 +25,10 @@ block content
 			+form_text_single('title', place)
 			.form_title Комментарий:
 			+form_text_single('comment', place)
+			.form_title Наследование лент:
+			select(name='inheritance')
+				option(value='true') Вкл.
+				option(value='false', selected= !place.inheritance) Выкл.
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный
