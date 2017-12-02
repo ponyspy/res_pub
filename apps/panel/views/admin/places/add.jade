@@ -25,6 +25,8 @@ block content
 			+form_text_single('title')
 			.form_title Комментарий:
 			+form_text_single('comment')
+			.form_title Лента:
+			+form_single_select('ribbon', ribbons)
 			.form_title Наследование лент:
 			select(name='inheritance')
 				option(value='true') Вкл.

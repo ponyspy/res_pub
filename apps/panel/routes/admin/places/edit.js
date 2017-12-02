@@ -4,6 +4,7 @@ module.exports = function(Model, Params) {
 	var module = {};
 
 	var Place = Model.Place;
+	var Ribbon = Model.Ribbon;
 
 	var checkNested = Params.locale.checkNested;
 
@@ -14,7 +15,11 @@ module.exports = function(Model, Params) {
 		Place.findById(id).exec(function(err, place) {
 			if (err) return next(err);
 
-			res.render('admin/places/edit.jade', { place: place });
+			Ribbon.find().sort('-date').exec(function(err, ribbons) {
+				if (err) return next(err);
+
+				res.render('admin/places/edit.jade', { place: place, ribbons: ribbons });
+			});
 		});
 
 	};
@@ -30,6 +35,7 @@ module.exports = function(Model, Params) {
 
 			place.status = post.status;
 			place.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
+			place.ribbon = post.ribbon == 'none' ? undefined : post.ribbon;
 			place.inheritance = post.inheritance;
 
 			var locales = post.en ? ['ru', 'en'] : ['ru'];

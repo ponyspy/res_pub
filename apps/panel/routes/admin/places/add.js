@@ -5,12 +5,17 @@ module.exports = function(Model, Params) {
 	var module = {};
 
 	var Place = Model.Place;
+	var Ribbon = Model.Ribbon;
 
 	var checkNested = Params.locale.checkNested;
 
 
 	module.index = function(req, res, next) {
-		res.render('admin/places/add.jade');
+		Ribbon.find().sort('-date').exec(function(err, ribbons) {
+			if (err) return next(err);
+
+			res.render('admin/places/add.jade', { ribbons: ribbons });
+		});
 	};
 
 
@@ -23,6 +28,7 @@ module.exports = function(Model, Params) {
 		place._short_id = shortid.generate();
 		place.status = post.status;
 		place.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
+		place.ribbon = post.ribbon == 'none' ? undefined : post.ribbon;
 		place.inheritance = post.inheritance;
 
 		place.type = query.type || 'city';
