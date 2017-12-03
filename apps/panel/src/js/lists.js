@@ -143,6 +143,9 @@ $(function() {
 		$('.item_preview').toggleClass('show');
 	});
 
+	$('.toggle_copy').on('click', function() {
+		$('.item_copy').toggleClass('show');
+	});
 
 	function remove (event) {
 		var id  = $(this).attr('id');

@@ -1,0 +1,47 @@
+.slider_block
+	background-color lightgrey
+	white-space nowrap
+	overflow-y hidden
+	vertical-align top
+	&.ribbon
+		.media_item
+			background-color green
+		.placeholder
+			background-color red
+	&.pool .media_item
+		background-color maroon
+	.slider_inner
+		display inline-block
+		vertical-align top
+		font-size 0
+		min-width 800px
+		height 180px
+		overflow hidden
+		position relative   // drag delete
+	.media_item
+	.placeholder
+		display inline-block
+		vertical-align top
+		width 180px
+		height 180px
+		font-size 12pt
+		margin-right 10px
+		position relative
+		cursor move
+	.title
+		font-size 48pt
+		line-height 40pt
+		display inline
+	.option
+		background-color black
+		color white
+		display inline-block
+		position absolute
+		padding 2px 9px 2px 9px
+		&:hover
+			background-color red
+			cursor pointer
+		&.remove_item
+			right 0
+		&.add_item
+			right 0

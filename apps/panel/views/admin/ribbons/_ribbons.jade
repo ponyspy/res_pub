@@ -2,6 +2,7 @@ mixin items(ribbons)
 	each ribbon in ribbons
 		.list_item
 			a.item_rm.ribbon(href='#', id=ribbon._id) -- удалить
+			a.item_copy(href='#', id=ribbon._id) копировать
 			a.item_title(href='/admin/ribbons/edit/' + ribbon._id, class=ribbon.status)= (ribbon.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 
 mixin counters(count, skip)

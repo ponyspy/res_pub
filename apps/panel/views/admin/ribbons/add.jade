@@ -5,10 +5,10 @@ block header_meta
 	- var content_title= 'ДОБАВИТЬ ЛЕНТУ'
 
 block header_include
-	- var include_libs_css = ['font-awesome.css', 'wysiwyg-editor.min.css']
-	- var include_css = ['add.css']
-	- var include_libs_js = ['wysiwyg.min.js', 'wysiwyg-editor.min.js']
-	- var include_js = ['editor.js', 'add.js']
+	//- - var include_libs_css = []
+	- var include_css = ['add.css', 'a_ribbon.css']
+	- var include_libs_js = ['jquery-ui.min.js']
+	- var include_js = ['add.js', 'a_ribbon.js']
 
 block sub_menu
 	a.sub_item.back_link(href='/admin/ribbons') Назад
@@ -24,6 +24,18 @@ block content
 		form(action="", method="post")
 			.form_title Название:
 			+form_text_single('title')
+			.form_title Контент
+			.slider_block.pool: .slider_inner
+				for item, i in new Array(15)
+					.media_item
+						.title= i
+						.option.add_item +
+			.form_title Лента
+			.slider_block.ribbon: .slider_inner
+				for item, i in new Array(3)
+					.media_item
+						.title= i
+						.option.remove_item ×
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный
