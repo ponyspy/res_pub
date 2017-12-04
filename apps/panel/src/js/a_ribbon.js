@@ -5,7 +5,7 @@ $(function() {
 	var calendar = {
 		format: 'd.m.y',
 		hide_on_select: false,
-		position: 'bottom',
+		position: 'top',
 		mode: 'range',
 		locale: 'ru',
 		locales: {
@@ -52,6 +52,7 @@ $(function() {
 
 	$ribbon.droppable({
 		drop: function(event, ui) {
+			alert(event.target.className)
 			ui.helper.children('.meta').remove().end()
 							 .children('.add_item').addClass('hide').end()
 							 .children('.add_meta, .remove_item').removeClass('hide').end()
