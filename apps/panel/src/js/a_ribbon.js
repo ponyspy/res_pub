@@ -90,7 +90,22 @@ $(function() {
 		})
 		.on('click', '.revert_meta', function(e) {
 			$(this).addClass('hide').parent().children('.meta').remove().end()
-																			 .children('.add_meta').removeClass('hide');
-		});
+																			 .children('.add_meta').removeClass('hide').end()
+																			 .children('.counter').addClass('hide');
+		})
+		.on('click', '.ribbon .duration', function(e) {
+			$(this).parent().children('.counter').removeClass('hide');
+		})
+		.on('click', '.counter', function(e) {
+			var $duration = $(this).parent().children('.duration');
+			var type = $(this).attr('class').split(' ')[2];
+			var val = $duration.text();
 
+			if (type == 'plus' && val < 9) {
+				$duration.text(+val + 1);
+			} else if (type == 'minus' && val > 1) {
+				$duration.text(+val - 1);
+			}
+
+		});
 });
