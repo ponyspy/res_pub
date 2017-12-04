@@ -1,8 +1,25 @@
+.slider_block::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 8px;
+}
+
+.slider_block::-webkit-scrollbar-track {
+	background-color: lightgrey;
+	border-radius: 8px;
+}
+
+.slider_block::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	background-color: rgb(74, 140, 247)
+}
+
 .slider_block
 	background-color lightgrey
 	white-space nowrap
 	overflow-y hidden
 	vertical-align top
+	font-size 0
+	min-height 180px
 	&.ribbon
 		.media_item
 			background-color green
@@ -14,14 +31,6 @@
 		.meta:hover
 			cursor move
 			background-color black!important
-	.slider_inner
-		display inline-block
-		vertical-align top
-		font-size 0
-		min-width 100%
-		height 180px
-		overflow hidden
-		position relative
 	.media_item
 	.placeholder
 		display inline-block
@@ -33,6 +42,8 @@
 		cursor move
 	.media_item
 		position relative
+		&:last-child
+			margin-right 0
 	.title
 		font-size 48pt
 		line-height 40pt

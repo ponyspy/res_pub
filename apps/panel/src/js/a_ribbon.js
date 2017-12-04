@@ -1,11 +1,11 @@
 $(function() {
-	$ribbon = $('.slider_block.ribbon .slider_inner');
-	$pool = $('.slider_block.pool .slider_inner');
+	$ribbon = $('.slider_block.ribbon');
+	$pool = $('.slider_block.pool');
 
 	var calendar = {
 		format: 'd.m.y',
 		hide_on_select: false,
-		position: 'top',
+		position: 'bottom',
 		mode: 'range',
 		locale: 'ru',
 		locales: {
@@ -21,7 +21,6 @@ $(function() {
 
 	var ribbon_sort = {
 		placeholder: 'placeholder',
-		axis: 'x',
 		containment: 'document',
 		cancel: '.option, .meta'
 	};
@@ -44,7 +43,7 @@ $(function() {
 		cancel: '.option',
 		revert: 'invalid',
 		containment: 'document',
-		zIndex: 100,
+		zIndex: 99999999999,
 		helper: 'clone',
 		cursor: 'move',
 		connectToSortable: $ribbon,
@@ -52,7 +51,6 @@ $(function() {
 
 	$ribbon.droppable({
 		drop: function(event, ui) {
-			alert(event.target.className)
 			ui.helper.children('.meta').remove().end()
 							 .children('.add_item').addClass('hide').end()
 							 .children('.add_meta, .remove_item').removeClass('hide').end()
