@@ -2,6 +2,23 @@ $(function() {
 	$ribbon = $('.slider_block.ribbon .slider_inner');
 	$pool = $('.slider_block.pool .slider_inner');
 
+	var calendar = {
+		format: 'd.m.y',
+		hide_on_select: false,
+		position: 'bottom',
+		mode: 'range',
+		locale: 'ru',
+		locales: {
+			ru: {
+				days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+				daysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+				daysMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+				months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+				monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+			}
+		}
+	};
+
 	var ribbon_sort = {
 		placeholder: 'placeholder',
 		axis: 'x',
@@ -10,6 +27,18 @@ $(function() {
 	};
 
 	$ribbon.sortable(ribbon_sort);
+
+	$ribbon.find('.interval').each(function(index, el) {
+		var $this = $(this);
+
+		pickmeup(this, calendar);
+		$this.on('pickmeup-hide', function(e) {
+			var $item = $(this).parent().children('.interval');
+			var date_interval = pickmeup($item[0]).get_date(true);
+
+			$item.text(date_interval[0] + ' - ' + date_interval[1]);
+		});
+	});
 
 	$('.media_item', '.slider_block.pool').draggable({
 		cancel: '.option',
@@ -23,10 +52,10 @@ $(function() {
 
 	$ribbon.droppable({
 		drop: function(event, ui) {
-			ui.helper.find('.add_item').remove();
-			ui.helper.append($('<div>', { 'class': 'option remove_item', 'text': '×'  }));
-			ui.helper.removeAttr('style');
-			ui.helper.children('.meta').remove().end().children('.add_meta').removeClass('hide');
+			ui.helper.children('.meta').remove().end()
+							 .children('.add_item').addClass('hide').end()
+							 .children('.add_meta, .remove_item').removeClass('hide').end()
+							 .removeAttr('style');
 		}
 	});
 
@@ -45,10 +74,20 @@ $(function() {
 			$ribbon.sortable(ribbon_sort);
 		})
 		.on('click', '.add_meta', function(e) {
-			var $duration =  $('<div/>', { 'class': 'meta duration', 'text': '3s' });
+			var $duration =  $('<div/>', { 'class': 'meta duration', 'text': '3' });
 			var $interval =  $('<div/>', { 'class': 'meta interval', 'text': '24.09.17 - 28.09.17' });
 
+			pickmeup($interval[0], calendar);
+
+			$interval.on('pickmeup-hide', function(e) {
+				var $item = $(this).parent().children('.interval');
+				var date_interval = pickmeup($item[0]).get_date(true);
+
+				$item.text(date_interval[0] + ' - ' + date_interval[1]);
+			});
+
 			$(this).addClass('hide').parent().append($duration, $interval).children('.revert_meta').removeClass('hide');
+
 		})
 		.on('click', '.revert_meta', function(e) {
 			$(this).addClass('hide').parent().children('.meta').remove().end()
