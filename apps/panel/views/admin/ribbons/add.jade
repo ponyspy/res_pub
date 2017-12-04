@@ -5,10 +5,10 @@ block header_meta
 	- var content_title= 'ДОБАВИТЬ ЛЕНТУ'
 
 block header_include
-	//- - var include_libs_css = []
+	- var include_libs_css = ['pickmeup.min.css',]
 	- var include_css = ['add.css', 'a_ribbon.css']
-	- var include_libs_js = ['jquery-ui.min.js']
-	- var include_js = ['add.js', 'a_ribbon.js']
+	- var include_libs_js = ['jquery.pickmeup.min.js', 'jquery-ui.min.js']
+	- var include_js = ['add.js', 'a_ribbon.js', 'a_events.js']
 
 block sub_menu
 	a.sub_item.back_link(href='/admin/ribbons') Назад
@@ -30,12 +30,21 @@ block content
 					.media_item
 						.title= i
 						.option.add_item +
+						.option.remove_item.hide ×
+						.option.add_meta.hide + мета
+						.option.revert_meta.hide ⊙
+						.meta.duration 3s
+						.meta.interval 24.09.17 - 28.09.17
 			.form_title Лента
 			.slider_block.ribbon: .slider_inner
-				for item, i in new Array(3)
+				for item, i in new Array(0)
 					.media_item
 						.title= i
 						.option.remove_item ×
+						.option.add_meta + мета
+						.option.revert_meta.hide ⊙
+						//- .meta.duration 3s
+						//- .meta.interval 24.09.17 - 28.09.17
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный

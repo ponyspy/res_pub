@@ -8,40 +8,58 @@
 			background-color green
 		.placeholder
 			background-color red
-	&.pool .media_item
-		background-color maroon
+	&.pool
+		.media_item
+			background-color maroon
+		.meta:hover
+			cursor move
+			background-color black!important
 	.slider_inner
 		display inline-block
 		vertical-align top
 		font-size 0
-		min-width 800px
+		min-width 100%
 		height 180px
 		overflow hidden
-		position relative   // drag delete
+		position relative
 	.media_item
 	.placeholder
 		display inline-block
 		vertical-align top
-		width 180px
+		width 240px
 		height 180px
 		font-size 12pt
 		margin-right 10px
-		position relative
 		cursor move
+	.media_item
+		position relative
 	.title
 		font-size 48pt
 		line-height 40pt
 		display inline
+	.meta
 	.option
 		background-color black
 		color white
 		display inline-block
 		position absolute
 		padding 2px 9px 2px 9px
+		&.hide
+			display none
 		&:hover
 			background-color red
 			cursor pointer
+		&.revert_meta
+			right 27px
+		&.add_meta
+			left 0
+			bottom 0
 		&.remove_item
-			right 0
 		&.add_item
 			right 0
+		&.duration
+			right 0
+			bottom 0
+		&.interval
+			left 0
+			bottom 0
