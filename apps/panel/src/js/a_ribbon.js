@@ -39,7 +39,7 @@ $(function() {
 		});
 	});
 
-	$('.media_item', '.slider_block.pool').draggable({
+	$pool.find('.media_item').draggable({
 		cancel: '.option',
 		revert: 'invalid',
 		containment: 'document',
@@ -47,14 +47,10 @@ $(function() {
 		helper: 'clone',
 		cursor: 'move',
 		connectToSortable: $ribbon,
-	});
-
-	$ribbon.droppable({
-		drop: function(event, ui) {
+		start: function(event, ui) {
 			ui.helper.children('.meta').remove().end()
 							 .children('.add_item').addClass('hide').end()
-							 .children('.add_meta, .remove_item').removeClass('hide').end()
-							 .removeAttr('style');
+							 .children('.add_meta, .remove_item').removeClass('hide').end();
 		}
 	});
 
