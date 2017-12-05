@@ -17,4 +17,9 @@ $(function() {
 	};
 
 	pickmeup('.interval', calendar);
+
+	$('.toggle_meta').on('click', function(e) {
+		$(this).toggleClass('select');
+		$('.media_block').toggleClass('meta_show');
+	});
 });

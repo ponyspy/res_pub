@@ -1,3 +1,6 @@
+.toggle_meta.select
+	color red
+
 .add_media
 	width 100%
 	border 3px solid maroon
@@ -13,6 +16,9 @@
 
 .media_block
 	background-color lightgrey
+	&.meta_show
+		.meta, .option
+			display inline-block!important
 	.media_item
 		width 240px
 		height 135px
@@ -27,21 +33,24 @@
 			line-height 40pt
 		&:nth-child(4n)
 			margin-right 0
+		&:hover
+			.meta, .option
+				display inline-block
 		.meta
 		.option
 			background-color black
 			color white
-			display inline-block
 			position absolute
 			padding 2px 8px 2px 8px
 			min-width 15px
 			text-align center
 			user-select none
-			&.hide
-				display none
+			display none
 			&:hover
 				background-color red
 				cursor pointer
+			&.hide
+				display none!important
 			&.remove_item
 				right 0
 			&.update_item

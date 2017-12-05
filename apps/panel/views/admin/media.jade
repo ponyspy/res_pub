@@ -16,9 +16,9 @@ block sub_menu
 block content
 	.form_block
 		.title= content_title
-		.form_title Шаблон интервал:
+		.form_title Шаблон - интервал:
 		input.interval(type='text', value='24.09.17 - 28.09.17')
-		.form_title Шаблон продолжительность / повтор:
+		.form_title Шаблон - продолжительность / повтор:
 		select(name='duration')
 			each item, i in new Array(9)
 				option(value=(i+1), selected=(i+1) == 3)= (i+1) + 's'
@@ -33,7 +33,7 @@ block content
 				.media_item
 					.title= i
 					.option.remove_item ×
-					.option.update_item сохранить
+					.option.update_item сохр.
 					.option.counter.plus.hide +
 					.option.counter.minus.hide --
 					.meta.duration 3
