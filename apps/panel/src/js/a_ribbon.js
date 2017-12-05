@@ -55,6 +55,13 @@ $(function() {
 	});
 
 	$(document)
+		.on('mouseup touchend', function(e) {
+				if ($(e.target).closest('.counter').length) return;
+
+				$('.counter').addClass('hide');
+
+				e.stopPropagation();
+		})
 		.on('click', '.remove_item', function(e) {
 			$(this).parent().remove();
 			$ribbon.sortable(ribbon_sort);
