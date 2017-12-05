@@ -20,9 +20,45 @@
 		float left
 		margin-right 80px
 		margin-bottom 40px
+		position relative
 		.title
 			display inline
 			font-size 44pt
 			line-height 40pt
 		&:nth-child(4n)
 			margin-right 0
+		.meta
+		.option
+			background-color black
+			color white
+			display inline-block
+			position absolute
+			padding 2px 8px 2px 8px
+			min-width 15px
+			text-align center
+			user-select none
+			&.hide
+				display none
+			&:hover
+				background-color red
+				cursor pointer
+			&.remove_item
+				right 0
+			&.update_item
+				right 31px
+				&:hover
+					background-color rgb(104, 206, 70)
+			&.counter.plus
+				right 0
+				bottom 50px
+			&.counter.minus
+				right 0
+				bottom 25px
+			&.duration
+				right 0
+				bottom 0
+				&:after
+					content 's'
+			&.interval
+				left 0
+				bottom 0

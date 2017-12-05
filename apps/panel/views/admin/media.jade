@@ -11,6 +11,7 @@ block header_include
 
 block sub_menu
 	a.sub_item.back_link(href='/admin') Назад
+	span.sub_item.toggle_meta Мета
 
 block content
 	.form_block
@@ -31,3 +32,9 @@ block content
 			each item, i in new Array(15)
 				.media_item
 					.title= i
+					.option.remove_item ×
+					.option.update_item сохранить
+					.option.counter.plus.hide +
+					.option.counter.minus.hide --
+					.meta.duration 3
+					.meta.interval 24.09.17 - 28.09.17
