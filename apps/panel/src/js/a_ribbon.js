@@ -30,7 +30,9 @@ $(function() {
 	$ribbon.find('.interval').each(function(index, el) {
 		var $this = $(this);
 
+		calendar.date = $this.text();
 		pickmeup(this, calendar);
+
 		$this.on('pickmeup-hide', function(e) {
 			var $item = $(this).parent().children('.interval');
 			var date_interval = pickmeup($item[0]).get_date(true);
@@ -77,8 +79,9 @@ $(function() {
 		})
 		.on('click', '.add_meta', function(e) {
 			var $duration =  $('<div/>', { 'class': 'meta duration', 'text': '3' });
-			var $interval =  $('<div/>', { 'class': 'meta interval', 'text': '24.09.17 - 28.09.17' });
+			var $interval =  $('<div/>', { 'class': 'meta interval', 'text': '24.12.17 - 28.12.17' });
 
+			calendar.date = $interval.text();
 			pickmeup($interval[0], calendar);
 
 			$interval.on('pickmeup-hide', function(e) {
