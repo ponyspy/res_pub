@@ -33,7 +33,7 @@ $(function() {
 		calendar.date = $this.text();
 		pickmeup(this, calendar);
 
-		$this.on('pickmeup-hide', function(e) {
+		$this.on('pickmeup-change', function(e) {
 			var $item = $(this).parent().children('.interval');
 			var date_interval = pickmeup($item[0]).get_date(true);
 
@@ -84,7 +84,7 @@ $(function() {
 			calendar.date = $interval.text();
 			pickmeup($interval[0], calendar);
 
-			$interval.on('pickmeup-hide', function(e) {
+			$interval.on('pickmeup-change', function(e) {
 				var $item = $(this).parent().children('.interval');
 				var date_interval = pickmeup($item[0]).get_date(true);
 
