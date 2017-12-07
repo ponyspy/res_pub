@@ -6,7 +6,7 @@ block header_meta
 block header_include
 	- var include_libs_css = ['pickmeup.min.css']
 	- var include_css = ['add.css', 'a_media.css']
-	- var include_libs_js = ['jquery.pickmeup.min.js',]
+	- var include_libs_js = ['jquery.pickmeup.min.js', 'jquery.filedrop.js']
 	- var include_js = ['add.js', 'a_media.js', 'a_events.js']
 
 block sub_menu
@@ -29,12 +29,16 @@ block content
 			each item, i in new Array(5)
 				option(value=(i+1))= (i+1) + 'r'
 		.form_title Контент:
-		.add_media ДОБАВИТЬ КОНТЕНТ
+		input#add_fallback(type='file')
+		.add_media
+			.add_progress
+			span.add_title НАЖМИ ИЛИ ПЕРЕТАЩИ!
 		.media_block
 			each item, i in new Array(15)
 				.media_item
 					.title= i
-					.option.tobegin_item ★
+					.option.tobegin_item ⇤
+					//- ★
 					.option.remove_item ×
 					.option.update_item ✓
 					.option.counter.plus.hide +

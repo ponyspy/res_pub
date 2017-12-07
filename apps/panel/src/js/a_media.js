@@ -37,6 +37,44 @@ $(function() {
 		});
 	});
 
+	$('.add_media').filedrop({
+		url: '/admin/preview',
+		paramname: 'media',
+		fallback_id: 'add_fallback',
+		fallback_dropzoneClick : true,
+		allowedfiletypes: ['image/jpeg','image/png','image/gif', 'video/mp4'],
+		allowedfileextensions: ['.jpg','.jpeg','.png', '.gif', '.mp4'],
+		maxfiles: 5,
+		maxfilesize: 15,
+		data: {
+			'templ_interval': $('.templ_interval').val(),
+			'templ_duration': $('.templ_duration').val(),
+			'templ_repeat': $('.templ_repeat').val(),
+		},
+		dragOver: function() {
+			$('.add_media').addClass('selected');
+		},
+		dragLeave: function() {
+			$('.add_media').removeClass('selected');
+		},
+		uploadStarted: function(i, file, len) {
+
+		},
+		uploadFinished: function(i, file, response, time) {
+
+		},
+		globalProgressUpdated: function(progress) {
+			$('.add_progress').width(progress + '%');
+		},
+		progressUpdated: function(i, file, progress) {
+
+		},
+		afterAll: function() {
+			$('.add_media').removeClass('selected');
+			$('.add_progress').width(0);
+		}
+	});
+
 	$(document)
 		.on('mouseup touchend', function(e) {
 				if ($(e.target).closest('.counter').length) return;
@@ -49,7 +87,7 @@ $(function() {
 			$(this).parent().prependTo('.media_block');
 		})
 		.on('click', '.remove_item', function(e) {
-			alert('Remove item!');
+			$(this).parent().remove();
 		})
 		.on('click', '.update_item', function(e) {
 			alert('Update item!');

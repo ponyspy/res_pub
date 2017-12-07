@@ -9,6 +9,19 @@
 	box-sizing border-box
 	padding-top 10px
 	padding-bottom 8px
+	position relative
+	user-select none
+	.add_title
+		z-index 1
+		position relative
+	.add_progress
+		background-color rgb(74, 140, 247)
+		height 100%
+		width 0%
+		position absolute
+		top 0
+		z-index 0
+	&.selected
 	&:hover
 		color white
 		cursor pointer
