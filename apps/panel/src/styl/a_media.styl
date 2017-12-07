@@ -67,18 +67,37 @@
 				cursor pointer
 			&.hide
 				display none!important
+			&.select_item
+				&:after
+					content '◦'
+				&.selected
+					display inline-block!important
+					&:after
+						content '●'
+			&.tobegin_item
+				left 31px
+				&:after
+					content '⇤' // ★
 			&.remove_item
 				right 0
+				&:after
+					content '×'
 			&.update_item
 				right 31px
+				&:after
+					content '✓'
 				&:hover
 					background-color rgb(104, 206, 70)
 			&.counter.plus
 				right 0
 				bottom 50px
+				&:after
+					content '+'
 			&.counter.minus
 				right 0
 				bottom 25px
+				&:after
+					content '--'
 			&.duration
 				right 0
 				bottom 0

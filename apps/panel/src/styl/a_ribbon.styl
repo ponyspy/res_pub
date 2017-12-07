@@ -68,18 +68,31 @@
 			cursor pointer
 		&.revert_meta
 			right 27px
+			&:after
+				content '✂'
 		&.add_meta
 			left 0
 			bottom 0
+			&:before
+				content '+ '
 		&.remove_item
+			right 0
+			&:after
+				content '×'
 		&.add_item
 			right 0
+			&:after
+				content '+'
 		&.counter.plus
 			right 0
 			bottom 50px
+			&:after
+				content '+'
 		&.counter.minus
 			right 0
 			bottom 25px
+			&:after
+				content '--'
 		&.duration
 			right 0
 			bottom 0

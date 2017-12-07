@@ -83,6 +83,9 @@ $(function() {
 
 				e.stopPropagation();
 		})
+		.on('click', '.select_item', function(e) {
+			$(this).toggleClass('selected');
+		})
 		.on('click', '.tobegin_item', function(e) {
 			$(this).parent().prependTo('.media_block');
 		})
