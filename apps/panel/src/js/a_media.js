@@ -61,7 +61,23 @@ $(function() {
 
 		},
 		uploadFinished: function(i, file, response, time) {
+			var $media_item = $('<div/>', { 'class':'media_item' });
 
+			var $select_item = $('<div/>', { 'class':'option select_item' });
+			var $tobegin_item = $('<div/>', { 'class':'option tobegin_item' });
+			var $remove_item = $('<div/>', { 'class':'option remove_item' });
+			var $update_item = $('<div/>', { 'class':'option update_item' });
+			var $counter_plus = $('<div/>', { 'class':'option counter plus hide' });
+			var $counter_minus = $('<div/>', { 'class':'option counter minus hide' });
+
+			var $meta_duration = $('<div/>', { 'class':'meta duration', 'text': 3 });
+			var $meta_interval = $('<div/>', { 'class':'meta interval', 'text': '24.12.17 - 28.12.17' });
+
+			$media_item.append($select_item, $tobegin_item, $remove_item,
+												 $update_item, $counter_plus, $counter_minus,
+												 $meta_duration, $meta_interval)
+								 .css('background-image', 'url(' + response + ')')
+								 .prependTo('.media_block');
 		},
 		globalProgressUpdated: function(progress) {
 			$('.add_progress').width(progress + '%');

@@ -32,7 +32,7 @@ module.exports = (function() {
 	router.use('/places', checkAuth, admin.places);
 	router.use('/users', checkAuth, admin.users);
 
-	router.post('/preview', checkAuth, upload.single('image'), admin.options.preview);
+	router.post('/preview', checkAuth, upload.single('media'), admin.options.preview);
 
 	return router;
 })();
