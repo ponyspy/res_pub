@@ -23,6 +23,26 @@ $(function() {
 		$('.media_block').toggleClass('meta_show');
 	});
 
+	$('.deselect').on('click', function(e) {
+		$('.select_item').removeClass('selected');
+	});
+
+	$('.invert').on('click', function(e) {
+		$('.select_item').toggleClass('selected');
+	});
+
+	$('.remove_items').on('click', function(e) {
+		if (confirm('Удалить выбранные элементы?\n\nТак же элементы будут удалены из всех лент.')) {
+			$('.select_item.selected').parent().remove();
+		}
+	});
+
+	$('.templ_apply').on('click', function(e) {
+		if (confirm('Применить шаблон к выбранным элементам?')) {
+
+		}
+	});
+
 	$('.interval').each(function(index, el) {
 		var $this = $(this);
 
@@ -99,6 +119,9 @@ $(function() {
 
 				e.stopPropagation();
 		})
+		.on('dblclick', '.media_item', function(e) {
+			$(this).children('.select_item').toggleClass('selected');
+		})
 		.on('click', '.select_item', function(e) {
 			$(this).toggleClass('selected');
 		})
@@ -106,7 +129,9 @@ $(function() {
 			$(this).parent().prependTo('.media_block');
 		})
 		.on('click', '.remove_item', function(e) {
-			$(this).parent().remove();
+			if (confirm('Удалить элемент?\n\nТак же элемент будет удален из всех лент.')) {
+				$(this).parent().remove();
+			}
 		})
 		.on('click', '.update_item', function(e) {
 			alert('Update item!');

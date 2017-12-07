@@ -12,7 +12,10 @@ block header_include
 block sub_menu
 	a.sub_item.back_link(href='/admin') Назад
 	span.sub_item.toggle_meta Мета
+	span.sub_item.deselect Снять выделение
+	span.sub_item.invert Инвертировать выделение
 	.sub_right_block
+		input.remove_items(type='button', value='Удалить')
 		input.templ_apply(type='button', value='Применить шаблон')
 
 block content
