@@ -45,6 +45,9 @@ $(function() {
 
 				e.stopPropagation();
 		})
+		.on('click', '.tobegin_item', function(e) {
+			$(this).parent().prependTo('.media_block');
+		})
 		.on('click', '.remove_item', function(e) {
 			alert('Remove item!');
 		})

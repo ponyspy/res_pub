@@ -12,6 +12,8 @@ block header_include
 block sub_menu
 	a.sub_item.back_link(href='/admin') Назад
 	span.sub_item.toggle_meta Мета
+	.sub_right_block
+		input.templ_apply(type='button', value='Применить шаблон')
 
 block content
 	.form_block
@@ -32,6 +34,7 @@ block content
 			each item, i in new Array(15)
 				.media_item
 					.title= i
+					.option.tobegin_item ★
 					.option.remove_item ×
 					.option.update_item ✓
 					.option.counter.plus.hide +

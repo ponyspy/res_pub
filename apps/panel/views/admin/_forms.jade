@@ -119,35 +119,3 @@ mixin form_multiple_files(path, object)
 		//- br
 		input(type="button", value='+').forward
 		br
-
-//- Images Upload Form
-
-mixin form_images_upload(images)
-	if !images
-		.form_images_upload
-			input#upload_fallback(type='file')
-			.images_upload_preview
-	else
-		- function get_locale(option, lang) {return ((option.filter(function(locale) {return locale.lg == lang; })[0] || {}).value || ''); }
-		.form_images_upload
-			input#upload_fallback(type='file')
-			if images.length > 0
-				.upload_placeholder
-					input(type='hidden', name='hold', value='true')
-			.images_upload_preview
-				each image, i in images
-					.image_upload_preview(style='background-image:url(' + image.thumb + ')')
-						input.image_upload_form(type='hidden', name='images[path][]', value=images_preview[i])
-						.image_delete ×
-						.image_main
-							span.label= image.main ? '●' : '◦'
-							input.size_form(type='hidden', name='images[main][]', value=image.main ? 'true' : 'false')
-						.image_size
-							span.label= image.size
-							input.size_form(type='hidden', name='images[size][]', value=image.size)
-						.image_gallery
-							span.label= image.gallery ? '+++' : '---'
-							input.gallery_form(type='hidden', name='images[gallery][]', value=image.gallery ? 'true' : 'false')
-						.image_description
-							textarea.image_description_input.ru_img(name='images[description][ru][]', placeholder='Описание')= get_locale(image.description, 'ru')
-							textarea.image_description_input.en_img(name='images[description][en][]', placeholder='Description')= get_locale(image.description, 'en')
