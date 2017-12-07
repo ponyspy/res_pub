@@ -16,7 +16,7 @@ $(function() {
 		}
 	};
 
-	pickmeup('.interval', calendar);
+	pickmeup('.templ_interval', calendar);
 
 	$('.toggle_meta').on('click', function(e) {
 		$(this).toggleClass('select');
