@@ -5,6 +5,7 @@ var mime = require('mime');
 
 module.exports.preview = function(req, res) {
 	var file = req.file;
+	var post = req.body;
 	var new_path = '/preview/' + Date.now() + '.' + mime.getExtension(file.mimetype);
 
 	gm(file.path).size({ bufferStream: true }, function(err, size) {

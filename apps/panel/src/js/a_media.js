@@ -32,14 +32,22 @@ $(function() {
 	});
 
 	$('.remove_items').on('click', function(e) {
-		if (confirm('Удалить выбранные элементы?\n\nТак же элементы будут удалены из всех лент.')) {
+		if (confirm('Удалить выбранные элементы?\n\nТак же эти элементы будут удалены из всех лент.')) {
 			$('.select_item.selected').parent().remove();
 		}
 	});
 
 	$('.templ_apply').on('click', function(e) {
 		if (confirm('Применить шаблон к выбранным элементам?')) {
+			var interval = $('.templ_interval').val();
+			var duration = $('.templ_duration').val();
+			var repeat = $('.templ_repeat').val();
 
+			$('.select_item.selected').removeClass('selected').parent().children('.meta.duration').text(duration).end()
+																				 												 .children('.meta.interval').text(interval)
+																				 												 .each(function() {
+																																		pickmeup(this).set_date($(this).text());
+																				 												 });
 		}
 	});
 
@@ -129,7 +137,7 @@ $(function() {
 			$(this).parent().prependTo('.media_block');
 		})
 		.on('click', '.remove_item', function(e) {
-			if (confirm('Удалить элемент?\n\nТак же элемент будет удален из всех лент.')) {
+			if (confirm('Удалить элемент?\n\nТак же этот элемент будет удален из всех лент.')) {
 				$(this).parent().remove();
 			}
 		})
