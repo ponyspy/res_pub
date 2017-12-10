@@ -3,8 +3,7 @@ var express = require('express');
 var Model = require(__glob_root + '/models/main.js');
 
 var Params = {
-	locale: require('../_params/locale'),
-	upload: require('../_params/upload')
+	locale: require('../_params/locale')
 };
 
 var ribbons = {

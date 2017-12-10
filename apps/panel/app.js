@@ -65,6 +65,9 @@ var admin = require('./routes/admin/_admin.js');
 var auth = require('./routes/auth/_auth.js');
 var error = require('./routes/_error.js');
 
+app.get('/', function(req, res) {
+	res.redirect('/admin');
+});
 
 app.use('/admin', admin);
 app.use('/auth', auth);
