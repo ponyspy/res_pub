@@ -1,0 +1,26 @@
+var moment = require('moment');
+
+module.exports = function(Model, Params) {
+	var module = {};
+
+	var Media = Model.Media;
+
+	module.index = function(req, res, next) {
+		res.render('admin/media.jade');
+	};
+
+	module.update = function(req, res, next) {
+
+	};
+
+	module.remove = function(req, res, next) {
+
+	};
+
+	module.tobegin = function(req, res, next) {
+
+	};
+
+
+	return module;
+};
