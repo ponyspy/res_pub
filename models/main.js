@@ -34,6 +34,7 @@ var ribbonSchema = new Schema({
 		object: { type: ObjectId, ref: 'Media' }
 	}],
 	_short_id: { type: String, unique: true, index: true },
+	status: String,
 	date: { type: Date, default: Date.now, index: -1 },
 });
 
@@ -57,6 +58,7 @@ var adSchema = new Schema({
 	},
 	ribbons: [{ type: ObjectId, ref: 'Ribbon' }],
 	_short_id: { type: String, unique: true, index: true },
+	status: String,
 	date: { type: Date, default: Date.now, index: -1 },
 });
 
@@ -71,6 +73,7 @@ var placeSchema = new Schema({
 		children: [{ type: ObjectId, ref: 'Place' }]
 	},
 	_short_id: { type: String, unique: true, index: true },
+	status: String,
 	date: { type: Date, default: Date.now, index: -1 },
 });
 
