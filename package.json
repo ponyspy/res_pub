@@ -16,8 +16,8 @@
     "jade": "^1.7.0",
     "mime": "^2.0.3",
     "mkdirp": "^0.5.1",
-    "moment": "^2.19.3",
-    "mongoose": "^4.13.4",
+    "moment": "^2.19.4",
+    "mongoose": "^4.13.6",
     "mongoose-bcrypt": "^1.5.0",
     "mongoose-locale": "github:ponyspy/mongoose-locale",
     "multer": "^1.0.0",
@@ -40,7 +40,7 @@
     "gulp-util": "^3.0.8",
     "jshint": "^2.9.5",
     "jshint-stylish": "^2.1.0",
-    "pump": "^1.0.3",
+    "pump": "^2.0.0",
     "run-sequence": "^2.2.0"
   },
   "scripts": {
