@@ -1,30 +1,51 @@
-.slider_block::-webkit-scrollbar {
+.slider_inner::-webkit-scrollbar {
 	-webkit-appearance: none;
 	width: 8px;
 }
 
-.slider_block::-webkit-scrollbar-track {
+.slider_inner::-webkit-scrollbar-track {
 	background-color: lightgrey;
 	border-radius: 8px;
 }
 
-.slider_block::-webkit-scrollbar-thumb {
+.slider_inner::-webkit-scrollbar-thumb {
 	border-radius: 8px;
 	background-color: rgb(74, 140, 247)
 }
 
+.show_ribbon.active
+	color red
+
 .slider_block
 	background-color lightgrey
 	white-space nowrap
-	overflow-y hidden
+	overflow hidden
 	vertical-align top
 	font-size 0
 	min-height 180px
+	.slider_inner
+		overflow-y hidden
+		vertical-align top
+		white-space nowrap
+		vertical-align top
 	&.ribbon
 		.media_item
 			background-color green
 		.placeholder
 			background-color grey
+		&.open
+			.slider_inner
+				white-space normal
+				overflow-y auto
+				margin-left -40px
+				margin-top -40px
+			.placeholder
+			.media_item
+				width 270px!important
+				height 165px!important
+				margin-top 40px
+				margin-left 40px
+				margin-right 0
 	&.pool
 		.media_item
 			background-color maroon

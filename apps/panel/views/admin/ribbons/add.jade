@@ -13,6 +13,7 @@ block header_include
 block sub_menu
 	a.sub_item.back_link(href='/admin/ribbons') Назад
 	span.sub_item.toggle_eng Перевод
+	span.sub_item.show_ribbon Обзор ленты
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')
 		input.form_submit(type='submit', value='Добавить')
@@ -24,8 +25,8 @@ block content
 		form(action="", method="post")
 			.form_title Название:
 			+form_text_single('title')
-			.form_title Контент:
-			.slider_block.pool
+			.form_title.pool_title Контент:
+			.slider_block.pool: .slider_inner
 				for item, i in new Array(15)
 					.media_item
 						.title= i
@@ -38,7 +39,7 @@ block content
 						.meta.duration 3
 						.meta.interval 24.12.17 - 28.12.17
 			.form_title Лента:
-			.slider_block.ribbon
+			.slider_block.ribbon: .slider_inner
 				for item, i in new Array(5)
 					.media_item
 						.title= i

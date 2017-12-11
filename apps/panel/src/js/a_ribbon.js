@@ -1,6 +1,6 @@
 $(function() {
-	$ribbon = $('.slider_block.ribbon');
-	$pool = $('.slider_block.pool');
+	$ribbon = $('.slider_block.ribbon .slider_inner');
+	$pool = $('.slider_block.pool .slider_inner');
 
 	var calendar = {
 		format: 'd.m.y',
@@ -54,6 +54,12 @@ $(function() {
 							 .children('.add_item').addClass('hide').end()
 							 .children('.add_meta, .remove_item').removeClass('hide').end();
 		}
+	});
+
+	$('.show_ribbon').on('click', function(e) {
+		$(this).toggleClass('active');
+		$('.pool_title, .slider_block.pool').toggle();
+		$('.slider_block.ribbon').toggleClass('open');
 	});
 
 	$(document)
