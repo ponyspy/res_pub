@@ -51,13 +51,15 @@ $(function() {
 		}
 	});
 
-	$('.interval').each(function(index, el) {
+	$('.interval').each(function() {
 		var $this = $(this);
 
 		calendar.date = $this.text();
 		pickmeup(this, calendar);
 
 		$this.on('pickmeup-change', function(e) {
+			$this.parent().children('.update_item').addClass('active');
+
 			var $item = $this.parent().children('.interval');
 			var date_interval = pickmeup($item[0]).get_date(true);
 
@@ -98,8 +100,11 @@ $(function() {
 			var $counter_plus = $('<div/>', { 'class':'option counter plus hide' });
 			var $counter_minus = $('<div/>', { 'class':'option counter minus hide' });
 
-			var $meta_duration = $('<div/>', { 'class':'meta duration', 'text': 3 });
-			var $meta_interval = $('<div/>', { 'class':'meta interval', 'text': '24.12.17 - 28.12.17' });
+			var $meta_duration = $('<div/>', { 'class':'meta duration', 'text': $('.templ_duration').val() });
+			var $meta_interval = $('<div/>', { 'class':'meta interval', 'text': $('.templ_interval').val() });
+
+			calendar.date = $('.templ_interval').val();
+			pickmeup($meta_interval[0], calendar);
 
 			$media_item.append($select_item, $tobegin_item, $remove_item,
 												 $update_item, $counter_plus, $counter_minus,
@@ -142,14 +147,20 @@ $(function() {
 			}
 		})
 		.on('click', '.update_item', function(e) {
-			alert('Update item!');
+			if (confirm('Обновить мета данные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
+				$(this).removeClass('active');
+			}
 		})
 		.on('click', '.duration', function(e) {
 			$(this).parent().children('.counter').removeClass('hide');
 		})
 		.on('click', '.counter', function(e) {
-			var $duration = $(this).parent().children('.duration');
-			var type = $(this).attr('class').split(' ')[2];
+			var $this = $(this);
+
+			$this.parent().children('.update_item').addClass('active');
+
+			var $duration = $this.parent().children('.duration');
+			var type = $this.attr('class').split(' ')[2];
 			var val = $duration.text();
 
 			if (type == 'plus' && val < 9) {
