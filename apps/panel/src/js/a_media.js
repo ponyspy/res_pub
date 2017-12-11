@@ -38,7 +38,7 @@ $(function() {
 	});
 
 	$('.templ_apply').on('click', function(e) {
-		if (confirm('Применить шаблон к выбранным элементам?')) {
+		if (confirm('Применить шаблон к выбранным элементам?\n\nИзменения будут применены ко всем лентам.')) {
 			var interval = $('.templ_interval').val();
 			var duration = $('.templ_duration').val();
 			var repeat = $('.templ_repeat').val();
@@ -147,7 +147,7 @@ $(function() {
 			}
 		})
 		.on('click', '.update_item', function(e) {
-			if (confirm('Обновить мета данные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
+			if (confirm('Обновить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
 				$(this).removeClass('active');
 			}
 		})
