@@ -1,4 +1,6 @@
 $(function() {
+	var shift = false;
+
 	var calendar = {
 		format: 'd.m.y',
 		hide_on_select: false,
@@ -132,7 +134,15 @@ $(function() {
 
 				e.stopPropagation();
 		})
-		.on('dblclick', '.media_item', function(e) {
+		.on('keydown', function(e) {
+			if (e.which == 16) shift = true;
+		})
+		.on('keyup', function(e) {
+			if (e.which == 16) shift = false;
+		})
+		.on('dblclick mouseenter', '.media_item', function(e) {
+			if (e.type == 'mouseenter' && !shift) return false;
+
 			$(this).children('.select_item').toggleClass('selected');
 		})
 		.on('click', '.select_item', function(e) {
