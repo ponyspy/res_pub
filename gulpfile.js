@@ -108,7 +108,7 @@ var paths = {
 	},
 	clean: {
 		base: ['public/build/**', 'public/stuff/**'],
-		force: ['public/preview/**/*', 'uploads/**/*'],
+		force: ['uploads/**/*'],
 		reset: ['node_modules/**', 'public/cdn/**']
 	}
 };

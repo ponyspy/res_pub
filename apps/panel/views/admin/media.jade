@@ -38,7 +38,7 @@ block content
 			span.add_title НАЖМИ ИЛИ ПЕРЕТАЩИ!
 		.media_block
 			each item in media
-				.media_item(id=item._id, style='background-image: url(' + item.path + ')')
+				.media_item(id=item._id, style='background-image: url(' + item.path.preview + ')')
 					.option.select_item
 					.option.tobegin_item
 					.option.remove_item

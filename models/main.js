@@ -39,7 +39,10 @@ var ribbonSchema = new Schema({
 });
 
 var mediaSchema = new Schema({
-	path: String,
+	path: {
+		main: String,
+		preview: String
+	},
 	type: String, // video, image
 	meta: {
 		date_start: Date,
