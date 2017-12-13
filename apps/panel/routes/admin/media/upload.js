@@ -40,7 +40,7 @@ module.exports = function(Model, Params) {
 
 							rimraf(file.path, { glob: false }, function() {
 								media.save(function(err, media) {
-									res.send(media.path.preview);
+									res.json({path: media.path.preview, id: media._id});
 								});
 							});
 						});
@@ -48,7 +48,7 @@ module.exports = function(Model, Params) {
 				});
 			});
 		} else {
-
+			res.send('fail-media-type');
 		}
 	};
 

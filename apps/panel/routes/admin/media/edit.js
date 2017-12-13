@@ -1,4 +1,5 @@
 var moment = require('moment');
+var rimraf = require('rimraf');
 
 module.exports = function(Model, Params) {
 	var module = {};
@@ -18,7 +19,17 @@ module.exports = function(Model, Params) {
 	};
 
 	module.remove = function(req, res, next) {
+		if (!req.body.ids) return res.send('ok');
 
+		Media.remove({ '_id': { '$in': req.body.ids } }).exec(function(err) {
+			var paths = req.body.ids.map(function(id) { return __glob_root + '/public/cdn/media/' + id;  });
+
+			rimraf('{' + paths.join(',') + '}', function() {
+				if (err) return next(err);
+
+				res.send('ok');
+			});
+		});
 	};
 
 	module.tobegin = function(req, res, next) {

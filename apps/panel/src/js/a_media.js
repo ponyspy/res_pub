@@ -12,8 +12,14 @@
 				days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
 				daysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
 				daysMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-				months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-				monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+				months: [
+					'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+					'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+				],
+				monthsShort: [
+					'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн',
+					'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'
+				]
 			}
 		}
 	};
@@ -35,7 +41,11 @@
 
 	$('.remove_items').on('click', function(e) {
 		if (confirm('Удалить выбранные элементы?\n\nТак же эти элементы будут удалены из всех лент.')) {
-			$('.select_item.selected').parent().remove();
+				var $items = $('.select_item.selected').parent();
+
+				$.post('/admin/media/remove', { ids: $items.map(function() { return $(this).attr('id'); }).toArray() }).done(function() {
+					$items.remove();
+				});
 		}
 	});
 
@@ -90,16 +100,16 @@
 			},
 		},
 		dragOver: function() {
-			$('.add_media').addClass('selected');
+			$('.add_media').addClass('active');
 		},
 		dragLeave: function() {
-			$('.add_media').removeClass('selected');
+			$('.add_media').removeClass('active');
 		},
 		uploadStarted: function(i, file, len) {
 
 		},
 		uploadFinished: function(i, file, response, time) {
-			var $media_item = $('<div/>', { 'class':'media_item' });
+			var $media_item = $('<div/>', { 'class':'media_item', 'id': response.id });
 
 			var $select_item = $('<div/>', { 'class':'option select_item' });
 			var $tobegin_item = $('<div/>', { 'class':'option tobegin_item' });
@@ -117,7 +127,7 @@
 			$media_item.append($select_item, $tobegin_item, $remove_item,
 												 $update_item, $counter_plus, $counter_minus,
 												 $meta_duration, $meta_interval)
-								 .css('background-image', 'url(' + response + ')')
+								 .css('background-image', 'url(' + response.path + ')')
 								 .prependTo('.media_block');
 		},
 		globalProgressUpdated: function(progress) {
@@ -127,7 +137,7 @@
 
 		},
 		afterAll: function() {
-			$('.add_media').removeClass('selected');
+			$('.add_media').removeClass('active');
 			$('.add_progress').width(0);
 		}
 	});
@@ -163,7 +173,11 @@
 		})
 		.on('click', '.remove_item', function(e) {
 			if (confirm('Удалить элемент?\n\nТак же этот элемент будет удален из всех лент.')) {
-				$(this).parent().remove();
+				var $item = $(this).parent();
+
+				$.post('/admin/media/remove', { ids: [$item.attr('id')] }).done(function() {
+					$item.remove();
+				});
 			}
 		})
 		.on('click', '.update_item', function(e) {
