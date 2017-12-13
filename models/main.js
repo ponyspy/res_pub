@@ -56,7 +56,7 @@ var adSchema = new Schema({
 		date_start: Date,
 		date_end: Date
 	},
-	ribbons: [{ type: ObjectId, ref: 'Ribbon' }],
+	places: [{ type: ObjectId, ref: 'Ribbon' }],
 	_short_id: { type: String, unique: true, index: true },
 	status: String,
 	date: { type: Date, default: Date.now, index: -1 },

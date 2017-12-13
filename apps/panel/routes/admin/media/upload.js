@@ -11,7 +11,7 @@ module.exports = function(Model, Params) {
 	module.index = function(req, res, next) {
 		var file = req.file;
 		var post = req.body;
-		var new_path = '/preview/' + Date.now() + '.' + mime.getExtension(file.mimetype);
+		var new_path = '/media/' + Date.now() + '.' + mime.getExtension(file.mimetype);
 
 		gm(file.path).size({ bufferStream: true }, function(err, size) {
 
