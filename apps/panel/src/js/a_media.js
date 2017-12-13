@@ -79,9 +79,15 @@ $(function() {
 		maxfiles: 5,
 		maxfilesize: 15,
 		data: {
-			'templ_interval': $('.templ_interval').val(),
-			'templ_duration': $('.templ_duration').val(),
-			'templ_repeat': $('.templ_repeat').val(),
+			'templ_interval': function() {
+				return $('.templ_interval').val();
+			},
+			'templ_duration': function() {
+				return $('.templ_duration').val();
+			},
+			'templ_repeat': function() {
+				return $('.templ_repeat').val();
+			},
 		},
 		dragOver: function() {
 			$('.add_media').addClass('selected');

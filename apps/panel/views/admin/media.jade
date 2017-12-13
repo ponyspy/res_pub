@@ -37,7 +37,17 @@ block content
 			.add_progress
 			span.add_title НАЖМИ ИЛИ ПЕРЕТАЩИ!
 		.media_block
-			each item, i in new Array(15)
+			each item in media
+				.media_item(id=item._id, style='background-image: url(' + item.path + ')')
+					.option.select_item
+					.option.tobegin_item
+					.option.remove_item
+					.option.update_item
+					.option.counter.plus.hide
+					.option.counter.minus.hide
+					.meta.duration= item.meta.duration
+					.meta.interval= moment(item.meta.date_start).format('DD.MM.YY') + ' - ' + moment(item.meta.date_end).format('DD.MM.YY')
+			//- each item, i in new Array(15)
 				.media_item
 					.title= i
 					.option.select_item
