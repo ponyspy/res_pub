@@ -1,4 +1,7 @@
 var express = require('express');
+var multer = require('multer');
+
+var upload = multer({ dest: __glob_root + '/uploads/' });
 
 var Model = require(__glob_root + '/models/main.js');
 
@@ -8,6 +11,7 @@ var Params = {
 
 var media = {
 	edit: require('./edit.js')(Model, Params),
+	upload: require('./upload.js')(Model)
 };
 
 module.exports = (function() {
@@ -24,6 +28,9 @@ module.exports = (function() {
 
 	router.route('/tobegin')
 		.post(media.edit.tobegin);
+
+	router.route('/upload')
+		.post(upload.single('media'), media.upload.index);
 
 	return router;
 })();

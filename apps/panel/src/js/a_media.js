@@ -70,7 +70,7 @@ $(function() {
 	});
 
 	$('.add_media').filedrop({
-		url: '/admin/preview',
+		url: '/admin/media/upload',
 		paramname: 'media',
 		fallback_id: 'add_fallback',
 		fallback_dropzoneClick : true,

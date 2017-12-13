@@ -1,7 +1,4 @@
 var express = require('express');
-var multer = require('multer');
-
-var upload = multer({ dest: __glob_root + '/uploads/' });
 
 var admin = {
 	main: require('./main.js'),
@@ -10,8 +7,7 @@ var admin = {
 	places: require('./places/_places.js'),
 	users: require('./users/_users.js'),
 	media: require('./media/_media.js'),
-	monitor: require('./monitor.js'),
-	options: require('./options.js')
+	monitor: require('./monitor.js')
 };
 
 var checkAuth = function(req, res, next) {
@@ -32,8 +28,6 @@ module.exports = (function() {
 	router.use('/ads', checkAuth, admin.ads);
 	router.use('/places', checkAuth, admin.places);
 	router.use('/users', checkAuth, admin.users);
-
-	router.post('/preview', checkAuth, upload.single('media'), admin.options.preview);
 
 	return router;
 })();
