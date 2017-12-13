@@ -22,7 +22,11 @@ module.exports = function(Model, Params) {
 	};
 
 	module.tobegin = function(req, res, next) {
+		Media.findByIdAndUpdate(req.body.id, { '$set': { date: moment() } }).exec(function(err, media) {
+			if (err) return next(err);
 
+			res.send('ok');
+		});
 	};
 
 

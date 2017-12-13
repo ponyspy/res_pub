@@ -1,4 +1,4 @@
-$(function() {
+	$(function() {
 	var shift = false;
 
 	var calendar = {
@@ -155,7 +155,11 @@ $(function() {
 			$(this).toggleClass('selected');
 		})
 		.on('click', '.tobegin_item', function(e) {
-			$(this).parent().prependTo('.media_block');
+			var $item = $(this).parent();
+
+			$.post('/admin/media/tobegin', { id: $item.attr('id') }).done(function() {
+				$item.prependTo('.media_block');
+			});
 		})
 		.on('click', '.remove_item', function(e) {
 			if (confirm('Удалить элемент?\n\nТак же этот элемент будет удален из всех лент.')) {
