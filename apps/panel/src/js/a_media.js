@@ -51,15 +51,22 @@
 
 	$('.templ_apply').on('click', function(e) {
 		if (confirm('Применить шаблон к выбранным элементам?\n\nИзменения будут применены ко всем лентам.')) {
-			var interval = $('.templ_interval').val();
-			var duration = $('.templ_duration').val();
-			var repeat = $('.templ_repeat').val();
+			var $items = $('.select_item.selected');
 
-			$('.select_item.selected').removeClass('selected').parent().children('.meta.duration').text(duration).end()
-																				 												 .children('.meta.interval').text(interval)
-																				 												 .each(function() {
-																																		pickmeup(this).set_date($(this).text());
-																				 												 });
+			var data = {
+				'ids': $items.parent().map(function() { return $(this).attr('id'); }).toArray(),
+				'interval': $('.templ_interval').val(),
+				'duration': $('.templ_duration').val(),
+				'repeat': $('.templ_repeat').val()
+			};
+
+			$.post('/admin/media/update', data).done(function() {
+				$items.removeClass('selected').parent().children('.meta.duration').text(data.duration).end()
+																					 												 .children('.meta.interval').text(data.interval)
+																					 												 .each(function() {
+																																			pickmeup(this).set_date($(this).text());
+																					 												 });
+			});
 		}
 	});
 
@@ -182,7 +189,17 @@
 		})
 		.on('click', '.update_item', function(e) {
 			if (confirm('Обновить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
-				$(this).removeClass('active');
+				var $item = $(this).parent();
+
+				var data = {
+					'ids': [$item.attr('id')],
+					'interval': $item.children('.interval').text(),
+					'duration': $item.children('.duration').text()
+				};
+
+				$.post('/admin/media/update', data).done(function() {
+					$item.end().removeClass('active');
+				});
 			}
 		})
 		.on('click', '.duration', function(e) {

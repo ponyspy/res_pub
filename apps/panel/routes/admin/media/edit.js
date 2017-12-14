@@ -15,7 +15,17 @@ module.exports = function(Model, Params) {
 	};
 
 	module.update = function(req, res, next) {
+		if (!req.body.ids) return res.send('ok');
 
+		var interval = req.body.interval.split(' - ');
+
+		Media.update({'_id': { '$in': req.body.ids } },
+								 { '$set': { 'meta.duration': req.body.duration,
+														 'meta.date_start': moment(interval[0], 'DD.MM.YY'),
+														 'meta.date_end': moment(interval[1], 'DD.MM.YY') }
+								}, {multi: true}).exec(function(err) {
+									res.send('ok');
+								});
 	};
 
 	module.remove = function(req, res, next) {
