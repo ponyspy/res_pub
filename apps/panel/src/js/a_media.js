@@ -61,10 +61,10 @@
 
 			$.post('/admin/media/update', data).done(function() {
 				$items.removeClass('selected').parent().children('.meta.counter').text(data.counter).end()
-																					 												 .children('.meta.interval').text(data.interval)
-																					 												 .each(function() {
-																																			pickmeup(this).set_date($(this).text());
-																					 												 });
+																							 .children('.meta.interval').text(data.interval)
+																							 .each(function() {
+																								 pickmeup(this).set_date($(this).text());
+																							 });
 			});
 		}
 	});
