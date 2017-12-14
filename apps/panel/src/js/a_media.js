@@ -1,5 +1,6 @@
 	$(function() {
 	var shift = false;
+	var preview;
 
 	var calendar = {
 		format: 'd.m.y',
@@ -99,6 +100,9 @@
 		maxfiles: 5,
 		maxfilesize: 15,
 		data: {
+			'video_preview': function() {
+				return preview;
+			},
 			'templ_interval': function() {
 				return $('.templ_interval').val();
 			},
@@ -146,6 +150,27 @@
 		},
 		progressUpdated: function(i, file, progress) {
 
+		},
+		beforeSend: function(file, i, done) {
+			if (file.type !== 'video/mp4') return done();
+
+			var scale = 0.25;
+			var canvas = document.createElement('canvas');
+			var video = document.createElement('video');
+
+			video.src = URL.createObjectURL(file);
+
+			video.onloadeddata = function() {
+
+				canvas.width = video.videoWidth * scale;
+				canvas.height = video.videoHeight * scale;
+				canvas.getContext('2d')
+							.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+				preview = canvas.toDataURL('image/jpeg');
+
+				done();
+			};
 		},
 		afterAll: function() {
 			$('.add_media').removeClass('active');

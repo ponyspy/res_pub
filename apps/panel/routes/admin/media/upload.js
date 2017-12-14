@@ -4,6 +4,7 @@ var mkdirp = require('mkdirp');
 var mime = require('mime');
 var moment = require('moment');
 var shortid = require('shortid');
+var fs = require('fs');
 
 module.exports = function(Model, Params) {
 	var module = {};
@@ -48,7 +49,22 @@ module.exports = function(Model, Params) {
 				});
 			});
 		} else {
-			res.send('fail-media-type');
+			media.path.main = media_path + '/main' + '.' + mime.getExtension(file.mimetype);
+			media.path.preview = media_path + '/preview' + '.' + mime.getExtension(file.mimetype);
+			media.type = 'image';
+			media.meta.counter = post.templ_repeat;
+
+			mkdirp(public_path + media_path, function() {
+				fs.rename(file.path, public_path + media.path.main, function(err) {
+					var base64Image = req.body.video_preview.split(';base64,').pop();
+
+					fs.writeFile(public_path + media.path.preview, base64Image, {encoding: 'base64'}, function(err) {
+						media.save(function(err, media) {
+							res.json({path: media.path.preview, id: media._id});
+						});
+					});
+				});
+			});
 		}
 	};
 
