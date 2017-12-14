@@ -20,7 +20,7 @@ module.exports = function(Model, Params) {
 		var interval = req.body.interval.split(' - ');
 
 		Media.update({'_id': { '$in': req.body.ids } },
-								 { '$set': { 'meta.duration': req.body.duration,
+								 { '$set': { 'meta.counter': req.body.counter,
 														 'meta.date_start': moment(interval[0], 'DD.MM.YY'),
 														 'meta.date_end': moment(interval[1], 'DD.MM.YY') }
 								}, {multi: true}).exec(function(err) {

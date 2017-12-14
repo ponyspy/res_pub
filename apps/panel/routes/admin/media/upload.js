@@ -28,7 +28,7 @@ module.exports = function(Model, Params) {
 			media.path.main = media_path + '/main' + '.' + mime.getExtension(file.mimetype);
 			media.path.preview = media_path + '/preview' + '.' + mime.getExtension(file.mimetype);
 			media.type = 'image';
-			media.meta.duration = post.templ_duration;
+			media.meta.counter = post.templ_duration;
 
 			mkdirp(public_path + media_path, function() {
 				gm(file.path).resize(240, false).quality(40).write(public_path + media.path.preview, function(err) {

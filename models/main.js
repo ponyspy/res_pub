@@ -29,8 +29,7 @@ var ribbonSchema = new Schema({
 		meta: {
 			date_start: Date,
 			date_end: Date,
-			duration: Number,
-			repeat: Number
+			counter: Number
 		},
 		object: { type: ObjectId, ref: 'Media' }
 	}],
@@ -48,8 +47,7 @@ var mediaSchema = new Schema({
 	meta: {
 		date_start: Date,
 		date_end: Date,
-		duration: Number,
-		repeat: Number
+		counter: Number
 	},
 	_short_id: { type: String, unique: true, index: true },
 	date: { type: Date, default: Date.now, index: -1 },

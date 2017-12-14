@@ -64,9 +64,9 @@ $(function() {
 
 	$(document)
 		.on('mouseup touchend', function(e) {
-				if ($(e.target).closest('.counter').length) return;
+				if ($(e.target).closest('.button').length) return;
 
-				$('.counter').addClass('hide');
+				$('.button').addClass('hide');
 
 				e.stopPropagation();
 		})
@@ -84,7 +84,7 @@ $(function() {
 			$ribbon.sortable(ribbon_sort);
 		})
 		.on('click', '.add_meta', function(e) {
-			var $duration =  $('<div/>', { 'class': 'meta duration', 'text': '3' });
+			var $counter =  $('<div/>', { 'class': 'meta counter', 'text': '3' });
 			var $interval =  $('<div/>', { 'class': 'meta interval', 'text': '24.12.17 - 28.12.17' });
 
 			calendar.date = $interval.text();
@@ -97,7 +97,7 @@ $(function() {
 				$item.text(date_interval[0] + ' - ' + date_interval[1]);
 			});
 
-			$(this).addClass('hide').parent().append($duration, $interval).children('.revert_meta').removeClass('hide');
+			$(this).addClass('hide').parent().append($counter, $interval).children('.revert_meta').removeClass('hide');
 
 		})
 		.on('click', '.revert_meta', function(e) {
@@ -105,18 +105,18 @@ $(function() {
 																			 .children('.add_meta').removeClass('hide').end()
 																			 .children('.counter').addClass('hide');
 		})
-		.on('click', '.ribbon .duration', function(e) {
-			$(this).parent().children('.counter').removeClass('hide');
+		.on('click', '.ribbon .counter', function(e) {
+			$(this).parent().children('.button').removeClass('hide');
 		})
-		.on('click', '.counter', function(e) {
-			var $duration = $(this).parent().children('.duration');
+		.on('click', '.button', function(e) {
+			var $counter = $(this).parent().children('.counter');
 			var type = $(this).attr('class').split(' ')[2];
-			var val = $duration.text();
+			var val = $counter.text();
 
 			if (type == 'plus' && val < 9) {
-				$duration.text(+val + 1);
+				$counter.text(+val + 1);
 			} else if (type == 'minus' && val > 1) {
-				$duration.text(+val - 1);
+				$counter.text(+val - 1);
 			}
 
 		});

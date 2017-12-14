@@ -56,12 +56,11 @@
 			var data = {
 				'ids': $items.parent().map(function() { return $(this).attr('id'); }).toArray(),
 				'interval': $('.templ_interval').val(),
-				'duration': $('.templ_duration').val(),
-				'repeat': $('.templ_repeat').val()
+				'counter': $('.templ_duration').val()
 			};
 
 			$.post('/admin/media/update', data).done(function() {
-				$items.removeClass('selected').parent().children('.meta.duration').text(data.duration).end()
+				$items.removeClass('selected').parent().children('.meta.counter').text(data.counter).end()
 																					 												 .children('.meta.interval').text(data.interval)
 																					 												 .each(function() {
 																																			pickmeup(this).set_date($(this).text());
@@ -70,6 +69,7 @@
 		}
 	});
 
+	// not live !!!!!!!!
 	$('.interval').each(function() {
 		var $this = $(this);
 
@@ -122,18 +122,18 @@
 			var $tobegin_item = $('<div/>', { 'class':'option tobegin_item' });
 			var $remove_item = $('<div/>', { 'class':'option remove_item' });
 			var $update_item = $('<div/>', { 'class':'option update_item' });
-			var $counter_plus = $('<div/>', { 'class':'option counter plus hide' });
-			var $counter_minus = $('<div/>', { 'class':'option counter minus hide' });
+			var $button_plus = $('<div/>', { 'class':'option button plus hide' });
+			var $button_minus = $('<div/>', { 'class':'option button minus hide' });
 
-			var $meta_duration = $('<div/>', { 'class':'meta duration', 'text': $('.templ_duration').val() });
+			var $meta_counter = $('<div/>', { 'class':'meta counter', 'text': $('.templ_duration').val() });
 			var $meta_interval = $('<div/>', { 'class':'meta interval', 'text': $('.templ_interval').val() });
 
 			calendar.date = $('.templ_interval').val();
 			pickmeup($meta_interval[0], calendar);
 
 			$media_item.append($select_item, $tobegin_item, $remove_item,
-												 $update_item, $counter_plus, $counter_minus,
-												 $meta_duration, $meta_interval)
+												 $update_item, $button_plus, $button_minus,
+												 $meta_counter, $meta_interval)
 								 .css('background-image', 'url(' + response.path + ')')
 								 .prependTo('.media_block');
 		},
@@ -151,9 +151,9 @@
 
 	$(document)
 		.on('mouseup touchend', function(e) {
-				if ($(e.target).closest('.counter').length) return;
+				if ($(e.target).closest('.button').length) return;
 
-				$('.counter').addClass('hide');
+				$('.button').addClass('hide');
 
 				e.stopPropagation();
 		})
@@ -194,7 +194,7 @@
 				var data = {
 					'ids': [$item.attr('id')],
 					'interval': $item.children('.interval').text(),
-					'duration': $item.children('.duration').text()
+					'counter': $item.children('.counter').text()
 				};
 
 				$.post('/admin/media/update', data).done(function() {
@@ -202,22 +202,22 @@
 				});
 			}
 		})
-		.on('click', '.duration', function(e) {
-			$(this).parent().children('.counter').removeClass('hide');
-		})
 		.on('click', '.counter', function(e) {
+			$(this).parent().children('.button').removeClass('hide');
+		})
+		.on('click', '.button', function(e) {
 			var $this = $(this);
 
 			$this.parent().children('.update_item').addClass('active');
 
-			var $duration = $this.parent().children('.duration');
+			var $counter = $this.parent().children('.counter');
 			var type = $this.attr('class').split(' ')[2];
-			var val = $duration.text();
+			var val = $counter.text();
 
 			if (type == 'plus' && val < 9) {
-				$duration.text(+val + 1);
+				$counter.text(+val + 1);
 			} else if (type == 'minus' && val > 1) {
-				$duration.text(+val - 1);
+				$counter.text(+val - 1);
 			}
 
 		});
