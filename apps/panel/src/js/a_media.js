@@ -24,6 +24,17 @@
 		}
 	};
 
+	var calChange = function(e) {
+		var $this = $(this);
+
+		$this.parent().children('.update_item').addClass('active');
+
+		var $item = $this.parent().children('.interval');
+		var date_interval = pickmeup($item[0]).get_date(true);
+
+		$item.text(date_interval[0] + ' - ' + date_interval[1]);
+	};
+
 	pickmeup('.templ_interval', calendar);
 
 	$('.toggle_meta').on('click', function(e) {
@@ -69,21 +80,13 @@
 		}
 	});
 
-	// not live !!!!!!!!
 	$('.interval').each(function() {
 		var $this = $(this);
 
 		calendar.date = $this.text();
 		pickmeup(this, calendar);
 
-		$this.on('pickmeup-change', function(e) {
-			$this.parent().children('.update_item').addClass('active');
-
-			var $item = $this.parent().children('.interval');
-			var date_interval = pickmeup($item[0]).get_date(true);
-
-			$item.text(date_interval[0] + ' - ' + date_interval[1]);
-		});
+		$this.on('pickmeup-change', calChange);
 	});
 
 	$('.add_media').filedrop({
@@ -130,6 +133,7 @@
 
 			calendar.date = $('.templ_interval').val();
 			pickmeup($meta_interval[0], calendar);
+			$meta_interval.on('pickmeup-change', calChange);
 
 			$media_item.append($select_item, $tobegin_item, $remove_item,
 												 $update_item, $button_plus, $button_minus,
