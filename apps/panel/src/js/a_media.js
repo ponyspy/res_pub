@@ -2,6 +2,10 @@
 	var shift = false;
 	var preview;
 
+
+	// -- Cal init
+
+
 	var calendar = {
 		format: 'd.m.y',
 		hide_on_select: false,
@@ -38,6 +42,19 @@
 
 	pickmeup('.templ_interval', calendar);
 
+	$('.interval').each(function() {
+		var $this = $(this);
+
+		calendar.date = $this.text();
+		pickmeup(this, calendar);
+
+		$this.on('pickmeup-change', calChange);
+	});
+
+
+	// -- Menu toggles block
+
+
 	$('.toggle_meta').on('click', function(e) {
 		$(this).toggleClass('select');
 		$('.media_block').toggleClass('meta_show');
@@ -51,6 +68,10 @@
 		$('.select_item').toggleClass('selected');
 	});
 
+
+	// -- Menu buttons block
+
+
 	$('.remove_items').on('click', function(e) {
 		if (confirm('Удалить выбранные элементы?\n\nТак же эти элементы будут удалены из всех лент.')) {
 				var $items = $('.select_item.selected').parent();
@@ -61,6 +82,7 @@
 		}
 	});
 
+	// *** fix counter data type!!!!!!!!
 	$('.templ_apply').on('click', function(e) {
 		if (confirm('Применить шаблон к выбранным элементам?\n\nИзменения будут применены ко всем лентам.')) {
 			var $items = $('.select_item.selected');
@@ -81,14 +103,9 @@
 		}
 	});
 
-	$('.interval').each(function() {
-		var $this = $(this);
 
-		calendar.date = $this.text();
-		pickmeup(this, calendar);
+	// -- Drop zone block
 
-		$this.on('pickmeup-change', calChange);
-	});
 
 	$('.add_media').filedrop({
 		url: '/admin/media/upload',
@@ -97,8 +114,9 @@
 		fallback_dropzoneClick : true,
 		allowedfiletypes: ['image/jpeg','image/png','image/gif', 'video/mp4'],
 		allowedfileextensions: ['.jpg','.jpeg','.png', '.gif', '.mp4'],
-		maxfiles: 5,
-		maxfilesize: 15,
+		queuefiles: 1,
+		// maxfiles: 5,
+		maxfilesize: 25,
 		data: {
 			'video_preview': function() {
 				return preview;
@@ -119,9 +137,6 @@
 		dragLeave: function() {
 			$('.add_media').removeClass('active');
 		},
-		uploadStarted: function(i, file, len) {
-
-		},
 		uploadFinished: function(i, file, response, time) {
 			var $media_item = $('<div/>', { 'class':'media_item', 'id': response.id });
 
@@ -132,7 +147,11 @@
 			var $button_plus = $('<div/>', { 'class':'option button plus hide' });
 			var $button_minus = $('<div/>', { 'class':'option button minus hide' });
 
-			var $meta_counter = $('<div/>', { 'class':'meta counter', 'text': $('.templ_duration').val() });
+			var counter = (response.type == 'image')
+				? $('.templ_duration').val()
+				: $('.templ_repeat').val();
+
+			var $meta_counter = $('<div/>', { 'class':'meta counter', 'text': counter });
 			var $meta_interval = $('<div/>', { 'class':'meta interval', 'text': $('.templ_interval').val() });
 
 			calendar.date = $('.templ_interval').val();
@@ -143,13 +162,11 @@
 												 $update_item, $button_plus, $button_minus,
 												 $meta_counter, $meta_interval)
 								 .css('background-image', 'url(' + response.path + ')')
+								 .addClass(response.type)
 								 .prependTo('.media_block');
 		},
 		globalProgressUpdated: function(progress) {
 			$('.add_progress').width(progress + '%');
-		},
-		progressUpdated: function(i, file, progress) {
-
 		},
 		beforeSend: function(file, i, done) {
 			if (file.type !== 'video/mp4') return done();
@@ -177,6 +194,10 @@
 			$('.add_progress').width(0);
 		}
 	});
+
+
+	// -- Live events block
+
 
 	$(document)
 		.on('mouseup touchend', function(e) {

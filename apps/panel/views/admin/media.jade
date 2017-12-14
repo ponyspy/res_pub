@@ -22,7 +22,7 @@ block content
 	.form_block
 		.title= content_title
 		.form_title Шаблон - интервал:
-		input.templ_interval(type='text')
+		input.templ_interval(type='text', name='interval')
 		.form_title Шаблон - продолжительность / повтор:
 		select.templ_duration(name='duration')
 			each item, i in new Array(9)
@@ -38,7 +38,7 @@ block content
 			span.add_title НАЖМИ ИЛИ ПЕРЕТАЩИ!
 		.media_block
 			each item in media
-				.media_item(id=item._id, style='background-image: url(' + item.path.preview + ')')
+				.media_item(id=item._id, class=item.type, style='background-image: url(' + item.path.preview + ')')
 					.option.select_item
 					.option.tobegin_item
 					.option.remove_item

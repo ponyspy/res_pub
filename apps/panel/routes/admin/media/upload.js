@@ -41,7 +41,7 @@ module.exports = function(Model, Params) {
 
 							rimraf(file.path, { glob: false }, function() {
 								media.save(function(err, media) {
-									res.json({path: media.path.preview, id: media._id});
+									res.json({path: media.path.preview, type: 'image', id: media._id});
 								});
 							});
 						});
@@ -51,7 +51,7 @@ module.exports = function(Model, Params) {
 		} else {
 			media.path.main = media_path + '/main' + '.' + mime.getExtension(file.mimetype);
 			media.path.preview = media_path + '/preview' + '.jpg';
-			media.type = 'image';
+			media.type = 'video';
 			media.meta.counter = post.templ_repeat;
 
 			mkdirp(public_path + media_path, function() {
@@ -60,7 +60,7 @@ module.exports = function(Model, Params) {
 
 					fs.writeFile(public_path + media.path.preview, base64Image, {encoding: 'base64'}, function(err) {
 						media.save(function(err, media) {
-							res.json({path: media.path.preview, id: media._id});
+							res.json({path: media.path.preview, type: 'video', id: media._id});
 						});
 					});
 				});
