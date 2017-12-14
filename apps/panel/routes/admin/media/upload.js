@@ -50,7 +50,7 @@ module.exports = function(Model, Params) {
 			});
 		} else {
 			media.path.main = media_path + '/main' + '.' + mime.getExtension(file.mimetype);
-			media.path.preview = media_path + '/preview' + '.' + mime.getExtension(file.mimetype);
+			media.path.preview = media_path + '/preview' + '.jpg';
 			media.type = 'image';
 			media.meta.counter = post.templ_repeat;
 
