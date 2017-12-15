@@ -59,7 +59,7 @@ $(function() {
 	$('.show_ribbon').on('click', function(e) {
 		$(this).toggleClass('active');
 		$('.pool_title, .slider_block.pool').toggle();
-		$('.slider_block.ribbon').toggleClass('open');
+		$('.slider_block.ribbon').scrollLeft(0).toggleClass('open');
 	});
 
 	$(document)
