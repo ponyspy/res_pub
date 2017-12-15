@@ -32,7 +32,7 @@ block content
 			each item, i in new Array(9)
 				option(value=(i+1))= (i+1) + 'r'
 		.form_title Контент:
-		input#add_fallback(type='file')
+		input#add_fallback(type='file', multiple='true')
 		.add_media
 			.add_progress
 			span.add_title НАЖМИ ИЛИ ПЕРЕТАЩИ!
