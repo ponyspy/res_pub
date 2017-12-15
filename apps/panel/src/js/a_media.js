@@ -29,6 +29,17 @@
 		}
 	};
 
+	var setExpired = function($item) {
+		var now = new Date();
+		var date = pickmeup($item[0]).get_date();
+
+		if (date[0].setHours(0,0,0,0) <= now.setHours(0,0,0,0) && date[1].setHours(0,0,0,0) >= now.setHours(0,0,0,0)) {
+			$item.parent().removeClass('expired');
+		} else {
+			$item.parent().addClass('expired');
+		}
+	};
+
 	var calChange = function(e) {
 		var $this = $(this);
 
@@ -36,6 +47,8 @@
 
 		var $item = $this.parent().children('.interval');
 		var date_interval = pickmeup($item[0]).get_date(true);
+
+		setExpired($item);
 
 		$item.text(date_interval[0] + ' - ' + date_interval[1]);
 	};
@@ -95,10 +108,13 @@
 
 			$.post('/admin/media/update', data).done(function() {
 				$items.removeClass('selected').parent().children('.meta.counter').text(data.counter).end()
-																							 .children('.meta.interval').text(data.interval)
-																							 .each(function() {
-																								 pickmeup(this).set_date($(this).text());
-																							 });
+							.children('.meta.interval').text(data.interval)
+							.each(function() {
+								var $this = $(this);
+
+								pickmeup(this).set_date($this.text());
+								setExpired($this);
+							});
 			});
 		}
 	});
@@ -147,9 +163,7 @@
 			var $button_plus = $('<div/>', { 'class':'option button plus hide' });
 			var $button_minus = $('<div/>', { 'class':'option button minus hide' });
 
-			var counter = (response.type == 'image')
-				? $('.templ_duration').val()
-				: $('.templ_repeat').val();
+			var counter = $(response.type == 'image' ? '.templ_duration' : '.templ_repeat').val();
 
 			var $meta_counter = $('<div/>', { 'class':'meta counter', 'text': counter });
 			var $meta_interval = $('<div/>', { 'class':'meta interval', 'text': $('.templ_interval').val() });
@@ -163,6 +177,7 @@
 												 $meta_counter, $meta_interval)
 								 .css('background-image', 'url(' + response.path + ')')
 								 .addClass(response.type)
+								 .each(function() { setExpired($(this).children('.interval')); })
 								 .prependTo('.media_block');
 		},
 		globalProgressUpdated: function(progress) {

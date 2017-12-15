@@ -44,6 +44,12 @@
 		background-size contain
 		background-position center
 		background-repeat no-repeat
+		&.video .counter:after
+			content 'r'
+		&.image .counter:after
+			content 's'
+		&.expired
+			opacity .4
 		.title
 			cursor default
 			font-size 44pt
@@ -55,6 +61,7 @@
 		&:nth-child(4n)
 			margin-right 0
 		&:hover
+			opacity 1
 			.meta, .option
 				display inline-block
 		.meta
@@ -109,8 +116,6 @@
 			&.counter
 				right 0
 				bottom 0
-				&:after
-					content 's'
 			&.interval
 				left 0
 				bottom 0
