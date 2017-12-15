@@ -86,6 +86,11 @@
 
 
 	$('.remove_items').on('click', function(e) {
+		if ($('.selected').length == 0) {
+			alert('Нет выбранных элементов!');
+			return false;
+		}
+
 		if (confirm('Удалить выбранные элементы?\n\nТак же эти элементы будут удалены из всех лент.')) {
 				var $items = $('.select_item.selected').parent();
 
@@ -97,6 +102,11 @@
 
 	// *** fix counter data type!!!!!!!!
 	$('.templ_apply').on('click', function(e) {
+		if ($('.selected').length == 0) {
+			alert('Нет выбранных элементов!');
+			return false;
+		}
+
 		if (confirm('Применить шаблон к выбранным элементам?\n\nИзменения будут применены ко всем лентам.')) {
 			var $items = $('.select_item.selected');
 
