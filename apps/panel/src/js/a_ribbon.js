@@ -62,6 +62,32 @@ $(function() {
 		$('.slider_block.ribbon').scrollLeft(0).toggleClass('open');
 	});
 
+	$('form').on('submit', function(e) {
+		e.preventDefault();
+
+		$('.slider_block.ribbon').find('.media_item').toArray().forEach(function(item, i) {
+
+			$('<input />').attr('type', 'hidden')
+										.attr('name', 'media' + '[' + i + ']' + '[object]')
+										.attr('value', $(item).attr('media_id'))
+										.appendTo('form');
+
+			if ($(item).find('.meta').length !== 0) {
+				$('<input />').attr('type', 'hidden')
+											.attr('name', 'media' + '[' + i + ']' + '[meta][interval]')
+											.attr('value', $(item).find('.interval').text())
+											.appendTo('form');
+
+				$('<input />').attr('type', 'hidden')
+											.attr('name', 'media' + '[' + i + ']' + '[meta][counter]')
+											.attr('value', $(item).find('.counter').text())
+											.appendTo('form');
+			}
+		});
+
+		this.submit();
+	});
+
 	$(document)
 		.on('mouseup touchend', function(e) {
 				if ($(e.target).closest('.button').length) return;

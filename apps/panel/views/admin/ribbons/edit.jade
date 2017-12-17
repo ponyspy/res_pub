@@ -5,14 +5,15 @@ block header_meta
 	- var content_title= 'РЕДАКТИРОВАТЬ ЛЕНТУ'
 
 block header_include
-	- var include_libs_css = ['font-awesome.css', 'wysiwyg-editor.min.css']
-	- var include_css = ['add.css']
-	- var include_libs_js = ['wysiwyg.min.js', 'wysiwyg-editor.min.js']
-	- var include_js = ['editor.js', 'add.js']
+	- var include_libs_css = ['pickmeup.min.css',]
+	- var include_css = ['add.css', 'a_ribbon.css']
+	- var include_libs_js = ['jquery.pickmeup.min.js', 'jquery-ui.min.js']
+	- var include_js = ['add.js', 'a_ribbon.js', 'a_events.js']
 
 block sub_menu
 	a.sub_item.back_link(href='/admin/ribbons') Назад
 	span.sub_item.toggle_eng Перевод
+	span.sub_item.show_ribbon Обзор ленты
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')
 		input.form_submit(type='submit', value='Сохранить')
@@ -24,6 +25,34 @@ block content
 		form(action="", method="post")
 			.form_title Название:
 			+form_text_single('title', ribbon)
+			.form_title.pool_title Контент:
+			.slider_block.pool: .slider_inner
+				for item in media
+					- var range = moment().isBetween(item.meta.date_start, item.meta.date_end, 'day', '[]')
+					.media_item(media_id=item._id, class=item.type, class=!range ? 'expired' : '', style='background-image: url(' + item.path.preview + ')')
+						.option.add_item
+						.option.remove_item.hide
+						.option.add_meta.hide мета
+						.option.revert_meta.hide
+						.option.button.plus.hide
+						.option.button.minus.hide
+						.meta.counter= item.meta.counter
+						.meta.interval= moment(item.meta.date_start).format('DD.MM.YY') + ' - ' + moment(item.meta.date_end).format('DD.MM.YY')
+			.form_title Лента:
+			.slider_block.ribbon: .slider_inner
+				for item in ribbon.media
+					if item.meta.counter && item.meta.date_start && item.meta.date_end
+						- var range = moment().isBetween(item.meta.date_start, item.meta.date_end, 'day', '[]')
+					.media_item(media_id=item.object._id, class=item.object.type, class=(item.meta && !range) ? 'expired' : '', style='background-image: url(' + item.object.path.preview + ')')
+						.option.add_item
+						.option.remove_item
+						.option.add_meta(class=!item.meta ? 'hide' : '') мета
+						.option.revert_meta(class=item.meta ? 'hide' : '')
+						.option.button.plus.hide
+						.option.button.minus.hide
+						if item.meta.counter && item.meta.date_start && item.meta.date_end
+							.meta.counter= item.meta.counter
+							.meta.interval= moment(item.meta.date_start).format('DD.MM.YY') + ' - ' + moment(item.meta.date_end).format('DD.MM.YY')
 			.form_title Статус:
 			select(name='status')
 				option(value='base') Обычный

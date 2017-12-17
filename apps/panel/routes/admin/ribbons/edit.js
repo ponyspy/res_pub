@@ -4,6 +4,7 @@ module.exports = function(Model, Params) {
 	var module = {};
 
 	var Ribbon = Model.Ribbon;
+	var Media = Model.Media;
 
 	var checkNested = Params.locale.checkNested;
 
@@ -11,10 +12,14 @@ module.exports = function(Model, Params) {
 	module.index = function(req, res, next) {
 		var id = req.params.ribbon_id;
 
-		Ribbon.findById(id).exec(function(err, ribbon) {
+		Ribbon.findById(id).populate('media.object').exec(function(err, ribbon) {
 			if (err) return next(err);
 
-			res.render('admin/ribbons/edit.jade', { ribbon: ribbon });
+			Media.find().sort('-date').exec(function(err, media) {
+				if (err) return next(err);
+
+				res.render('admin/ribbons/edit.jade', { ribbon: ribbon, media: media, moment: moment });
+			});
 		});
 
 	};
@@ -30,6 +35,22 @@ module.exports = function(Model, Params) {
 
 			ribbon.status = post.status;
 			ribbon.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
+			ribbon.media = post.media.map(function(item) {
+				if (item.meta) {
+					var interval = item.meta.interval.split(' - ');
+
+					return {
+						object: item.object,
+						meta: {
+							counter: item.meta.counter,
+							date_start: moment(interval[0], 'DD.MM.YY'),
+							date_end: moment(interval[1], 'DD.MM.YY')
+						}
+					};
+				} else {
+					return { object: item.object };
+				}
+			});
 
 			var locales = post.en ? ['ru', 'en'] : ['ru'];
 

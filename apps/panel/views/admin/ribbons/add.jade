@@ -27,20 +27,20 @@ block content
 			+form_text_single('title')
 			.form_title.pool_title Контент:
 			.slider_block.pool: .slider_inner
-				for item, i in new Array(15)
-					.media_item
-						.title= i
+				for item in media
+					- var range = moment().isBetween(item.meta.date_start, item.meta.date_end, 'day', '[]')
+					.media_item(media_id=item._id, class=item.type, class=!range ? 'expired' : '', style='background-image: url(' + item.path.preview + ')')
 						.option.add_item
 						.option.remove_item.hide
 						.option.add_meta.hide мета
 						.option.revert_meta.hide
 						.option.button.plus.hide
 						.option.button.minus.hide
-						.meta.counter 3
-						.meta.interval 24.12.17 - 28.12.17
+						.meta.counter= item.meta.counter
+						.meta.interval= moment(item.meta.date_start).format('DD.MM.YY') + ' - ' + moment(item.meta.date_end).format('DD.MM.YY')
 			.form_title Лента:
 			.slider_block.ribbon: .slider_inner
-				for item, i in new Array(5)
+				//- for item, i in new Array(5)
 					.media_item
 						.title= i
 						.option.remove_item

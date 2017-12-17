@@ -28,13 +28,16 @@
 		vertical-align top
 		white-space nowrap
 		vertical-align top
+		min-height 180px
 	&.ribbon
 		.media_item
 			background-color green
 		.placeholder
 			background-color grey
 		&.open
+			min-height 165px!important
 			.slider_inner
+				min-height 165px!important
 				white-space normal
 				overflow-y auto
 				margin-left -40px
@@ -63,8 +66,16 @@
 		cursor move
 	.media_item
 		position relative
+		&.video .counter:after
+			content 'r'
+		&.image .counter:after
+			content 's'
+		&.expired
+			opacity .4
 		&:last-child
 			margin-right 0
+		&:hover
+			opacity 1
 		.title
 			font-size 44pt
 			line-height 40pt
@@ -117,8 +128,6 @@
 		&.counter
 			right 0
 			bottom 0
-			&:after
-				content 's'
 		&.interval
 			left 0
 			bottom 0
