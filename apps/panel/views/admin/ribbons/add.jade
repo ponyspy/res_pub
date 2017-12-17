@@ -31,6 +31,7 @@ block content
 					- var range = moment().isBetween(item.meta.date_start, item.meta.date_end, 'day', '[]')
 					.media_item(media_id=item._id, class=item.type, class=!range ? 'expired' : '', style='background-image: url(' + item.path.preview + ')')
 						.option.add_item
+						.option.new_item.hide
 						.option.remove_item.hide
 						.option.add_meta.hide мета
 						.option.revert_meta.hide

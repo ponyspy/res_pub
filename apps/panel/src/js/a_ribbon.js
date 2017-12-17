@@ -21,6 +21,7 @@ $(function() {
 
 	var ribbon_sort = {
 		placeholder: 'placeholder',
+		revert: 'invalid',
 		containment: 'document',
 		cancel: '.option, .meta'
 	};
@@ -52,6 +53,7 @@ $(function() {
 		start: function(event, ui) {
 			ui.helper.children('.meta').remove().end()
 							 .children('.add_item').addClass('hide').end()
+							 .children('.new_item').removeClass('hide').end()
 							 .children('.add_meta, .remove_item').removeClass('hide').end();
 		}
 	});
@@ -103,6 +105,7 @@ $(function() {
 		.on('click', '.add_item', function(e) {
 			$(this).parent().clone()
 						 .children('.add_item').addClass('hide').end()
+						 .children('.new_item').removeClass('hide').end()
 						 .children('.remove_item, .add_meta').removeClass('hide').end()
 						 .children('.meta').remove().end()
 						 .appendTo($ribbon);
