@@ -100,7 +100,6 @@
 		}
 	});
 
-	// *** fix counter data type!!!!!!!!
 	$('.templ_apply').on('click', function(e) {
 		if ($('.selected').length == 0) {
 			alert('Нет выбранных элементов!');
@@ -113,11 +112,13 @@
 			var data = {
 				'ids': $items.parent().map(function() { return $(this).attr('id'); }).toArray(),
 				'interval': $('.templ_interval').val(),
-				'counter': $('.templ_duration').val()
+				'duration': $('.templ_duration').val(),
+				'repeat': $('.templ_repeat').val()
 			};
 
 			$.post('/admin/media/update', data).done(function() {
-				$items.removeClass('selected').parent().children('.meta.counter').text(data.counter).end()
+				$items.removeClass('selected').parent().filter('.image').children('.meta.counter').text(data.duration).end().end()
+																							 .filter('.video').children('.meta.counter').text(data.repeat).end().end()
 							.children('.meta.interval').text(data.interval)
 							.each(function() {
 								var $this = $(this);

@@ -19,13 +19,23 @@ module.exports = function(Model, Params) {
 
 		var interval = req.body.interval.split(' - ');
 
-		Media.update({'_id': { '$in': req.body.ids } },
-								 { '$set': { 'meta.counter': req.body.counter,
-														 'meta.date_start': moment(interval[0], 'DD.MM.YY'),
-														 'meta.date_end': moment(interval[1], 'DD.MM.YY') }
-								}, {multi: true}).exec(function(err) {
-									res.send('ok');
-								});
+		Media.find({'_id': { '$in': req.body.ids } }).cursor()
+		.on('error', function(err) {
+			return next(err);
+		})
+		.on('data', function(doc) {
+			doc.set({
+				meta: {
+					date_start: moment(interval[0], 'DD.MM.YY'),
+					date_end: moment(interval[1], 'DD.MM.YY'),
+					counter: doc.get('type') == 'image' ? req.body.duration : req.body.repeat
+				}
+			});
+			doc.save();
+		})
+		.on('end', function() {
+			res.send('ok');
+		});
 	};
 
 	module.remove = function(req, res, next) {
