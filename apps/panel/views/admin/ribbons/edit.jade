@@ -41,16 +41,17 @@ block content
 			.form_title Лента:
 			.slider_block.ribbon: .slider_inner
 				for item in ribbon.media
-					if item.meta.counter && item.meta.date_start && item.meta.date_end
+					- var meta = Object.keys(item.meta.toObject()).length
+					if meta
 						- var range = moment().isBetween(item.meta.date_start, item.meta.date_end, 'day', '[]')
-					.media_item(media_id=item.object._id, class=item.object.type, class=(item.meta && !range) ? 'expired' : '', style='background-image: url(' + item.object.path.preview + ')')
+					.media_item(media_id=item.object._id, class=item.object.type, class=(meta && !range) ? 'expired' : '', style='background-image: url(' + item.object.path.preview + ')')
 						.option.add_item
 						.option.remove_item
-						.option.add_meta(class=!item.meta ? 'hide' : '') мета
-						.option.revert_meta(class=item.meta ? 'hide' : '')
+						.option.add_meta(class=meta ? 'hide' : '') мета
+						.option.revert_meta(class=!meta ? 'hide' : '')
 						.option.button.plus.hide
 						.option.button.minus.hide
-						if item.meta.counter && item.meta.date_start && item.meta.date_end
+						if meta
 							.meta.counter= item.meta.counter
 							.meta.interval= moment(item.meta.date_start).format('DD.MM.YY') + ' - ' + moment(item.meta.date_end).format('DD.MM.YY')
 			.form_title Статус:
