@@ -3,6 +3,7 @@ $(function() {
 	pickmeup('.date', {
 		format: 'Y-m-d',
 		hide_on_select: true,
+		default_date: false,
 		mode: 'single',
 		locale: 'ru',
 		locales: {
