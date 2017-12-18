@@ -59,6 +59,17 @@ module.exports = function(Model, Params) {
 		});
 	};
 
+	module.revert = function(req, res, next) {
+		Media.findById(req.body.id).exec(function(err, media) {
+			if (err) return next(err);
+
+			res.send({
+				counter: media.meta.counter,
+				interval: moment(media.meta.date_start).format('DD.MM.YY') + ' - ' + moment(media.meta.date_end).format('DD.MM.YY')
+			});
+		});
+	};
+
 	module.tobegin = function(req, res, next) {
 		Media.findByIdAndUpdate(req.body.id, { '$set': { date: moment() } }).exec(function(err, media) {
 			if (err) return next(err);

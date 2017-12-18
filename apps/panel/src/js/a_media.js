@@ -43,7 +43,7 @@
 	var calChange = function(e) {
 		var $this = $(this);
 
-		$this.parent().children('.update_item').addClass('active');
+		$this.parent().children('.update_item, .revert_item').addClass('active');
 
 		var $item = $this.parent().children('.interval');
 		var date_interval = pickmeup($item[0]).get_date(true);
@@ -263,6 +263,22 @@
 				});
 			}
 		})
+		.on('click', '.revert_item', function(e) {
+			var $item = $(this).parent();
+
+			$.post('/admin/media/revert', { id: $item.attr('id') }).done(function(data) {
+				var $counter = $item.children('.counter');
+				var $interval = $item.children('.interval');
+
+				$counter.text(data.counter);
+				$interval.text(data.interval);
+
+				pickmeup($interval[0]).set_date($interval.text());
+				setExpired($interval);
+
+				$item.children('.update_item, .revert_item').removeClass('active');
+			});
+		})
 		.on('click', '.update_item', function(e) {
 			if (confirm('Обновить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
 				var $item = $(this).parent();
@@ -274,7 +290,7 @@
 				};
 
 				$.post('/admin/media/update', data).done(function() {
-					$item.end().removeClass('active');
+					$item.children('.update_item, .revert_item').removeClass('active');
 				});
 			}
 		})
@@ -284,7 +300,7 @@
 		.on('click', '.button', function(e) {
 			var $this = $(this);
 
-			$this.parent().children('.update_item').addClass('active');
+			$this.parent().children('.update_item, .revert_item').addClass('active');
 
 			var $counter = $this.parent().children('.counter');
 			var type = $this.attr('class').split(' ')[2];

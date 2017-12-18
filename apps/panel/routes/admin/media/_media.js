@@ -29,6 +29,9 @@ module.exports = (function() {
 	router.route('/tobegin')
 		.post(media.edit.tobegin);
 
+	router.route('/revert')
+		.post(media.edit.revert);
+
 	router.route('/upload')
 		.post(upload.single('media'), media.upload.index);
 

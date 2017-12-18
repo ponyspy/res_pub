@@ -86,15 +86,22 @@
 				right 0
 				&:after
 					content '×'
+			&.revert_item
+				right 62px
+				display none
+				background-color rgb(235, 190, 85)
+				&.active
+					display inline-block
+				&:after
+					content '⧒'
 			&.update_item
 				right 31px
 				display none
+				background-color rgb(104, 206, 70)
 				&:after
 					content '✓'
-				&:hover
 				&.active
 					display inline-block
-					background-color rgb(104, 206, 70)
 			&.button.plus
 				right 0
 				bottom 50px
