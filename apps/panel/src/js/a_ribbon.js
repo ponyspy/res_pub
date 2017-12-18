@@ -59,8 +59,11 @@ $(function() {
 
 	$('.show_ribbon').on('click', function(e) {
 		$(this).toggleClass('active');
-		$('.pool_title, .slider_block.pool').toggle();
-		$('.slider_block.ribbon').scrollLeft(0).toggleClass('open');
+
+		$ribbon.scrollLeft(0).promise().done(function() {
+			$('.pool_title, .slider_block.pool').toggle();
+			$('.slider_block.ribbon').toggleClass('open');
+		});
 	});
 
 	$('form').on('submit', function(e) {
