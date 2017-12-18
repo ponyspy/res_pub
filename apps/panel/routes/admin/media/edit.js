@@ -5,6 +5,7 @@ module.exports = function(Model, Params) {
 	var module = {};
 
 	var Media = Model.Media;
+	var Ribbon = Model.Ribbon;
 
 	module.index = function(req, res, next) {
 		Media.find().sort('-date').exec(function(err, media) {
@@ -47,7 +48,13 @@ module.exports = function(Model, Params) {
 			rimraf('{' + paths.join(',') + '}', function() {
 				if (err) return next(err);
 
-				res.send('ok');
+				Ribbon.update({ 'media.object': { '$in': req.body.ids } },
+											{ '$pull': { 'media': {'object': { '$in': req.body.ids } } } },
+											{ 'multi': true }).exec(function(err) {
+					if (err) return next(err);
+
+					res.send('ok');
+				});
 			});
 		});
 	};
