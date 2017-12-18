@@ -28,7 +28,7 @@ module.exports = function(Model, Params) {
 				meta: {
 					date_start: moment(interval[0], 'DD.MM.YY'),
 					date_end: moment(interval[1], 'DD.MM.YY'),
-					counter: doc.get('type') == 'image' ? req.body.duration : req.body.repeat
+					counter: req.body.counter ? req.body.counter : doc.get('type') == 'image' ? req.body.duration : req.body.repeat
 				}
 			});
 			doc.save();

@@ -46,7 +46,6 @@ $(function() {
 		cancel: '.option',
 		revert: 'invalid',
 		containment: 'document',
-		zIndex: 99999999999,
 		helper: 'clone',
 		cursor: 'move',
 		connectToSortable: $ribbon,
@@ -113,8 +112,11 @@ $(function() {
 			$ribbon.sortable(ribbon_sort);
 		})
 		.on('click', '.add_meta', function(e) {
-			var $counter =  $('<div/>', { 'class': 'meta counter', 'text': '3' });
-			var $interval =  $('<div/>', { 'class': 'meta interval', 'text': '24.12.17 - 28.12.17' });
+			var media_id = $(this).parent().attr('media_id');
+			var $pool_item = $pool.find('[media_id=' + media_id + ']');
+
+			var $counter =  $('<div/>', { 'class': 'meta counter', 'text': $pool_item.children('.counter').text() });
+			var $interval =  $('<div/>', { 'class': 'meta interval', 'text': $pool_item.children('.interval').text() });
 
 			calendar.date = $interval.text();
 			pickmeup($interval[0], calendar);
