@@ -1,7 +1,7 @@
 mixin items(places)
 	each place in places
-		.list_item
-			a.item_rm.place(href='#', id=place._id) -- удалить
+		.list_item(id=place._id)
+			a.item_rm.place(href='#') -- удалить
 			a.item_title(href='/admin/places/edit/' + place._id, class=place.status =='hidden' ? 'hidden': '')= (place.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 			if place.ribbon
 				span= '**'

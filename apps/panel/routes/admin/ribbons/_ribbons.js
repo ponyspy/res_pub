@@ -10,6 +10,7 @@ var ribbons = {
 	list: require('./list.js')(Model),
 	add: require('./add.js')(Model, Params),
 	edit: require('./edit.js')(Model, Params),
+	copy: require('./copy.js')(Model),
 	remove: require('./remove.js')(Model)
 };
 
@@ -27,6 +28,9 @@ module.exports = (function() {
 	router.route('/edit/:ribbon_id')
 		.get(ribbons.edit.index)
 		.post(ribbons.edit.form);
+
+	router.route('/copy')
+		.post(ribbons.copy.index);
 
 	router.route('/remove')
 		.post(ribbons.remove.index);

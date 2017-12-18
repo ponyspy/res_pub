@@ -1,7 +1,7 @@
 mixin items(ads)
 	each ad in ads
-		.list_item
-			a.item_rm.ad(href='#', id=ad._id) -- удалить
+		.list_item(id=ad._id)
+			a.item_rm.ad(href='#') -- удалить
 			a.item_title(href='/admin/ads/edit/' + ad._id, class=ad.status =='hidden' ? 'hidden': '')= (ad.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 
 mixin counters(count, skip)

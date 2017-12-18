@@ -28,7 +28,7 @@ block content
 				- var status = '●'
 			else
 				- var status = '○'
-			.list_item
-				a.item_rm.user(href='#', id=user._id) -- удалить
+			.list_item(id=user._id)
+				a.item_rm.user(href='#') -- удалить
 				a.item_title(href='/admin/users/edit/' + user._id)= (user.login || '!!! ПУСТОЕ ПОЛЕ !!!')
 				span.item_status= ' ' + status

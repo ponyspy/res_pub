@@ -132,6 +132,32 @@ $(function() {
 	});
 
 
+	// -- Preview
+
+
+	$('.toggle_preview').on('click', function() {
+		$('.item_preview').toggleClass('show');
+	});
+
+
+	// -- Copy
+
+
+	$('.toggle_copy').on('click', function() {
+		$('.item_copy').toggleClass('show');
+	});
+
+	$(document).on('click', '.item_copy', function(e) {
+		var id = $(this).parent().attr('id');
+
+		if (confirm('Скопировать ленту?')) {
+			$.post('/admin/ribbons/copy', {id: id}).done(function(data) {
+				location.reload();
+			});
+		}
+	});
+
+
 	// -- Remove
 
 
@@ -139,17 +165,13 @@ $(function() {
 		$('.item_rm').toggleClass('show');
 	});
 
-	$('.toggle_preview').on('click', function() {
-		$('.item_preview').toggleClass('show');
-	});
-
-	$('.toggle_copy').on('click', function() {
-		$('.item_copy').toggleClass('show');
-	});
-
 	function remove (event) {
-		var id  = $(this).attr('id');
+		var id  = $(this).parent().attr('id');
 		var quotes = [
+			'Быть собой мне мешает уголовный кодекс', 'Может не надо?',
+			'Красивая фамилия - честные глаза', 'Хорошо — что никого',
+			'Самую смертную связь', 'Спасибо мне что есть я у тебя',
+			'Москва завалена арбузами', 'Я хочу быть автоматом',
 			'Я воскрешаю деревья', 'Самоизвержение', 'Полиция нравов',
 			'MTV - мировая термоядерная война', 'Этого еще не хватало',
 			'Встречайте веру по утрам', 'Гриша', 'Библиотечный шик',
