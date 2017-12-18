@@ -35,7 +35,7 @@ module.exports = function(Model, Params) {
 
 			ribbon.status = post.status;
 			ribbon.date = moment(post.date.date + 'T' + post.date.time.hours + ':' + post.date.time.minutes);
-			ribbon.media = post.media.map(function(item) {
+			ribbon.media = post.media && post.media.map(function(item) {
 				if (item.meta) {
 					var interval = item.meta.interval.split(' - ');
 
