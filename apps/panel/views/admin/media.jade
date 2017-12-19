@@ -15,8 +15,11 @@ block sub_menu
 	span.sub_item.deselect Снять выделение
 	span.sub_item.invert Инвертировать выделение
 	.sub_right_block
-		input.remove_items(type='button', value='Удалить')
 		input.templ_apply(type='button', value='Применить шаблон')
+		input.remove_items(type='button', value='Удалить')
+		span.spacer
+		input.revert_items(type='button', value='Отменить')
+		input.save_items(type='button', value='Сохранить')
 
 block content
 	.form_block

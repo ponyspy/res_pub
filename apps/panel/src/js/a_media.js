@@ -106,26 +106,51 @@
 			return false;
 		}
 
-		if (confirm('Применить шаблон к выбранным элементам?\n\nИзменения будут применены ко всем лентам.')) {
-			var $items = $('.select_item.selected');
+		var $items = $('.select_item.selected');
 
-			var data = {
-				'ids': $items.parent().map(function() { return $(this).attr('id'); }).toArray(),
-				'interval': $('.templ_interval').val(),
-				'duration': $('.templ_duration').val(),
-				'repeat': $('.templ_repeat').val()
-			};
+		var templ = {
+			'interval': $('.templ_interval').val(),
+			'duration': $('.templ_duration').val(),
+			'repeat': $('.templ_repeat').val()
+		};
 
-			$.post('/admin/media/update', data).done(function() {
-				$items.removeClass('selected').parent().filter('.image').children('.meta.counter').text(data.duration).end().end()
-																							 .filter('.video').children('.meta.counter').text(data.repeat).end().end()
-							.children('.meta.interval').text(data.interval)
-							.each(function() {
-								var $this = $(this);
+		$items.removeClass('selected').parent().addClass('changed')
+					.filter('.image').children('.meta.counter').text(templ.duration).end().end()
+					.filter('.video').children('.meta.counter').text(templ.repeat).end().end()
+					.children('.meta.interval').text(templ.interval)
+					.each(function() {
+						var $this = $(this);
 
-								pickmeup(this).set_date($this.text());
-								setExpired($this);
-							});
+						pickmeup(this).set_date($this.text());
+						setExpired($this);
+					});
+	});
+
+	$('.revert_items').on('click', function(e) {
+		if ($('.changed').length == 0) {
+			alert('Нет измененных элементов!');
+			return false;
+		}
+
+		var $items = $('.media_item.changed');
+
+		$items.each(function() {
+			$(this).children('.revert_item').trigger('click');
+		});
+
+	});
+
+	$('.save_items').on('click', function(e) {
+		if ($('.changed').length == 0) {
+			alert('Нет измененных элементов!');
+			return false;
+		}
+
+		if (confirm('Сохранить метаданные для данных элементов?\n\nИзменения будут применены ко всем лентам.')) {
+			var $items = $('.media_item.changed');
+
+			$items.each(function() {
+				$(this).children('.update_item').trigger('click', true);
 			});
 		}
 	});
@@ -279,12 +304,12 @@
 				$item.removeClass('changed');
 			});
 		})
-		.on('click', '.update_item', function(e) {
-			if (confirm('Обновить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
+		.on('click', '.update_item', function(e, bulk) {
+			if (bulk || confirm('Сохранить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
 				var $item = $(this).parent();
 
 				var data = {
-					'ids': [$item.attr('id')],
+					'id': $item.attr('id'),
 					'interval': $item.children('.interval').text(),
 					'counter': $item.children('.counter').text()
 				};
