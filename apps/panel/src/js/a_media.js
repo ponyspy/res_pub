@@ -106,15 +106,13 @@
 			return false;
 		}
 
-		var $items = $('.select_item.selected');
-
 		var templ = {
 			'interval': $('.templ_interval').val(),
 			'duration': $('.templ_duration').val(),
 			'repeat': $('.templ_repeat').val()
 		};
 
-		$items.removeClass('selected').parent().addClass('changed')
+		$('.select_item.selected').removeClass('selected').parent().addClass('changed')
 					.filter('.image').children('.meta.counter').text(templ.duration).end().end()
 					.filter('.video').children('.meta.counter').text(templ.repeat).end().end()
 					.children('.meta.interval').text(templ.interval)
@@ -127,29 +125,45 @@
 	});
 
 	$('.revert_items').on('click', function(e) {
-		if ($('.changed').length == 0) {
+		var $changed_items = $('.media_item.changed');
+
+		if ($changed_items.length == 0) {
 			alert('Нет измененных элементов!');
 			return false;
 		}
 
-		var $items = $('.media_item.changed');
+		var ids = $changed_items.map(function() {
+			return $(this).attr('id');
+		}).toArray();
 
-		$items.each(function() {
-			$(this).children('.revert_item').trigger('click');
+		$.post('/admin/media/revert', { ids: ids }).done(function(data) {
+			data.items.forEach(function(item) {
+				var $item = $('#' + item._id);
+
+				var $counter = $item.children('.counter');
+				var $interval = $item.children('.interval');
+
+				$counter.text(item.counter);
+				$interval.text(item.interval);
+
+				pickmeup($interval[0]).set_date($interval.text());
+				setExpired($interval);
+
+				$item.removeClass('changed');
+			});
 		});
-
 	});
 
 	$('.save_items').on('click', function(e) {
-		if ($('.changed').length == 0) {
+		var $changed_items = $('.media_item.changed');
+
+		if ($changed_items.length == 0) {
 			alert('Нет измененных элементов!');
 			return false;
 		}
 
 		if (confirm('Сохранить метаданные для данных элементов?\n\nИзменения будут применены ко всем лентам.')) {
-			var $items = $('.media_item.changed');
-
-			var data = $items.map(function() {
+			var data = $changed_items.map(function() {
 				var $this = $(this);
 
 				return {
@@ -160,7 +174,7 @@
 			}).toArray();
 
 			$.post('/admin/media/update', {items: data }).done(function() {
-				$items.removeClass('changed');
+				$changed_items.removeClass('changed');
 			});
 		}
 	});
@@ -301,12 +315,12 @@
 		.on('click', '.revert_item', function(e) {
 			var $item = $(this).parent();
 
-			$.post('/admin/media/revert', { id: $item.attr('id') }).done(function(data) {
+			$.post('/admin/media/revert', { ids: [$item.attr('id')] }).done(function(data) {
 				var $counter = $item.children('.counter');
 				var $interval = $item.children('.interval');
 
-				$counter.text(data.counter);
-				$interval.text(data.interval);
+				$counter.text(data.items[0].counter);
+				$interval.text(data.items[0].interval);
 
 				pickmeup($interval[0]).set_date($interval.text());
 				setExpired($interval);

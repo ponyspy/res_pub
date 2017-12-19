@@ -35,13 +35,18 @@ module.exports = function(Model, Params) {
 	};
 
 	module.revert = function(req, res, next) {
-		Media.findById(req.body.id).exec(function(err, media) {
+		Media.find({ '_id': { '$in': req.body.ids } }).exec(function(err, items) {
 			if (err) return next(err);
 
-			res.send({
-				counter: media.meta.counter,
-				interval: moment(media.meta.date_start).format('DD.MM.YY') + ' - ' + moment(media.meta.date_end).format('DD.MM.YY')
+			var r_items = items.map(function(item) {
+				return {
+					'id': item._id,
+					'counter': item.meta.counter,
+					'interval': moment(item.meta.date_start).format('DD.MM.YY') + ' - ' + moment(item.meta.date_end).format('DD.MM.YY')
+				};
 			});
+
+			res.send({ items: r_items });
 		});
 	};
 
