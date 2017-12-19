@@ -71,7 +71,7 @@
 			user-select none
 			display none
 			&:hover
-				background-color red
+				background-color red!important
 				cursor pointer
 			&.hide
 				display none!important
@@ -91,13 +91,12 @@
 				&:after
 					content '×'
 			&.revert_item
-				right 62px
-				display none
-				background-color rgb(235, 190, 85)
-				&:after
-					content '⧒'
-			&.update_item
 				right 31px
+				display none
+				&:after
+					content '✂'
+			&.update_item
+				right 62px
 				display none
 				background-color rgb(104, 206, 70)
 				&:after
