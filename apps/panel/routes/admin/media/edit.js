@@ -1,5 +1,6 @@
 var moment = require('moment');
 var rimraf = require('rimraf');
+var async = require('async');
 
 module.exports = function(Model, Params) {
 	var module = {};
@@ -16,18 +17,31 @@ module.exports = function(Model, Params) {
 	};
 
 	module.update = function(req, res, next) {
-		var interval = req.body.interval.split(' - ');
+		async.each(req.body.items, function(item, callback) {
+			var interval = item.interval.split(' - ');
 
-		Media.findByIdAndUpdate(req.body.id, { '$set': {
-			meta: {
-				date_start: moment(interval[0], 'DD.MM.YY'),
-				date_end: moment(interval[1], 'DD.MM.YY'),
-				counter: req.body.counter
-			}
-		}}).exec(function(err) {
+			Media.findByIdAndUpdate(item.id, { '$set': {
+				meta: {
+					date_start: moment(interval[0], 'DD.MM.YY'),
+					date_end: moment(interval[1], 'DD.MM.YY'),
+					counter: item.counter
+				}
+			}}).exec(callback);
+		}, function(err) {
 			if (err) return next(err);
 
 			res.send('ok');
+		});
+	};
+
+	module.revert = function(req, res, next) {
+		Media.findById(req.body.id).exec(function(err, media) {
+			if (err) return next(err);
+
+			res.send({
+				counter: media.meta.counter,
+				interval: moment(media.meta.date_start).format('DD.MM.YY') + ' - ' + moment(media.meta.date_end).format('DD.MM.YY')
+			});
 		});
 	};
 
@@ -47,17 +61,6 @@ module.exports = function(Model, Params) {
 
 					res.send('ok');
 				});
-			});
-		});
-	};
-
-	module.revert = function(req, res, next) {
-		Media.findById(req.body.id).exec(function(err, media) {
-			if (err) return next(err);
-
-			res.send({
-				counter: media.meta.counter,
-				interval: moment(media.meta.date_start).format('DD.MM.YY') + ' - ' + moment(media.meta.date_end).format('DD.MM.YY')
 			});
 		});
 	};

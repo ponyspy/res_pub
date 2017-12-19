@@ -149,8 +149,18 @@
 		if (confirm('Сохранить метаданные для данных элементов?\n\nИзменения будут применены ко всем лентам.')) {
 			var $items = $('.media_item.changed');
 
-			$items.each(function() {
-				$(this).children('.update_item').trigger('click', true);
+			var data = $items.map(function() {
+				var $this = $(this);
+
+				return {
+					id: $this.attr('id'),
+					counter: $this.children('.counter').text(),
+					interval: $this.children('.interval').text(),
+				};
+			}).toArray();
+
+			$.post('/admin/media/update', {items: data }).done(function() {
+				$items.removeClass('changed');
 			});
 		}
 	});
@@ -304,8 +314,8 @@
 				$item.removeClass('changed');
 			});
 		})
-		.on('click', '.update_item', function(e, bulk) {
-			if (bulk || confirm('Сохранить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
+		.on('click', '.update_item', function(e) {
+			if (confirm('Сохранить метаданные для данного элемента?\n\nИзменения будут применены ко всем лентам.')) {
 				var $item = $(this).parent();
 
 				var data = {
@@ -314,7 +324,7 @@
 					'counter': $item.children('.counter').text()
 				};
 
-				$.post('/admin/media/update', data).done(function() {
+				$.post('/admin/media/update', {items: [data] }).done(function() {
 					$item.removeClass('changed');
 				});
 			}
