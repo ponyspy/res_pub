@@ -43,7 +43,7 @@
 	var calChange = function(e) {
 		var $this = $(this);
 
-		$this.parent().children('.update_item, .revert_item').addClass('active');
+		$this.parent().addClass('changed');
 
 		var $item = $this.parent().children('.interval');
 		var date_interval = pickmeup($item[0]).get_date(true);
@@ -276,7 +276,7 @@
 				pickmeup($interval[0]).set_date($interval.text());
 				setExpired($interval);
 
-				$item.children('.update_item, .revert_item').removeClass('active');
+				$item.removeClass('changed');
 			});
 		})
 		.on('click', '.update_item', function(e) {
@@ -290,7 +290,7 @@
 				};
 
 				$.post('/admin/media/update', data).done(function() {
-					$item.children('.update_item, .revert_item').removeClass('active');
+					$item.removeClass('changed');
 				});
 			}
 		})
@@ -300,7 +300,7 @@
 		.on('click', '.button', function(e) {
 			var $this = $(this);
 
-			$this.parent().children('.update_item, .revert_item').addClass('active');
+			$this.parent().addClass('changed');
 
 			var $counter = $this.parent().children('.counter');
 			var type = $this.attr('class').split(' ')[2];

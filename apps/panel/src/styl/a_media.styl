@@ -44,6 +44,10 @@
 		background-size contain
 		background-position center
 		background-repeat no-repeat
+		&.changed
+			.revert_item
+			.update_item
+				display inline-block!important
 		&.video .counter:after
 			content 'r'
 		&.image .counter:after
@@ -90,8 +94,6 @@
 				right 62px
 				display none
 				background-color rgb(235, 190, 85)
-				&.active
-					display inline-block
 				&:after
 					content '⧒'
 			&.update_item
@@ -100,8 +102,6 @@
 				background-color rgb(104, 206, 70)
 				&:after
 					content '✓'
-				&.active
-					display inline-block
 			&.button.plus
 				right 0
 				bottom 50px
