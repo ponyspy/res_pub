@@ -1,0 +1,35 @@
+extends layout
+
+block header_meta
+	- var content_title= 'RESPUBLICA | TERMINAL'
+
+block header_include
+	- var include_libs_css = ['swiper.min.css']
+	- var include_css = ['terminals.css']
+	- var include_libs_js = ['swiper.min.js', 'socket.io.js']
+	- var include_js = ['terminals.js']
+
+block panel
+	.place_title Д237_холл
+	.buttons
+		.button.places_select Локации
+		.button.reboot Перезагрузить
+	.places_block
+		.places_title
+			.p_title.city Москва
+			.p_title.shop Проспект Мира
+		.places_list.city
+			each item, i in new Array(50)
+				.list_item= 'City ' + (i+1)
+		.places_list.shop
+			each item, i in new Array(10)
+				.list_item= 'Shop ' + (i+1)
+		.places_list.device
+			each item, i in new Array(5)
+				.list_item= 'Device ' + (i+1)
+
+		.places_connect -- Подключить --
+
+
+block content
+	h1 Terminal!

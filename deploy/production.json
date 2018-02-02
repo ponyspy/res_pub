@@ -15,5 +15,20 @@
 				"NODE_ENV": "production"
 			}
 		},
+		{
+			"name": "res_pub_terminals",
+			"script": "./apps/terminals/app.js",
+			"exec_mode": "fork",
+			"autorestart": true,
+			"min_uptime": "300s",
+			"restart_delay" : 2000,
+			"max_restarts": 5,
+			"max_memory_restart": "250M",
+			"log_date_format" : "YYYY-MM-DD HH:mm",
+			"env": {
+				"PORT": 3002,
+				"NODE_ENV": "production"
+			}
+		},
 	]
 }

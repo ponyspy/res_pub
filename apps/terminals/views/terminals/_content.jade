@@ -1,0 +1,120 @@
+mixin newsBlock(news, locale)
+	.news_block: .news_inner
+
+		.news_header
+			.news_categorys
+				each category in news.categorys
+					.category= get_locale(category.title, locale)
+
+		.news_body
+			.news_body_title
+				.news_title= get_locale(news.title, locale)
+				.news_s_title= get_locale(news.s_title, locale)
+				.news_description!= get_locale(news.description, locale)
+
+
+mixin eventBlock(halls, event, locale)
+	.event_block(class=event.type): .event_inner
+
+
+		.event_header
+			.event_type= __(event.type)
+			.event_categorys
+				each category in event.categorys
+					.category= get_locale(category.title, locale)
+			.event_age= event.age
+
+
+		.event_body
+			.event_body_title
+				.event_title= get_locale(event.title, locale)
+				.event_members
+					each member in event.members
+						.member_item
+							.member_role= __n(member.role, member.ids.length)
+							.member_list
+								each id in member.ids
+									.member_name= get_locale(id.name, locale)
+			.event_body_schedule
+
+				if (halls.length > 0 && event.halls && event.halls.length > 0)
+					.event_halls
+						- var event_halls = event.halls && event.halls.map(function(hall) { return hall._id })
+						if arr_equals(halls, event_halls)
+							.item_hall= __('Все залы')
+						else
+							if event.halls
+								each hall in event.halls
+									.item_hall= get_locale(hall.title, locale)
+
+				if moment(event.interval.begin).isSame(event.interval.end, 'day')
+					.event_interval= moment(event.interval.begin).format('DD MMMM — HH:mm')
+				else
+					.event_interval= moment(event.interval.begin).format('DD MMMM') + ' — ' + moment(event.interval.end).format('DD MMMM')
+
+
+			.event_tickets
+				if event.tickets.ids.length > 0
+					each ticket in event.tickets.ids
+						if ticket.type == 'base'
+							.ticket_item(class=ticket.type)
+								span.ticket_price= ticket.price + 'Р'
+					each ticket in event.tickets.ids
+						if ticket.type != 'base'
+							.ticket_item(class=ticket.type)
+								span.ticket_type= __(ticket.type)
+								span= ': '
+								span.ticket_price= ticket.price + 'Р'
+				else
+					.tickets_alt!= get_locale(event.tickets.alt, locale)
+
+
+
+each area in areas
+	.slide_item
+		each locale in ['ru']
+			- i18n.setLocale(locale)
+			- moment.locale(locale)
+			.slide_lang: .slide_inner
+
+
+				.slide_header: .header_inner
+					.header_title
+						.header_date
+							.date
+							.time
+								.hours
+								.time_sep.tick :
+								.minutes
+						.header_logo
+							img.logo(src='/stuff/monitors/icons/logo/' + (locale == 'ru' ? 'ru.svg' : 'en.svg'))
+							.logo_title= __('музейно-выставочное объединение')
+					.header_contacts
+						.area_title= get_locale(area.area.title, locale)
+						.area_location
+							.area_adress!= get_locale(area.area.contacts.adress, locale)
+							.area_schedule!= get_locale(area.area.contacts.schedule, locale)
+						.area_contacts
+							.area_phones
+								each phone in area.area.contacts.phones
+									span.phone= phone
+							.area_emails
+								each email in area.area.contacts.emails
+									span.email= email
+
+
+				.slide_content: .content_inner: .inner_cover
+					each news in area.news
+						+newsBlock(news, locale)
+
+					each event in area.events
+						if (event.type == 'exhibition')
+							+eventBlock(area.area.halls, event, locale)
+
+					each event in area.events
+						if (event.type != 'exhibition')
+							+eventBlock(area.area.halls, event, locale)
+
+
+				.slide_footer: .footer_inner
+					span moscowmanege.ru

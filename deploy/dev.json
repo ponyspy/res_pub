@@ -15,5 +15,20 @@
 				"NODE_ENV": "development"
 			}
 		},
+		{
+			"name": "res_pub_terminals",
+			"script": "./apps/terminals/app.js",
+			"exec_mode": "fork",
+			"watch": ["apps/terminals/app.js", "apps/terminals/models", "apps/terminals/routes", "locales/ru.json", "locales/en.json"],
+			"min_uptime": "300s",
+			"autorestart": false,
+			"max_restarts": 1,
+			"restart_delay" : 2000,
+			"kill_timeout": 1600,
+			"env": {
+				"PORT": 3002,
+				"NODE_ENV": "development"
+			}
+		}
 	]
 }
