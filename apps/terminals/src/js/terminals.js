@@ -33,7 +33,7 @@ $(function() {
 				$('.places_connect').removeClass('active');
 			}
 		})
-		.on('click', '.list_item', function(e) {
+		.on('click', '.place_item', function(e) {
 			var $this = $(this);
 
 			if ($this.parent().hasClass('city')) {

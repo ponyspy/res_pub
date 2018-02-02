@@ -11,7 +11,8 @@ module.exports = (function() {
 	var router = express.Router();
 
 	router.route('/')
-		.get(terminals.index.index);
+		.get(terminals.index.index)
+		.post(terminals.index.get_places);
 
 	router.route('/test')
 		.get(terminals.test.test1);
