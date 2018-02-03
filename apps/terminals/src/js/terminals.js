@@ -10,9 +10,9 @@ $(function() {
 
 	$(document)
 		.on('click', '.places_connect.active', function(e) {
-			var device = $('.places_list').children('.active').text();
+			var device_name = $('.places_list').children('.active').text();
 
-			$('.place_title').text(device);
+			$('.place_title').text(device_name);
 		})
 		.on('click', '.p_title', function(e) {
 			var $this = $(this);
@@ -34,15 +34,14 @@ $(function() {
 		})
 		.on('click', '.place_item', function(e) {
 			var $this = $(this);
+			var $title = $this.clone().addClass('p_title').removeClass('place_item');
 
 			var place_type = $this.attr('place_type');
 			var place_id = $this.attr('place_id');
 
-			var $title = $('<div/>', {'class': 'p_title', 'place_type': place_type, 'place_id': place_id, 'text': $this.text() });
-
 			if (place_type == 'city' || place_type == 'shop') {
+				$('.places_title').append($title);
 				$.post('', { 'parent': place_id }).done(function(data) {
-					$('.places_title').append($title);
 					$('.places_list').empty().append(data);
 				});
 			} else if (place_type == 'device') {
