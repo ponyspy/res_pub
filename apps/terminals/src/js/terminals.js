@@ -1,9 +1,10 @@
 $(function() {
-	$('.places_select').on('click', function(e) {
-		$('.places_block').toggleClass('show');
+	$('.button.places').on('click', function(e) {
+		$(this).toggleClass('active');
+		$('.panel_block, .places_block').toggleClass('show');
 	});
 
-	$('.reboot').on('click', function(e) {
+	$('.button.reboot').on('click', function(e) {
 		location.reload();
 	});
 

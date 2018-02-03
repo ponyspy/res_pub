@@ -5,9 +5,16 @@ html, body
 .panel_block
 	background-color lightgrey
 	width 100%
-	height 130px
+	top 0
 	padding-top 40px
+	padding-bottom 40px
 	box-sizing border-box
+	user-select none
+	opacity 0
+	position absolute
+	&.show
+	&:hover
+		opacity 1
 	.button
 		font 24pt/26pt 'Times'
 		margin-left 40px
@@ -17,6 +24,7 @@ html, body
 		padding 5px
 		padding-left 15px
 		padding-right 15px
+		&.places.active
 		&:hover
 			color white
 			background-color black
@@ -25,60 +33,61 @@ html, body
 		margin-right 40px
 		margin-top 7px
 		font 24pt/26pt 'Times'
-	.places_block
-		display none
-		width 640px
-		height 480px
-		position absolute
-		top 0; left 0; right 0; bottom 0
-		margin auto
-		left 50%
-		margin-left -320px
-		background-color lightgrey
-		&.show
-			display block
-		.places_title
-			font-size 18pt
-			.p_title
-				cursor pointer
-				display inline-block
-				padding 5px
-				&:hover
-					background-color black
-					color white
-				&:after
-					content '✕'
-					font-size 14pt
-					margin-left 15px
-					margin-right 10px
-		.places_list
-			background-color rgba(246, 245, 242, 1.000)
-			position absolute
-			top 38px
-			bottom 38px
-			width 100%
-			overflow scroll
-			.place_item
-				font-size 16pt
-				padding 10px
-				cursor pointer
-				&.active
-				&:hover
-					background-color black
-					color white
-		.places_connect
-			position absolute
-			bottom 0
-			text-align center
-			background-color grey
-			width 100%
-			padding 10px
-			box-sizing border-box
-			cursor default
-			&.active
-				cursor pointer
+
+.places_block
+	display none
+	width 640px
+	height 480px
+	position absolute
+	top 0; left 0; right 0; bottom 0
+	margin auto
+	left 50%
+	margin-left -320px
+	background-color lightgrey
+	&.show
+		display block
+	.places_title
+		font-size 18pt
+		.p_title
+			cursor pointer
+			display inline-block
+			padding 5px
+			&:hover
+				background-color black
 				color white
-				background-color red
-				&:hover
-					color red
-					background-color white
+			&:after
+				content '✕'
+				font-size 14pt
+				margin-left 15px
+				margin-right 10px
+	.places_list
+		background-color rgba(246, 245, 242, 1.000)
+		position absolute
+		top 38px
+		bottom 38px
+		width 100%
+		overflow scroll
+		.place_item
+			font-size 16pt
+			padding 10px
+			cursor pointer
+			&.active
+			&:hover
+				background-color black
+				color white
+	.places_connect
+		position absolute
+		bottom 0
+		text-align center
+		background-color grey
+		width 100%
+		padding 10px
+		box-sizing border-box
+		cursor default
+		&.active
+			cursor pointer
+			color white
+			background-color red
+			&:hover
+				color red
+				background-color white
