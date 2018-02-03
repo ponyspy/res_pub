@@ -3,6 +3,7 @@ global.__glob_root = __dirname.replace('/apps/' + __app_name, '');
 global.__app_root = __dirname;
 
 var express = require('express'),
+		bodyParser = require('body-parser'),
 		cookieParser = require('cookie-parser'),
 		app = express();
 
@@ -30,6 +31,8 @@ i18n.configure({
 	directory: __glob_root + '/locales'
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(i18n.init);
 app.locals.moment = moment;

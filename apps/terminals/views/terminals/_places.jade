@@ -1,2 +1,2 @@
 each place in places
-	.place_item= get_locale(place.title, 'ru')
+	.place_item(place_type=place.type, place_id=place._id)= place.i18n.title.get('ru')
