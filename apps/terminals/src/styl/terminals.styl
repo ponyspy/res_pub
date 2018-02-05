@@ -2,6 +2,22 @@ html, body
 	margin 0
 	padding 0
 
+.slider_block
+	width 100%
+	height 100%
+	background-color lightgrey
+	position absolute
+	.swiper-button-next
+		right 100px
+	.swiper-button-prev
+		left 100px
+	.slide_item
+		width 100%
+		height 100%
+		background-size contain
+		background-position center
+		background-repeat no-repeat
+
 .panel_block
 	background-color lightgrey
 	width 100%
@@ -12,6 +28,7 @@ html, body
 	user-select none
 	opacity 0
 	position absolute
+	z-index 999
 	&.show
 	&:hover
 		opacity 1
@@ -44,6 +61,8 @@ html, body
 	left 50%
 	margin-left -320px
 	background-color lightgrey
+	z-index 999
+	user-select none
 	&.show
 		display block
 	.places_title

@@ -8,12 +8,34 @@ $(function() {
 		location.reload();
 	});
 
+	var mySwiper = new Swiper('.swiper-container', {
+		speed: 400,
+		spaceBetween: 100,
+		loop: true,
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+	});
 
 	$(document)
 		.on('click', '.places_connect.active', function(e) {
-			var device_name = $('.places_list').children('.active').text();
+			var terminal_name = $('.places_list').children('.active').text();
+			var terminal_id = $('.places_list').children('.active').attr('place_id');
 
-			$('.place_title').text(device_name);
+			$('.place_title').text(terminal_name);
+
+			var socket = io.connect('', {
+				port: 3002,
+				forceNew: true,
+				query: { terminal: terminal_id }
+			});
+
+			socket.on('content', function(data) {
+				mySwiper.removeAllSlides();
+				mySwiper.appendSlide(data.content);
+			});
+
 		})
 		.on('click', '.p_title', function(e) {
 			var $this = $(this);

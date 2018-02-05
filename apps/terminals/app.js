@@ -7,7 +7,7 @@ var express = require('express'),
 		cookieParser = require('cookie-parser'),
 		app = express();
 
-var server = require('http').Server(app);
+var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 var i18n = require('i18n');
@@ -66,6 +66,6 @@ var check_interval = setInterval(socket.interval, 1000 * 60 * 5);	// 5 minutes 1
 // ------------------------
 
 
-app.listen(process.env.PORT || 3002, (process.env.NODE_ENV == 'production' ? 'localhost' : undefined), function() {
+server.listen(process.env.PORT || 3002, (process.env.NODE_ENV == 'production' ? 'localhost' : undefined), function() {
 	console.log('http://localhost:' + (process.env.PORT || 3002));
 });

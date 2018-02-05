@@ -1,7 +1,7 @@
 extends layout
 
 block header_meta
-	- var content_title= 'RESPUBLICA | TERMINAL'
+	- var content_title= 'РЕСПУБЛИКА | ТЕРМИНАЛ'
 
 block header_include
 	- var include_libs_css = ['swiper.min.css']
@@ -20,5 +20,9 @@ block content
 		.places_title
 		.places_list
 			include _places.jade
-		.places_connect -- Подключить --
-	h1 Terminal!
+		.places_connect Подключить
+
+	.slider_block.swiper-container
+		.swiper-wrapper
+		.swiper-button-next.swiper-button-black
+		.swiper-button-prev.swiper-button-black
