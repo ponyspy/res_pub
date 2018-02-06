@@ -30,18 +30,17 @@ $(function() {
 
 	$(document)
 		.on('click', '.places_connect.active', function(e, data) {
-			var terminal_name = (data && data.name) || $('.places_list').children('.active').text();
-			var terminal_id = (data && data.id) || $('.places_list').children('.active').attr('place_id');
+			var $active = $('.places_list').children('.active');
 
-			localStorage.setItem('terminal_id', terminal_id);
-			localStorage.setItem('terminal_name', terminal_name);
+			localStorage.terminal_name = (data && data.name) || $active.text();
+			localStorage.terminal_id = (data && data.id) || $active.attr('place_id');
 
-			$('.place_title').text(terminal_name);
+			$('.place_title').text(localStorage.terminal_name);
 
 			var socket = io.connect('', {
 				port: 3002,
 				forceNew: true,
-				query: { terminal: terminal_id }
+				query: { terminal: localStorage.terminal_id }
 			});
 
 			socket.on('content', function(data) {
@@ -91,10 +90,12 @@ $(function() {
 			}
 		});
 
-		if (localStorage.getItem('terminal_id')) {
-			var id = localStorage.getItem('terminal_id');
-			var name = localStorage.getItem('terminal_name');
+		if (localStorage.terminal_id && localStorage.terminal_name) {
+			var data = {
+				name: localStorage.terminal_name,
+				id: localStorage.terminal_id
+			};
 
-			$('.places_connect').addClass('active').trigger('click', {name: name, id: id}).removeClass('active');
+			$('.places_connect').addClass('active').trigger('click', data).removeClass('active');
 		}
 });
