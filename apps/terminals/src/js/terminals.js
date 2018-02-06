@@ -4,7 +4,17 @@ $(function() {
 		$('.panel_block, .places_block').toggleClass('show');
 	});
 
+	$('.button.navigate').on('click', function(e) {
+		$(this).toggleClass('active');
+		$('.swiper-button-next, .swiper-button-prev').toggleClass('active');
+	});
+
 	$('.button.reboot').on('click', function(e) {
+		location.reload();
+	});
+
+	$('.button.reset').on('click', function(e) {
+		localStorage.clear();
 		location.reload();
 	});
 
@@ -19,9 +29,12 @@ $(function() {
 	});
 
 	$(document)
-		.on('click', '.places_connect.active', function(e) {
-			var terminal_name = $('.places_list').children('.active').text();
-			var terminal_id = $('.places_list').children('.active').attr('place_id');
+		.on('click', '.places_connect.active', function(e, data) {
+			var terminal_name = (data && data.name) || $('.places_list').children('.active').text();
+			var terminal_id = (data && data.id) || $('.places_list').children('.active').attr('place_id');
+
+			localStorage.setItem('terminal_id', terminal_id);
+			localStorage.setItem('terminal_name', terminal_name);
 
 			$('.place_title').text(terminal_name);
 
@@ -34,6 +47,10 @@ $(function() {
 			socket.on('content', function(data) {
 				mySwiper.removeAllSlides();
 				mySwiper.appendSlide(data.content);
+			});
+
+			socket.on('push_reload', function(data) {
+				location.reload();
 			});
 
 		})
@@ -73,4 +90,11 @@ $(function() {
 				$('.places_connect').addClass('active');
 			}
 		});
+
+		if (localStorage.getItem('terminal_id')) {
+			var id = localStorage.getItem('terminal_id');
+			var name = localStorage.getItem('terminal_name');
+
+			$('.places_connect').addClass('active').trigger('click', {name: name, id: id}).removeClass('active');
+		}
 });
