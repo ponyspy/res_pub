@@ -68,7 +68,9 @@ module.exports = function(io, i18n) {
 					if (item.ribbon.toString() == ribbon._id.toString()) {
 						var room_id = terminals_table[item.device_id];
 
-						io.to(room_id).emit('update', { data: 'cool' });
+						contentCompile(ribbon, function(err, content) {
+							io.to(room_id).emit('update', { content: content });
+						});
 					}
 				});
 			});
