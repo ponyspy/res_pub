@@ -1,4 +1,6 @@
 $(function() {
+	var socket = null;
+
 	$('.button.places').on('click', function(e) {
 		$(this).toggleClass('active');
 		$('.panel_block, .places_block').toggleClass('show');
@@ -37,7 +39,12 @@ $(function() {
 
 			$('.place_title').text(localStorage.terminal_name);
 
-			var socket = io.connect('', {
+			if (socket) {
+				socket.disconnect();
+				socket = null;
+			}
+
+			socket = io.connect('', {
 				port: 3002,
 				forceNew: true,
 				query: { terminal: localStorage.terminal_id }

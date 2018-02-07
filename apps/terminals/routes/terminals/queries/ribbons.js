@@ -22,7 +22,7 @@ module.exports.Ribbons = function(ids, callback) {
 
 		var data_table = devices.map(function(device) {
 			if (device.ribbon) {
-				return { device_id: device._id, ribbon: device.ribbon };
+				return { device_id: device._id, ribbon_id: device.ribbon };
 			} else if (device.meta.parent.ribbon) {
 					return { device_id: device._id, ribbon: device.meta.parent.ribbon };
 				} else if (device.meta.parent.meta.parent.ribbon) {
@@ -37,28 +37,30 @@ module.exports.Ribbons = function(ids, callback) {
 		Ribbon.find({ _id: { $in: ribbons_ids } }).populate('media.object').exec(function(err, ribbons) {
 			if (err) return callback(err);
 
-			hash_table = ribbons.map(function(ribbon) {
-				var hash = crypto.createHash('md5').update(ribbon.media.map(function(media) {
-					var meta = {};
+			ribbons.forEach(function(ribbon) {
+				data_table.forEach(function(data) {
+					if (data.ribbon == ribbon._id.toString()) {
+						data.ribbon_hash = crypto.createHash('md5').update(ribbon.media.map(function(media) {
+							var meta = {};
 
-					if (media.meta.date_start && media.meta.date_end) {
-						meta.date_start = media.meta.date_start;
-						meta.date_end = media.meta.date_end;
-						meta.counter = media.meta.counter;
-					} else {
-						meta.date_start = media.object.meta.date_start;
-						meta.date_end = media.object.meta.date_end;
-						meta.counter = media.object.meta.counter;
+							if (media.meta.date_start && media.meta.date_end) {
+								meta.date_start = media.meta.date_start;
+								meta.date_end = media.meta.date_end;
+								meta.counter = media.meta.counter;
+							} else {
+								meta.date_start = media.object.meta.date_start;
+								meta.date_end = media.object.meta.date_end;
+								meta.counter = media.object.meta.counter;
+							}
+
+							return moment().isBetween(meta.date_start, meta.date_end, 'day', '[]') ? meta.counter : false;
+
+						}).join('::')).digest('hex');
 					}
-
-					return moment().isBetween(meta.date_start, meta.date_end, 'day', '[]') ? meta.counter : false;
-
-				}).join('::')).digest('hex');
-
-				return { ribbon: ribbon._id, hash: hash };
+				});
 			});
 
-			callback(null, data_table, ribbons, hash_table);
+			callback(null, data_table, ribbons);
 		});
 	});
 

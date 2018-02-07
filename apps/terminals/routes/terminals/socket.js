@@ -32,10 +32,10 @@ module.exports = function(io, i18n) {
 	module.get = function(socket) {
 		var terminal_id = socket.handshake.query.terminal;
 
-		Query.Ribbons([terminal_id], function(err, data_table, ribbons, hash_table) {
+		Query.Ribbons([terminal_id], function(err, data_table, ribbons) {
 			contentCompile(ribbons[0], function(err, content) {
 				socket.terminal = terminal_id;
-				socket.hash = hash_table[0];
+				socket.hash = data_table[0].hash;
 
 				io.to(socket.id).emit('content', { content: content });
 			});
@@ -60,9 +60,14 @@ module.exports = function(io, i18n) {
 			return io.sockets.connected[room_id].terminal;
 		});
 
-		Query.Ribbons(active_terminals, function(err, data_table, ribbons, hash_table) {
+		Query.Ribbons(active_terminals, function(err, data_table, ribbons) {
+			// console.log(data_table);
 			data_table.forEach(function(item) {
-
+				ribbons.forEach(function(ribbon) {
+					if (item.ribbon.toString() == ribbon._id.toString()) {
+						// console.log('cool');
+					}
+				});
 			});
 		});
 
