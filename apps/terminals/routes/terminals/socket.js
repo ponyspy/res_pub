@@ -1,5 +1,4 @@
 var jade = require('jade');
-var moment = require('moment');
 
 var Query = {
 	Ribbons: require('./queries/ribbons.js').Ribbons,
@@ -22,7 +21,6 @@ module.exports = function(io, i18n) {
 			ribbon: ribbon,
 			get_locale: get_locale,
 			i18n: i18n,
-			moment: moment,
 			compileDebug: false, debug: false, cache: false, pretty: false
 		};
 
@@ -41,10 +39,6 @@ module.exports = function(io, i18n) {
 			});
 		});
 
-
-		// ---
-
-
 		socket.on('reload', function(data) {
 			io.emit('push_reload');
 		});
@@ -53,8 +47,6 @@ module.exports = function(io, i18n) {
 	module.interval = function() {
 		var rooms = Object.keys(io.sockets.adapter.rooms);
 		var terminals_table = {};
-		// console.log('Connections: ' + io.engine.clientsCount);
-		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
 
 		rooms.forEach(function(room_id) {
 			var terminal_id = io.sockets.connected[room_id].terminal;
@@ -79,22 +71,6 @@ module.exports = function(io, i18n) {
 				});
 			});
 		});
-
-
-
-
-
-		// rooms.forEach(function(room_id) {
-		// 	var socket = io.sockets.connected[room_id];
-
-		// 	// socket.emit('update', { cool: 'zlo' });
-
-		// 	console.log(socket.handshake.query.terminal);
-		// 	console.log(socket.terminal);
-		// });
-
-
-		// io.to(room_id).emit('events', { areas: compile, status: 'update' });
 	};
 
 
