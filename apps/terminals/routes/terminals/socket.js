@@ -32,26 +32,18 @@ module.exports = function(io, i18n) {
 	module.get = function(socket) {
 		var terminal_id = socket.handshake.query.terminal;
 
-		socket.join(terminal_id);
-
-
-		Query.Ribbons([terminal_id], function(err, data_table, ribbons) {
+		Query.Ribbons([terminal_id], function(err, data_table, ribbons, hash_table) {
 			contentCompile(ribbons[0], function(err, content) {
-				io.to(terminal_id).emit('content', { content: content });
+				socket.terminal = terminal_id;
+				socket.hash = hash_table[0];
+
+				io.to(socket.id).emit('content', { content: content });
 			});
 		});
 
 
 		// ---
 
-
-		socket.on('update', function(data) {
-
-		});
-
-		socket.on('disconnect', function(data) {
-			socket.leave(terminal_id);
-		});
 
 		socket.on('reload', function(data) {
 			io.emit('push_reload');
@@ -63,6 +55,30 @@ module.exports = function(io, i18n) {
 		var rooms = Object.keys(io.sockets.adapter.rooms);
 		// console.log('Connections: ' + io.engine.clientsCount);
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
+
+		var active_terminals = rooms.map(function(room_id) {
+			return io.sockets.connected[room_id].terminal;
+		});
+
+		Query.Ribbons(active_terminals, function(err, data_table, ribbons, hash_table) {
+			data_table.forEach(function(item) {
+
+			});
+		});
+
+
+
+
+
+		// rooms.forEach(function(room_id) {
+		// 	var socket = io.sockets.connected[room_id];
+
+		// 	// socket.emit('update', { cool: 'zlo' });
+
+		// 	console.log(socket.handshake.query.terminal);
+		// 	console.log(socket.terminal);
+		// });
+
 
 		// io.to(room_id).emit('events', { areas: compile, status: 'update' });
 	};

@@ -48,6 +48,10 @@ $(function() {
 				mySwiper.appendSlide(data.content);
 			});
 
+			socket.on('update', function(data) {
+				console.log(data);
+			});
+
 			socket.on('push_reload', function(data) {
 				location.reload();
 			});
