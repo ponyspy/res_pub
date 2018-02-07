@@ -35,7 +35,7 @@ module.exports = function(io, i18n) {
 		Query.Ribbons([terminal_id], function(err, data_table, ribbons) {
 			contentCompile(ribbons[0], function(err, content) {
 				socket.terminal = terminal_id;
-				socket.hash = data_table[0].hash;
+				socket.hash = data_table[0].ribbon_hash;
 
 				io.to(socket.id).emit('content', { content: content });
 			});
@@ -67,10 +67,14 @@ module.exports = function(io, i18n) {
 				ribbons.forEach(function(ribbon) {
 					if (item.ribbon.toString() == ribbon._id.toString()) {
 						var room_id = terminals_table[item.device_id];
+						var socket = io.sockets.connected[room_id];
 
-						contentCompile(ribbon, function(err, content) {
-							io.to(room_id).emit('update', { content: content });
-						});
+						if (socket.hash !== item.ribbon_hash) {
+							contentCompile(ribbon, function(err, content) {
+								socket.emit('update', { content: content });
+								socket.hash = item.ribbon_hash;
+							});
+						}
 					}
 				});
 			});
