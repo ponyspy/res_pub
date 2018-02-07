@@ -51,21 +51,24 @@ module.exports = function(io, i18n) {
 	};
 
 	module.interval = function() {
-		var date_now = moment().toDate();
 		var rooms = Object.keys(io.sockets.adapter.rooms);
+		var terminals_table = {};
 		// console.log('Connections: ' + io.engine.clientsCount);
 		// console.log('Rooms: ' + Object.keys(io.sockets.adapter.rooms));
 
-		var active_terminals = rooms.map(function(room_id) {
-			return io.sockets.connected[room_id].terminal;
+		rooms.forEach(function(room_id) {
+			var terminal_id = io.sockets.connected[room_id].terminal;
+
+			terminals_table[terminal_id] = room_id;
 		});
 
-		Query.Ribbons(active_terminals, function(err, data_table, ribbons) {
-			// console.log(data_table);
+		Query.Ribbons(Object.keys(terminals_table), function(err, data_table, ribbons) {
 			data_table.forEach(function(item) {
 				ribbons.forEach(function(ribbon) {
 					if (item.ribbon.toString() == ribbon._id.toString()) {
-						// console.log('cool');
+						var room_id = terminals_table[item.device_id];
+
+						io.to(room_id).emit('update', { data: 'cool' });
 					}
 				});
 			});
