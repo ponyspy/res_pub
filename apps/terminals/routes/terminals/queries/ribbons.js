@@ -53,7 +53,7 @@ module.exports.Ribbons = function(ids, callback) {
 								meta.counter = media.object.meta.counter;
 							}
 
-							return moment().isBetween(meta.date_start, meta.date_end, 'day', '[]') ? meta.counter : false;
+							return moment().isBetween(meta.date_start, meta.date_end, 'day', '[]') ? media.object._id + ':' + meta.counter : false;
 
 						}).join('::')).digest('hex');
 					}

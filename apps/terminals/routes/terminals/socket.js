@@ -48,27 +48,24 @@ module.exports = function(io, i18n) {
 
 	module.interval = function() {
 		var rooms = Object.keys(io.sockets.adapter.rooms);
-		var terminals_table = {};
-
-		rooms.forEach(function(room_id) {
-			var terminal_id = io.sockets.connected[room_id].terminal;
-
-			terminals_table[terminal_id] = room_id;
+		var terminals = rooms.map(function(room_id) {
+			return io.sockets.connected[room_id].terminal;
 		});
 
-		Query.Ribbons(Object.keys(terminals_table), function(err, data_table, ribbons) {
+		Query.Ribbons(terminals, function(err, data_table, ribbons) {
 			data_table.forEach(function(item) {
 				ribbons.forEach(function(ribbon) {
 					if (item.ribbon.toString() == ribbon._id.toString()) {
-						var room_id = terminals_table[item.device_id];
-						var socket = io.sockets.connected[room_id];
+						rooms.forEach(function(room_id) {
+							var socket = io.sockets.connected[room_id];
 
-						if (socket.hash !== item.ribbon_hash) {
-							contentCompile(ribbon, function(err, content) {
-								socket.emit('update', { content: content });
-								socket.hash = item.ribbon_hash;
-							});
-						}
+							if (item.device_id == socket.terminal && socket.hash !== item.ribbon_hash) {
+								contentCompile(ribbon, function(err, content) {
+									socket.emit('update', { content: content });
+									socket.hash = item.ribbon_hash;
+								});
+							}
+						});
 					}
 				});
 			});
