@@ -23,7 +23,7 @@ $(function() {
 	var mySwiper = new Swiper('.swiper-container', {
 		speed: 400,
 		spaceBetween: 100,
-		loop: true,
+		// loop: true,
 		navigation: {
 			nextEl: '.swiper-button-next',
 			prevEl: '.swiper-button-prev',
@@ -56,7 +56,8 @@ $(function() {
 			});
 
 			socket.on('update', function(data) {
-				console.log(data);
+				mySwiper.removeAllSlides();
+				mySwiper.appendSlide(data.content);
 			});
 
 			socket.on('push_reload', function(data) {

@@ -1,4 +1,5 @@
 var jade = require('jade');
+var moment = require('moment');
 
 var Query = {
 	Ribbons: require('./queries/ribbons.js').Ribbons,
@@ -20,6 +21,7 @@ module.exports = function(io, i18n) {
 			__n: function() { return i18n.__n.apply(null, arguments); },
 			ribbon: ribbon,
 			get_locale: get_locale,
+			moment: moment,
 			i18n: i18n,
 			compileDebug: false, debug: false, cache: false, pretty: false
 		};
