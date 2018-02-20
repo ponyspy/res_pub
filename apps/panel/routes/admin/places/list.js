@@ -19,7 +19,7 @@ module.exports = function(Model) {
 			Query.count().exec(function(err, count) {
 				if (err) return next(err);
 
-				res.render('admin/Places', {places: places, type: query.type, parent: query.parent, count: Math.ceil(count / 10)});
+				res.render('admin/places', {places: places, type: query.type, parent: query.parent, count: Math.ceil(count / 10)});
 			});
 		});
 	};
