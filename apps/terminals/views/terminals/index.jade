@@ -13,9 +13,11 @@ block panel
 	.place_title
 	.buttons
 		.button.places Локации
-		.button.navigate Навигация
 		.button.reboot Обновить
 		.button.reset Сброс
+		.button.prev= '<<'
+		.button.next= '>>'
+
 
 block content
 	.places_block
@@ -24,7 +26,4 @@ block content
 			include _places.jade
 		.places_connect Подключить
 
-	.slider_block.swiper-container
-		.swiper-wrapper
-		.swiper-button-next.swiper-button-black
-		.swiper-button-prev.swiper-button-black
+	.slider_block.swiper-container: .swiper-wrapper

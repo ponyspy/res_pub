@@ -1,14 +1,16 @@
 $(function() {
 	var socket = null;
 
+	var mySwiper = new Swiper('.swiper-container', {
+		speed: 1,
+		spaceBetween: 100,
+		loop: true,
+		effect: 'fade'
+	});
+
 	$('.button.places').on('click', function(e) {
 		$(this).toggleClass('active');
 		$('.panel_block, .places_block').toggleClass('show');
-	});
-
-	$('.button.navigate').on('click', function(e) {
-		$(this).toggleClass('active');
-		$('.swiper-button-next, .swiper-button-prev').toggleClass('active');
 	});
 
 	$('.button.reboot').on('click', function(e) {
@@ -20,14 +22,12 @@ $(function() {
 		location.reload();
 	});
 
-	var mySwiper = new Swiper('.swiper-container', {
-		speed: 400,
-		spaceBetween: 100,
-		// loop: true,
-		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev',
-		},
+	$('.button.next').on('click', function(e) {
+		mySwiper.slideNext();
+	});
+
+	$('.button.prev').on('click', function(e) {
+		mySwiper.slidePrev();
 	});
 
 	$(document)
