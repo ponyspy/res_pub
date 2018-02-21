@@ -1,2 +1,7 @@
 each media in ribbon.media
-	.slide_item.swiper-slide(style='background-image: url(' + media.object.path.main + ')')
+	if media.object.type == 'video'
+		.slide_item.swiper-slide
+			video.slide_video(autoplay=true, loop=true, muted=true, controls=false)
+				source(src=media.object.path.main, type='video/mp4')
+	else
+		.slide_item.swiper-slide(style='background-image: url(' + media.object.path.main + ')')
