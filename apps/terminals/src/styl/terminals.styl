@@ -31,8 +31,9 @@ html, body
 	background-color lightgrey
 	width 100%
 	top 0
-	padding-top 40px
-	padding-bottom 40px
+	padding-top 20px
+	padding-bottom 20px
+	padding-left 40px
 	box-sizing border-box
 	user-select none
 	opacity 0
@@ -44,8 +45,8 @@ html, body
 		transition .15s linear
 		opacity 1
 	.button
-		font 24pt/26pt 'Times'
-		margin-left 40px
+		font 14pt/16pt 'Times'
+		margin-right 20px
 		display inline-block
 		cursor pointer
 		border 2px solid black
@@ -60,28 +61,28 @@ html, body
 		float right
 		margin-right 40px
 		margin-top 7px
-		font 24pt/26pt 'Times'
+		font 14pt/16pt 'Times'
 
 .places_block
 	display none
-	width 640px
-	height 480px
+	width 540px
+	height 380px
 	position absolute
 	top 0; left 0; right 0; bottom 0
 	margin auto
 	left 50%
-	margin-left -320px
+	margin-left -270px
 	background-color lightgrey
 	z-index 999
 	user-select none
 	&.show
 		display block
 	.places_title
-		font-size 18pt
+		font-size 14pt
 		.p_title
 			cursor pointer
 			display inline-block
-			padding 5px
+			padding 8px
 			&:hover
 				background-color black
 				color white
@@ -98,8 +99,8 @@ html, body
 		width 100%
 		overflow scroll
 		.place_item
-			font-size 16pt
-			padding 10px
+			font-size 14pt
+			padding 8px
 			cursor pointer
 			&.active
 			&:hover
