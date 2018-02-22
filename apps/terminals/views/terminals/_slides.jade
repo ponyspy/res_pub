@@ -1,6 +1,6 @@
 each media in ribbon.media
 	if media.object.type == 'video'
-		.slide_item.swiper-slide(media-type=media.object.type, media-counter=media.object.meta.counter)
+		.slide_item.swiper-slide(media-type=media.object.type, media-counter=media.meta.counter || media.object.meta.counter)
 			video.slide_video(autoplay=false, loop=false, muted=true, controls=false)
 				source(src=media.object.path.main, type='video/mp4')
 	else
