@@ -1,9 +1,14 @@
 $(function() {
 	var socket = null;
 
+	var play = false;
+	var video_count = 0;
+	var image_interval = null;
+
 	var mySwiper = new Swiper('.swiper-container', {
 		speed: 1,
-		spaceBetween: 100,
+		spaceBetween: 0,
+		allowTouchMove: false,
 		loop: true,
 		effect: 'fade'
 	});
@@ -28,6 +33,57 @@ $(function() {
 
 	$('.button.prev').on('click', function(e) {
 		mySwiper.slidePrev();
+	});
+
+	$('.button.start').on('click', function(e) {
+		play = true;
+		mySwiper.slideNext();
+	});
+
+	$('.button.stop').on('click', function(e) {
+		play = false;
+		video_count = 0;
+		clearTimeout(image_interval);
+
+		$('video').each(function() {
+			$(this).trigger('pause')[0].currentTime = 0;
+		});
+	});
+
+	mySwiper.on('slideChangeTransitionStart', function () {
+		if (!play) return false;
+
+		var $current_slide = $(mySwiper.slides).eq(mySwiper.realIndex).next();
+		var media_type = $current_slide.attr('media-type');
+		var media_counter = +$current_slide.attr('media-counter');
+
+		clearTimeout(image_interval);
+		video_count = 0;
+
+		$('video').each(function() {
+			$(this).trigger('pause')[0].currentTime = 0;
+		});
+
+		if (media_type == 'video') {
+			var $video = $current_slide.find('video');
+
+			$video.on('ended', function(e) {
+				if (video_count < media_counter) {
+					video_count = video_count + 1;
+					$video[0].currentTime = 0;
+					$video.trigger('play');
+					console.log(video_count);
+				} else {
+					mySwiper.slideNext();
+				}
+			}).trigger('play');
+
+		} else {
+			image_interval = setTimeout(function() {
+				mySwiper.slideNext();
+			}, media_counter * 1000);
+		}
+
 	});
 
 	$(document)
