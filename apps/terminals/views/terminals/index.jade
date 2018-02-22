@@ -29,4 +29,11 @@ block content
 			include _places.jade
 		.places_connect Подключить
 
-	.slider_block.swiper-container: .swiper-wrapper
+	.test_block
+		button.play_btn play
+		each button, i in new Array(5)
+			button.slide_btn=i
+
+	.slider_block
+
+	.view_block
