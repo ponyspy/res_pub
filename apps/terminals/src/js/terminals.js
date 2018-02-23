@@ -4,7 +4,7 @@ $(function() {
 	var play = false;
 	var video_count = 0;
 	var image_timer = null;
-	var add_video_timer = null;
+	var add_timer = null;
 
 	var mSwiper = new Swiper('.swiper-container', {
 		speed: 1,
@@ -67,25 +67,31 @@ $(function() {
 		var media_counter = +$current_slide.attr('media-counter');
 		var media_src = $current_slide.attr('media-src');
 
+		var $video = $('.view_block').children('video');
+		var $image = $('.view_block').children('img');
+
 		if (media_type == 'video') {
-			var $video = $('<video/>', { muted: true, preload: 'auto', src: media_src });
+			clearTimeout(add_timer);
+			add_timer = setTimeout(function() {
+				$image.removeClass('active');
 
-			if ($('video').length) {
-				$('video')[0].pause();
-				$('video').attr('src', '');
-				$('video')[0].load();
-			}
-
-			clearTimeout(add_video_timer);
-			add_video_timer = setTimeout(function() {
-				$('.view_block').empty().append($video);
+				$video[0].pause();
+				$video[0].load();
+				$video.addClass('active').attr('src', media_src);
 				$video[0].load();
 				$video[0].play();
 			}, 2000);
 
 		} else {
-			var $image = $('<img/>', { src: media_src });
-			$('.view_block').empty().append($image);
+			clearTimeout(add_timer);
+			add_timer = setTimeout(function() {
+				$video[0].pause();
+				$video[0].load();
+				$video.removeClass('active').attr('src', '');
+				$video[0].load();
+
+				$image.addClass('active').attr('src', media_src);
+			}, 2000);
 		}
 
 	});
