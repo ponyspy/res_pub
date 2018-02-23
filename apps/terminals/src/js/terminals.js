@@ -21,12 +21,9 @@ $(function() {
 		location.reload();
 	});
 
-	$('.button.next').on('click', function(e) {
-
-	});
-
-	$('.button.prev').on('click', function(e) {
-
+	$('.button.ribbon').on('click', function(e) {
+		$(this).toggleClass('active');
+		$('.panel_block, .slider_block').toggleClass('show');
 	});
 
 	$('.button.start').on('click', function(e) {
@@ -45,45 +42,7 @@ $(function() {
 
 
 
-// test section
 
-	$('.slide_btn').on('click', function(e) {
-		var index = $(this).index('.slide_btn');
-		var $current_slide = $('.slide_item').eq(index);
-
-		var media_type = $current_slide.attr('media-type');
-		var media_counter = +$current_slide.attr('media-counter');
-		var media_src = $current_slide.attr('media-src');
-
-		var $video = $('.view_block').children('video');
-		var $image = $('.view_block').children('img');
-
-		if (media_type == 'video') {
-			clearTimeout(add_timer);
-			add_timer = setTimeout(function() {
-				$image.removeClass('active');
-
-				$video[0].pause();
-				$video[0].load();
-				$video.addClass('active').attr('src', media_src);
-				$video[0].load();
-				$video[0].play();
-			}, 2000);
-
-		} else {
-			clearTimeout(add_timer);
-			add_timer = setTimeout(function() {
-				$video[0].pause();
-				$video[0].load();
-				$video.removeClass('active').attr('src', '');
-				$video[0].load();
-
-				$image.addClass('active').attr('src', media_src);
-			}, 2000);
-		}
-
-	});
-	// end test section
 
 
 
@@ -98,17 +57,18 @@ $(function() {
 		var $video = $('.view_block').children('video');
 		var $image = $('.view_block').children('img');
 
-		clearTimeout(image_timer);
-		video_count = 0;
-
 		var flag_round = $(this).index() < $('.slide_item').length - 1;
 		flag_round
 			? $('.slide_item').removeClass('active').filter(this).next().addClass('active')
 			: $('.slide_item').removeClass('active').first().addClass('active');
 
-		if (media_type == 'video') {
-			clearTimeout(add_timer);
-			add_timer = setTimeout(function() {
+		video_count = 0;
+		clearTimeout(image_timer);
+		clearTimeout(add_timer);
+
+		add_timer = setTimeout(function() {
+
+			if (media_type == 'video') {
 				$image.removeClass('show');
 
 				$video[0].pause();
@@ -117,7 +77,7 @@ $(function() {
 				$video[0].load();
 				$video[0].play();
 
-				$video.on('ended', function(e) {
+				$video.off().on('ended', function(e) {
 					if (video_count != media_counter - 1) {
 						video_count = video_count + 1;
 
@@ -130,13 +90,7 @@ $(function() {
 						$('.slide_item.active').trigger('click');
 					}
 				});
-
-			}, 2000);
-
-		} else {
-			clearTimeout(add_timer);
-			add_timer = setTimeout(function() {
-
+			} else {
 				$video[0].pause();
 				$video[0].load();
 				$video.removeClass('show').attr('src', '');
@@ -147,28 +101,12 @@ $(function() {
 				image_timer = setTimeout(function() {
 					$('.slide_item.active').trigger('click');
 				}, media_counter * 1000);
+			}
 
-			}, 2000);
-		}
+		}, 2000);
 
 	});
 	// ###
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

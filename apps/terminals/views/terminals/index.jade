@@ -18,8 +18,7 @@ block panel
 		.separator
 		.button.start Старт
 		.button.stop Стоп
-		.button.prev= '<<'
-		.button.next= '>>'
+		.button.ribbon Лента
 
 
 block content
@@ -28,10 +27,6 @@ block content
 		.places_list
 			include _places.jade
 		.places_connect Подключить
-
-	.test_block
-		each button, i in new Array(7)
-			button.slide_btn=i
 
 	.slider_block
 
