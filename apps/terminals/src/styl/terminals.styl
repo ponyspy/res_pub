@@ -20,13 +20,18 @@ html, body
 
 .slider_block
 	position absolute
-	top 300px
 	z-index 999
 	overflow hidden
+	bottom 0
+	background-color lightgrey
+	width 100%
+	// opacity 0
+	// &:hover
+	// 	opacity 1
 	.slide_item
-		width 60px
-		height 60px
-		background-color lightgrey
+		width 80px
+		height 80px
+		background-color grey
 		float left
 		margin-right 20px
 		&.active
