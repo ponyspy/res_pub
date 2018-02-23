@@ -4,6 +4,7 @@ $(function() {
 	var play = false;
 	var video_count = 0;
 	var image_timer = null;
+	var add_video_timer = null;
 
 	var mSwiper = new Swiper('.swiper-container', {
 		speed: 1,
@@ -53,9 +54,9 @@ $(function() {
 	});
 
 
-	$('.play_btn').on('click', function(e) {
-		$('video')[0].play();
-	});
+	// $('.play_btn').on('click', function(e) {
+	// 	$('video')[0].play();
+	// });
 
 
 	$('.slide_btn').on('click', function(e) {
@@ -69,9 +70,19 @@ $(function() {
 		if (media_type == 'video') {
 			var $video = $('<video/>', { muted: true, preload: 'auto', src: media_src });
 
-			$('.view_block').empty().append($video);
-			$video[0].load();
-			$video[0].play();
+			if ($('video').length) {
+				$('video')[0].pause();
+				$('video').attr('src', '');
+				$('video')[0].load();
+			}
+
+			clearTimeout(add_video_timer);
+			add_video_timer = setTimeout(function() {
+				$('.view_block').empty().append($video);
+				$video[0].load();
+				$video[0].play();
+			}, 2000);
+
 		} else {
 			var $image = $('<img/>', { src: media_src });
 			$('.view_block').empty().append($image);
@@ -80,6 +91,58 @@ $(function() {
 	});
 
 
+
+
+	$('.play_btn').on('click', function(e) {
+		$('.slide_item').last().trigger('click');
+	});
+
+
+
+	var timer = function() {
+		$('.active').trigger('click');
+	};
+
+	$('.slide_item').on('click', function(e) {
+		var $current_slide = $(this);
+
+		var media_type = $current_slide.attr('media-type');
+		var media_counter = +$current_slide.attr('media-counter');
+		var media_src = $current_slide.attr('media-src');
+
+		clearTimeout(image_timer);
+
+		var flag_round = $(this).index() < $('.slide_item').length - 1;
+		flag_round
+			? $('.slide_item').removeClass('active').filter(this).next().addClass('active')
+			: $('.slide_item').removeClass('active').first().addClass('active');
+
+
+		if (media_type == 'video') {
+			var $video = $('<video/>', { muted: true, preload: 'auto', src: media_src });
+
+			$('.view_block').empty().append($video);
+			$video[0].load();
+			$video[0].play();
+
+			$video.on('ended', function(e) {
+				if (video_count != media_counter - 1) {
+					video_count = video_count + 1;
+					$video[0].currentTime = 0;
+					$video[0].load();
+					$video[0].play();
+				} else {
+					$('.active').trigger('click');
+				}
+			});
+
+		} else {
+			image_timer = setTimeout(timer, media_counter * 1000);
+
+			var $image = $('<img/>', { src: media_src });
+			$('.view_block').empty().append($image);
+		}
+	});
 
 
 
