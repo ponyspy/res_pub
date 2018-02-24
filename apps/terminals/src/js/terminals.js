@@ -48,6 +48,7 @@ $(function() {
 
 	// !!!!
 	$(document).on('click', '.slide_item', function(e) {
+		var $slides = $('.slide_item');
 		var $current_slide = $(this);
 
 		var media_type = $current_slide.attr('media-type');
@@ -57,10 +58,10 @@ $(function() {
 		var $video = $('.view_block').children('video');
 		var $image = $('.view_block').children('img');
 
-		var flag_round = $(this).index() < $('.slide_item').length - 1;
+		var flag_round = $current_slide.index() < $slides.length - 1;
 		flag_round
-			? $('.slide_item').removeClass('active').filter(this).next().addClass('active')
-			: $('.slide_item').removeClass('active').first().addClass('active');
+			? $slides.removeClass('active').filter(this).next().addClass('active')
+			: $slides.removeClass('active').first().addClass('active');
 
 		video_count = 0;
 		clearTimeout(image_timer);
@@ -72,7 +73,7 @@ $(function() {
 				$image.removeClass('show');
 
 				$video[0].pause();
-				$video[0].load();
+				// $video[0].load();
 				$video.addClass('show').attr('src', media_src);
 				$video[0].load();
 				$video[0].play();
@@ -82,24 +83,24 @@ $(function() {
 						video_count = video_count + 1;
 
 						$video[0].pause();
-						$video[0].load();
+						// $video[0].load();
 						$video[0].currentTime = 0;
 						$video[0].load();
 						$video[0].play();
 					} else {
-						$('.slide_item.active').trigger('click');
+						$slides.filter('.active').trigger('click');
 					}
 				});
 			} else {
 				$video[0].pause();
-				$video[0].load();
+				// $video[0].load();
 				$video.removeClass('show').attr('src', '');
 				$video[0].load();
 
 				$image.addClass('show').attr('src', media_src);
 
 				image_timer = setTimeout(function() {
-					$('.slide_item.active').trigger('click');
+					$slides.filter('.active').trigger('click');
 				}, media_counter * 1000);
 			}
 
