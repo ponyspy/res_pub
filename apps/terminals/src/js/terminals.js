@@ -1,5 +1,6 @@
 $(function() {
 	var socket = null;
+	var $slides = null;
 
 	var play = false;
 	var video_count = 0;
@@ -72,7 +73,6 @@ $(function() {
 
 	// block slider
 	$(document).on('click', '.slide_item', function(e) {
-		var $slides = $('.slide_item');
 		var $current_slide = $(this);
 
 		var media_type = $current_slide.attr('media-type');
@@ -183,13 +183,17 @@ $(function() {
 			});
 
 			socket.on('content', function(data) {
-				$('.slider_block').empty().append(data.content);
+				$slides = $(data.content);
+
+				$('.slider_block').empty().append($slides);
 
 				// $('.button.start').trigger('click');
 			});
 
 			socket.on('update', function(data) {
-				$('.slider_block').empty().append(data.content);
+				$slides = $(data.content);
+
+				$('.slider_block').empty().append($slides);
 
 				// $('.button.start').trigger('click');
 			});
