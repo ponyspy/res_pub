@@ -75,6 +75,9 @@ $(function() {
 	$(document).on('click', '.slide_item', function(e) {
 		var $current_slide = $(this);
 
+		// seq monitor
+		$slides.removeClass('current go').filter(this).addClass('current');
+
 		var media_type = $current_slide.attr('media-type');
 		var media_counter = +$current_slide.attr('media-counter');
 		var media_src = $current_slide.attr('media-src');
@@ -93,6 +96,9 @@ $(function() {
 		clearTimeout(add_timer);
 
 		add_timer = setTimeout(function() {
+
+			// seq monitor
+			$slides.filter('.current').addClass('go').removeClass('current');
 
 			if (media_type == 'video') {
 				$image.removeClass('show');
