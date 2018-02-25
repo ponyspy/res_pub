@@ -110,10 +110,11 @@ $(function() {
 		var media_src = $current_slide.attr('media-src');
 		var media_cache = $current_slide.attr('media-cache');
 
-		var $video = $('.view_block').children('video');
-		var $image = $('.view_block').children('img');
+		var $video = $('.view_block').children('.video');
+		var $image = $('.view_block').children('.image');
 
 		var flag_round = $current_slide.index() < $slides.length - 1;
+
 		flag_round
 			? $slides.removeClass('active').filter(this).next().addClass('active')
 			: $slides.removeClass('active').first().addClass('active');
@@ -128,7 +129,7 @@ $(function() {
 			$slides.filter('.current').addClass('go').removeClass('current');
 
 			if (media_type == 'video') {
-				$image.removeClass('show');
+				$image.removeClass('show').removeAttr('style');
 
 				loadFile(media_src, media_cache, 5000, function(data) {
 					var url = '';
@@ -169,7 +170,7 @@ $(function() {
 				$video.removeClass('show').attr('src', '');
 				$video[0].load();
 
-				$image.addClass('show').attr('src', media_src);
+				$image.addClass('show').css('background-image', 'url(' + media_src + ')');
 
 				image_timer = setTimeout(function() {
 					if (play) $slides.filter('.active').trigger('click');
