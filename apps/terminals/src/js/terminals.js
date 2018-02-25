@@ -91,6 +91,14 @@ $(function() {
 	// ---
 
 
+	$('.slider_block').on('mousemove', function(e) {
+		var $this = $(this);
+
+		var percent = (e.pageX - $this.offset().left) / $this.width() * 1.1 - 0.25;
+		$this.scrollLeft($this.children('.slider_inner').width() * percent);
+	});
+
+
 	$(document).on('click', '.slide_item', function(e) {
 		var $current_slide = $(this);
 
@@ -201,14 +209,14 @@ $(function() {
 			socket.on('content', function(data) {
 				$slides = $(data.content).first().addClass('active').end();
 
-				$('.slider_block').empty().append($slides);
+				$('.slider_inner').empty().append($slides);
 				if (play) $('.button.start').trigger('click', true);
 			});
 
 			socket.on('update', function(data) {
 				$slides = $(data.content).first().addClass('active').end();
 
-				$('.slider_block').empty().append($slides);
+				$('.slider_inner').empty().append($slides);
 			});
 
 			socket.on('push_reload', function(data) {

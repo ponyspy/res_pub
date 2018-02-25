@@ -2,29 +2,49 @@ html, body
 	margin 0
 	padding 0
 
-
 .slider_block
 	position absolute
 	z-index 999
-	overflow hidden
+	overflow-y hidden
 	bottom 0
 	background-color lightgrey
 	width 100%
 	display none
-	height 80px
+	height 152px
 	&.show
 		display block
+	.slider_inner
+		display inline-block
+		white-space nowrap
 	.slide_item
-		width 80px
-		height 80px
+		width 270px
+		height 152px
 		background-color grey
-		float left
+		display inline-block
+		white-space nowrap
 		margin-right 20px
-		&.go
+		background-position center
+		background-size contain
+		background-repeat no-repeat
+		position relative
+		&:last-child
+			margin-right 0
+		&.go:after
+			position absolute
+			content ''
+			width 40px
+			height 40px
 			background-color green
-		&.current
+			bottom 0
+			right 0
+		&.current:after
+			position absolute
+			content ''
+			width 40px
+			height 40px
 			background-color yellow
-
+			bottom 0
+			right 0
 
 .view_block
 	background-color black
@@ -38,17 +58,6 @@ html, body
 		display none
 		&.show
 			display block
-
-
-
-
-
-
-
-
-
-
-
 
 .panel_block
 	background-color lightgrey
