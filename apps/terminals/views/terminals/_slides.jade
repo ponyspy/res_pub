@@ -1,2 +1,2 @@
 each media, i in ribbon.media
-	.slide_item(class= (i == 0 ? 'active' : ''), media-src=src=media.object.path.main,  media-type=media.object.type, media-counter=media.meta.counter || media.object.meta.counter)
+	.slide_item(media-src=src=media.object.path.main,  media-type=media.object.type, media-counter=media.meta.counter || media.object.meta.counter)
