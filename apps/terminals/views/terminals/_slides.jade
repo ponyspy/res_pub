@@ -1,2 +1,2 @@
 each media, i in ribbon.media
-	.slide_item(style='background-image:url(' + media.object.path.preview + ')', media-src=src=media.object.path.main,  media-type=media.object.type, media-counter=media.meta.counter || media.object.meta.counter)
+	.slide_item(style='background-image:url(' + media.object.path.preview + ')', media-id=media.object._id, media-src=src=media.object.path.main,  media-type=media.object.type, media-counter=media.meta.counter || media.object.meta.counter)

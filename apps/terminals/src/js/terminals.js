@@ -211,11 +211,42 @@ $(function() {
 				$slides = $(data.content).first().addClass('active').end();
 
 				$('.slider_inner').empty().append($slides);
+
 				if (play) $('.button.start').trigger('click', true);
 			});
 
 			socket.on('update', function(data) {
-				$slides = $(data.content).first().addClass('active').end();
+				var content = $(data.content).toArray();
+				var cache = {};
+
+				$slides.each(function(i, slide) {
+					var $slide = $(slide);
+					var media_cache = $slide.attr('media-cache');
+					var media_id = $slide.attr('media-id');
+
+					if (media_cache) {
+						cache[media_id] = media_cache;
+					} else {
+						content.every(function(slide_new) {
+
+							return $(slide_new).attr('media-id') != media_id;
+
+						}) && URL.revokeObjectURL(media_cache);
+					}
+				});
+
+				var slides_new = content.map(function(slide_new) {
+					var $slide_new = $(slide_new);
+					var media_id = $slide_new.attr('media-id');
+
+					if (cache[media_id]) {
+						return $slide_new.attr('media-cache', cache[media_id]);
+					} else {
+						return $slide_new;
+					}
+				});
+
+				$slides = $(slides_new).map($.fn.toArray).first().addClass('active').end();
 
 				$('.slider_inner').empty().append($slides);
 			});
