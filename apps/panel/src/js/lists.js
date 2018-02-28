@@ -201,7 +201,7 @@ $(function() {
 
 	$(document)
 		.on('click', '.item_rm.user', {path:'/admin/users/remove', description: 'Удалить пользователя?'}, remove)
-		.on('click', '.item_rm.place', {path:'/admin/places/remove', description: 'Удалить локацию?'}, remove)
+		// .on('click', '.item_rm.place', {path:'/admin/places/remove', description: 'Удалить локацию?'}, remove)
 		.on('click', '.item_rm.ribbon', {path:'/admin/ribbons/remove', description: 'Удалить ленту?'}, remove)
 		.on('click', '.item_rm.ad', {path:'/admin/ads/remove', description: 'Удалить объявление?'}, remove)
 
