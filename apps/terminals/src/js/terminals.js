@@ -128,24 +128,22 @@ $(function() {
 			// seq monitor
 			$slides.filter('.current').addClass('go').removeClass('current');
 
-			if (media_type == 'video') {
-				$image.removeClass('show').removeAttr('style');
+			loadFile(media_src, media_cache, 5000, function(data) {
+				var url = '';
 
-				loadFile(media_src, media_cache, 5000, function(data) {
-					var url = '';
+				if (data == 'err') {
+					return $slides.filter('.active').trigger('click');
+				} else if (data == 'cache') {
+					url = media_cache;
+				} else {
+					url = data;
+					$current_slide.attr('media-cache', url);
+				}
 
-					if (data == 'cache') {
-						url = media_cache;
-					} else if (data == 'err') {
-						$slides.filter('.active').trigger('click');
-					} else {
-						url = data;
-						$current_slide.attr('media-cache', url);
-					}
-
+				if (media_type == 'video') {
+					$image.removeClass('show').removeAttr('style');
 
 					$video[0].pause();
-					// $video[0].load();
 					$video.addClass('show').attr('src', url);
 					$video[0].load();
 					$video[0].play();
@@ -155,7 +153,6 @@ $(function() {
 							video_count = video_count + 1;
 
 							$video[0].pause();
-							// $video[0].load();
 							$video[0].currentTime = 0;
 							$video[0].load();
 							$video[0].play();
@@ -163,19 +160,21 @@ $(function() {
 							if (play) $slides.filter('.active').trigger('click');
 						}
 					});
-				});
-			} else {
-				$video[0].pause();
-				// $video[0].load();
-				$video.removeClass('show').attr('src', '');
-				$video[0].load();
+				}
 
-				$image.addClass('show').css('background-image', 'url(' + media_src + ')');
+				if (media_type == 'image') {
+					$video[0].pause();
+					$video.removeClass('show').attr('src', '');
+					$video[0].load();
 
-				image_timer = setTimeout(function() {
-					if (play) $slides.filter('.active').trigger('click');
-				}, media_counter * 1000);
-			}
+					$image.addClass('show').css('background-image', 'url(' + url + ')');
+
+					image_timer = setTimeout(function() {
+						if (play) $slides.filter('.active').trigger('click');
+					}, media_counter * 1000);
+				}
+
+			});
 
 		}, 2000);
 

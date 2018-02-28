@@ -5,7 +5,7 @@ html, body
 .slider_block
 	position absolute
 	z-index 999
-	overflow-y hidden
+	overflow hidden
 	bottom 0
 	background-color lightgrey
 	width 100%
@@ -14,15 +14,17 @@ html, body
 	&.show
 		display block
 	.slider_inner
+		vertical-align top
 		display inline-block
 		white-space nowrap
+		font-size 0
 	.slide_item
 		width 270px
 		height 152px
 		background-color grey
 		display inline-block
 		white-space nowrap
-		margin-right 20px
+		margin-right 25px
 		background-position center
 		background-size contain
 		background-repeat no-repeat
