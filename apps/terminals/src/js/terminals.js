@@ -111,7 +111,6 @@ $(function() {
 		var media_cache = $current_slide.attr('media-cache');
 
 		var $video = $('.view_block').children('.video');
-		var $image = $('.view_block').children('.image');
 
 		var flag_round = $current_slide.index() < $slides.length - 1;
 
@@ -141,10 +140,8 @@ $(function() {
 				}
 
 				if (media_type == 'video') {
-					$image.removeClass('show').removeAttr('style');
-
 					$video[0].pause();
-					$video.addClass('show').attr('src', url);
+					$video.attr('src', url).attr('poster', '/stuff/terminals/backgrounds/bg.png');
 					$video[0].load();
 					$video[0].play();
 
@@ -164,10 +161,8 @@ $(function() {
 
 				if (media_type == 'image') {
 					$video[0].pause();
-					$video.removeClass('show').attr('src', '');
+					$video.attr('src', '').attr('poster', url);
 					$video[0].load();
-
-					$image.addClass('show').css('background-image', 'url(' + url + ')');
 
 					image_timer = setTimeout(function() {
 						if (play) $slides.filter('.active').trigger('click');
@@ -176,7 +171,7 @@ $(function() {
 
 			});
 
-		}, 2000);
+		}, 1000);
 
 	});
 
