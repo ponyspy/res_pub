@@ -7,6 +7,7 @@ $(function() {
 
 	var play = false;
 	var video_count = 0;
+
 	var image_timer = null;
 	var add_timer = null;
 
@@ -41,7 +42,7 @@ $(function() {
 									.filter(this).addClass('active');
 
 			play = true;
-			$('.slide_item').first().trigger('click');
+			$('.slide_item').first().trigger('click', true);
 		}
 	});
 
@@ -83,7 +84,7 @@ $(function() {
 			}
 		};
 
-		xhr.open("GET", url, true);
+		xhr.open('GET', url, true);
 		xhr.timeout = timeout;
 		xhr.send(null);
 	};
@@ -102,7 +103,7 @@ $(function() {
 	});
 
 
-	$(document).on('click', '.slide_item', function(e) {
+	$(document).on('click', '.slide_item', function(e, fire) {
 		var $current_slide = $(this);
 
 		// seq monitor
@@ -127,7 +128,7 @@ $(function() {
 			$slides.filter('.current').addClass('go').removeClass('current');
 
 			loadFile(media_src, media_cache, 5000, function(err, data) {
-				if (err) return $next_slide.trigger('click');
+				if (err) return $next_slide.trigger('click', true);
 
 				if (data == 'cache') {
 					var url = media_cache;
@@ -152,7 +153,7 @@ $(function() {
 							video.load();
 							video.play();
 						} else {
-							if (play) $next_slide.trigger('click');
+							if (play) $next_slide.trigger('click', true);
 						}
 					});
 				}
@@ -164,13 +165,13 @@ $(function() {
 					video.load();
 
 					image_timer = setTimeout(function() {
-						if (play) $next_slide.trigger('click');
+						if (play) $next_slide.trigger('click', true);
 					}, media_counter * 1000);
 				}
 
 			});
 
-		}, 1000);
+		}, fire ? 500 : 1000);
 
 	});
 
