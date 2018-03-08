@@ -64,7 +64,7 @@ $(function() {
 
 
 	var loadFile = function(url, cache, timeout, callback) {
-		if (cache) return callback('cache');
+		if (cache) return callback(null, 'cache');
 
 		var xhr = new XMLHttpRequest();
 				xhr.responseType = 'blob';
@@ -76,7 +76,7 @@ $(function() {
 		xhr.onload = function() {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					callback(URL.createObjectURL(xhr.response));
+					callback(null, URL.createObjectURL(xhr.response));
 				} else {
 					callback('err');
 				}
@@ -113,7 +113,7 @@ $(function() {
 		var media_src = $current_slide.attr('media-src');
 		var media_cache = $current_slide.attr('media-cache');
 
-		$current_slide.index() < $slides.length - 1
+		var $next_slide = $current_slide.index() < $slides.length - 1
 			? $slides.removeClass('active').filter(this).next().addClass('active')
 			: $slides.removeClass('active').first().addClass('active');
 
@@ -126,15 +126,13 @@ $(function() {
 			// seq monitor
 			$slides.filter('.current').addClass('go').removeClass('current');
 
-			loadFile(media_src, media_cache, 5000, function(data) {
-				var url = '';
+			loadFile(media_src, media_cache, 5000, function(err, data) {
+				if (err) return $next_slide.trigger('click');
 
-				if (data == 'err') {
-					return $slides.filter('.active').trigger('click');
-				} else if (data == 'cache') {
-					url = media_cache;
+				if (data == 'cache') {
+					var url = media_cache;
 				} else {
-					url = data;
+					var url = data;
 					$current_slide.attr('media-cache', url);
 				}
 
@@ -154,7 +152,7 @@ $(function() {
 							video.load();
 							video.play();
 						} else {
-							if (play) $slides.filter('.active').trigger('click');
+							if (play) $next_slide.trigger('click');
 						}
 					});
 				}
@@ -166,7 +164,7 @@ $(function() {
 					video.load();
 
 					image_timer = setTimeout(function() {
-						if (play) $slides.filter('.active').trigger('click');
+						if (play) $next_slide.trigger('click');
 					}, media_counter * 1000);
 				}
 
