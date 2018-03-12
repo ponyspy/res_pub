@@ -192,7 +192,7 @@
 		allowedfileextensions: ['.jpg','.jpeg','.png', '.gif', '.mp4'],
 		queuefiles: 1,
 		// maxfiles: 5,
-		maxfilesize: 25,
+		maxfilesize: 65,
 		data: {
 			'video_preview': function() {
 				return preview;

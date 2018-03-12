@@ -58,7 +58,7 @@ app.use(error.err_500, error.err_404);
 
 io.on('connection', socket.get);
 
-var check_interval = setInterval(socket.interval, 1000 * 60 * 0.1);	// 5 minutes 1000 * 60 * 5
+var check_interval = setInterval(socket.interval, 1000 * 60 * 5);	// 5 minutes 1000 * 60 * 5
 
 
 // ------------------------
