@@ -22,7 +22,7 @@ module.exports.Ribbons = function(ids, callback) {
 
 		var data_table = devices.map(function(device) {
 			if (device.ribbon) {
-				return { device_id: device._id, ribbon_id: device.ribbon };
+				return { device_id: device._id, ribbon: device.ribbon };
 			} else if (device.meta.parent.ribbon) {
 					return { device_id: device._id, ribbon: device.meta.parent.ribbon };
 				} else if (device.meta.parent.meta.parent.ribbon) {
