@@ -127,7 +127,7 @@ $(function() {
 			// seq monitor
 			$slides.filter('.current').addClass('go').removeClass('current');
 
-			loadFile(media_src, media_cache, 5000, function(err, data) {
+			loadFile(media_src, media_cache, 25000, function(err, data) {
 				if (err) return $next_slide.trigger('click', true);
 
 				if (data == 'cache') {
