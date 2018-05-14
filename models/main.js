@@ -25,6 +25,8 @@ var userSchema = new Schema({
 var ribbonSchema = new Schema({
 	title: { type: String, trim: true, locale: true },
 	ad_colour: String,
+	hash: String,
+	build: String,
 	media: [{
 		meta: {
 			date_start: Date,

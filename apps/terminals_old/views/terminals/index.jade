@@ -1,0 +1,34 @@
+extends layout
+
+block header_meta
+	- var content_title= 'РЕСПУБЛИКА | ТЕРМИНАЛ'
+
+block header_include
+	//- - var include_libs_css = []
+	- var include_css = ['terminals.css']
+	- var include_libs_js = ['socket.io.js']
+	- var include_js = ['terminals.js']
+
+block panel
+	.place_title
+	.buttons
+		.button.places Локации
+		.button.reboot Обновить
+		.button.reset Сброс
+		.separator
+		.button.start Старт
+		.button.stop.active Стоп
+		.button.ribbon Лента
+
+
+block content
+	.places_block
+		.places_title
+		.places_list
+			include _places.jade
+		.places_connect Подключить
+
+	.slider_block: .slider_inner
+
+	.view_block
+		video.video(autoplay=false, loop=false, muted=true, controls=false, poster='/stuff/terminals/backgrounds/bg.png')
