@@ -26,8 +26,8 @@ module.exports.videoCompile = function(ribbon, callback) {
 					: item.object.meta.counter;
 
 				command = item.type == 'image'
-					? command.input(item.object.path.main).loop(counter).output(tmp_path + '/' + i + '.mp4')
-					: command.input(item.object.path.main).output(tmp_path + '/' + i + '.mp4');
+					? command.input(public_path + item.object.path.main).loop(counter).output(tmp_path + '/' + i + '.mp4')
+					: command.input(public_path + item.object.path.main).output(tmp_path + '/' + i + '.mp4');
 
 				command
 					.outputOptions('-threads 2')
