@@ -25,7 +25,7 @@ module.exports.videoCompile = function(ribbon, callback) {
 					? item.meta.counter
 					: item.object.meta.counter;
 
-				command = item.type == 'image'
+				command = item.object.type == 'image'
 					? command.input(public_path + item.object.path.main).loop(counter).output(tmp_path + '/' + i + '.mp4')
 					: command.input(public_path + item.object.path.main).output(tmp_path + '/' + i + '.mp4');
 
@@ -38,7 +38,7 @@ module.exports.videoCompile = function(ribbon, callback) {
 					.noAudio()
 					.outputFormat('mp4')
 					.outputFPS(25)
-					.size('1920x?').autopad('black')
+					.size('1920x1080').autopad('black')
 					.on('progress', progressHandler)
 					.on('error', function(err) {
 						command.kill();
