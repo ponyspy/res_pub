@@ -1,3 +1,4 @@
+var fs = require('fs');
 var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
 var async = require('async');
@@ -46,7 +47,9 @@ module.exports.videoCompile = function(ribbon, callback) {
 						callback(err);
 					})
 					.on('end', function() {
+
 						console.log('Transcode item complete!');
+
 						call_item(null, 'ok');
 					})
 					.run();
@@ -79,19 +82,25 @@ module.exports.videoCompile = function(ribbon, callback) {
 				.on('progress', progressHandler)
 				.on('error', function(err) {
 					command.kill();
+
 					console.log(err.message);
+
 					callback(err);
 				})
 				.on('end', function() {
 					console.log('Merge complete!');
 					call_merge(null, 'ok');
 				})
-				.mergeToFile(public_path + build_path + '/build.mp4', tmp_path);
+				.mergeToFile(public_path + build_path + '/new.mp4', tmp_path);
 		}
 
 	}, function(err, results) {
+		fs.renameSync(public_path + build_path + '/new.mp4', public_path + build_path + '/build.mp4');
 		rimraf.sync(tmp_path + '/*');
+		rimraf.sync(public_path + build_path + '/new.mp4');
+
 		console.log('Build complete!');
+
 		callback(null, build_path + '/build.mp4');
 	});
 };
