@@ -23,9 +23,8 @@ $(function() {
 		location.reload();
 	});
 
-	$('.button.ribbon').on('click', function(e) {
-		$(this).toggleClass('active');
-		$('.panel_block, .slider_block').toggleClass('show');
+	$('.button.url').on('click', function(e) {
+		$('.place_title').text(window.location);
 	});
 
 
