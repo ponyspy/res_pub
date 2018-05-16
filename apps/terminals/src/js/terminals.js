@@ -24,7 +24,7 @@ $(function() {
 	});
 
 	$('.button.url').on('click', function(e) {
-		$('.place_title').text(window.location);
+		$('.place_url').show().val(window.location);
 	});
 
 
