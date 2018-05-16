@@ -16,9 +16,7 @@ block panel
 		.button.reboot Обновить
 		.button.reset Сброс
 		.separator
-		.button.start Старт
-		.button.stop.active Стоп
-		.button.ribbon Лента
+		.button.url URL
 
 
 block content
@@ -28,7 +26,4 @@ block content
 			include _places.jade
 		.places_connect Подключить
 
-	.slider_block: .slider_inner
-
-	.view_block
-		video.video(autoplay=false, loop=false, muted=true, controls=false, poster='/stuff/terminals/backgrounds/bg.png')
+	video.video(autoplay=true, loop=true, muted=true, controls=false, poster='/stuff/terminals/backgrounds/bg.png')

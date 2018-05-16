@@ -3,63 +3,14 @@ html, body
 	padding 0
 	background-color black
 
-.slider_block
-	position absolute
-	z-index 999
-	overflow hidden
-	bottom 0
-	background-color lightgrey
-	width 100%
-	display none
-	height 152px
-	&.show
-		display block
-	.slider_inner
-		vertical-align top
-		display inline-block
-		white-space nowrap
-		font-size 0
-	.slide_item
-		width 270px
-		height 152px
-		background-color grey
-		display inline-block
-		white-space nowrap
-		margin-right 25px
-		background-position center
-		background-size contain
-		background-repeat no-repeat
-		position relative
-		&:last-child
-			margin-right 0
-		&:after
-			content ''
-			position absolute
-			width 0
-			height 0
-			bottom 0
-			right 0
-		&.go:after
-			border-style solid
-			border-width 0 0 50px 50px
-			border-color transparent transparent green transparent
-		&.current:after
-			border-style solid
-			border-width 0 0 50px 50px
-			border-color transparent transparent yellow transparent
 
-.view_block
+.video
+	display block
 	width 100%
 	height 100%
-	position absolute
-	z-index 99
-	.video
-		display block
-		width 100%
-		height 100%
-		background-position center
-		background-size contain
-		background-repeat no-repeat
+	background-position center
+	background-size contain
+	background-repeat no-repeat
 
 .panel_block
 	background-color lightgrey
