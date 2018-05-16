@@ -26,6 +26,7 @@ $(function() {
 	$('.button.url').on('click', function(e) {
 		$(this).toggleClass('active');
 
+		$('.panel_block').toggleClass('show');
 		$('.place_url').toggle().val(window.location);
 	});
 
