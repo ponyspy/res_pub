@@ -11,6 +11,7 @@ $(function() {
 
 	$('.button.places').on('click', function(e) {
 		$(this).toggleClass('active');
+
 		$('.panel_block, .places_block').toggleClass('show');
 	});
 
