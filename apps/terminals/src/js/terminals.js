@@ -27,7 +27,6 @@ $(function() {
 	$('.button.url').on('click', function(e) {
 		$(this).toggleClass('active');
 
-		$('.panel_block').toggleClass('show');
 		$('.place_url').toggle().val(window.location);
 	});
 
@@ -41,7 +40,7 @@ $(function() {
 
 
 	// ---
-	// Places block
+	// Connect block
 	// ---
 
 
@@ -122,6 +121,9 @@ $(function() {
 				$('.places_title').children('[place_type=device]').remove().end().append($title);
 				$('.places_list').children().removeClass('active').filter(this).addClass('active');
 				$('.places_connect').addClass('active');
+
+				$('.button.url').addClass('active');
+				$('.place_url').show().val(window.location.href.split('#')[0] + '#' + place_id);
 			}
 		});
 
