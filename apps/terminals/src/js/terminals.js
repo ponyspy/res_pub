@@ -15,15 +15,26 @@ $(function() {
 	});
 
 	$('.button.reboot').on('click', function(e) {
-		location.reload();
+		window.location.reload();
 	});
 
 	$('.button.reset').on('click', function(e) {
-		location.reload();
+		window.location.hash = '#';
+		window.location.reload();
 	});
 
 	$('.button.url').on('click', function(e) {
+		$(this).toggleClass('active');
+
 		$('.place_url').toggle().val(window.location);
+	});
+
+	$('.button.controls').on('click', function(e) {
+		$(this).hasClass('active')
+			? $video.prop('controls', false).trigger('play')
+			: $video.prop('controls', true).trigger('pause');
+
+		$(this).toggleClass('active');
 	});
 
 
@@ -33,7 +44,7 @@ $(function() {
 
 
 	$(window).on('load hashchange', function(e) {
-		if (location.hash == '') return false;
+		if (window.location.hash == '') return false;
 
 		if (socket) {
 			socket.disconnect();
@@ -55,11 +66,11 @@ $(function() {
 		});
 
 		socket.on('update', function(data) {
-			location.reload();
+			window.location.reload();
 		});
 
 		socket.on('push_reload', function(data) {
-			location.reload();
+			window.location.reload();
 		});
 	});
 
