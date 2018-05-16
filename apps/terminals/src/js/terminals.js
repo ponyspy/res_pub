@@ -19,12 +19,11 @@ $(function() {
 	});
 
 	$('.button.reset').on('click', function(e) {
-		localStorage.clear();
 		location.reload();
 	});
 
 	$('.button.url').on('click', function(e) {
-		$('.place_url').show().val(window.location);
+		$('.place_url').toggle().val(window.location);
 	});
 
 
