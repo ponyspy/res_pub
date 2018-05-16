@@ -33,7 +33,7 @@ $(function() {
 
 
 	$(window).on('load hashchange', function(e) {
-		// $('.place_title').text(localStorage.terminal_name);
+		if (location.hash == '') return false;
 
 		if (socket) {
 			socket.disconnect();
