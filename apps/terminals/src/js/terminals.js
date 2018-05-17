@@ -45,12 +45,12 @@ $(function() {
 
 
 	$(window).on('load hashchange', function(e) {
-		if (window.location.hash == '') return false;
-
 		if (socket) {
 			socket.disconnect();
 			socket = null;
 		}
+
+		if (window.location.hash == '') return false;
 
 		socket = io.connect('', {
 			port: 3002,
