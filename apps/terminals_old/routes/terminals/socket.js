@@ -1,4 +1,4 @@
-var jade = require('jade');
+var pug = require('pug');
 var moment = require('moment');
 
 var Query = {
@@ -26,7 +26,7 @@ module.exports = function(io, i18n) {
 			compileDebug: false, debug: false, cache: false, pretty: false
 		};
 
-		callback(null, jade.renderFile(__app_root + '/views/terminals/_slides.jade', opts));
+		callback(null, pug.renderFile(__app_root + '/views/terminals/_slides.pug', opts));
 	};
 
 	module.get = function(socket) {

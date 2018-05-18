@@ -1,5 +1,5 @@
 extends ../layout
-include ../_forms.jade
+include ../_forms.pug
 
 block header_meta
 	- var content_title= 'ДОБАВИТЬ ОБЪЯВЛЕНИЕ'
@@ -11,7 +11,7 @@ block header_include
 	- var include_js = ['editor.js', 'add.js', 'a_events.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/admin/awards') Назад
+	a.sub_item.back_link(href='/admin/ads') Назад
 	span.sub_item.toggle_eng Перевод
 	.sub_right_block
 		input.form_cancel(type='submit', value='Отменить')

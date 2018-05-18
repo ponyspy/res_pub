@@ -1,10 +1,10 @@
-mixin items(ads)
+.list_items
 	each ad in ads
 		.list_item(id=ad._id)
 			a.item_rm.ad(href='#') -- удалить
 			a.item_title(href='/admin/ads/edit/' + ad._id, class=ad.status =='hidden' ? 'hidden': '')= (ad.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 
-mixin counters(count, skip)
+.list_counter
 	a.list_back(href='#'): b назад
 	span= ' - '
 	select.list_select
@@ -14,10 +14,3 @@ mixin counters(count, skip)
 			- i++
 	span= ' - '
 	a.list_next(href='#'): b вперед
-
-
-if load_list
-	.list_items
-		+items(ads)
-	.list_counter
-		+counters(count, skip)

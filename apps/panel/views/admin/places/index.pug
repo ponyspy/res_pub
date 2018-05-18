@@ -1,20 +1,18 @@
 extends ../layout
-include _ribbons
 
 block header_meta
-	- var content_title= 'ЛЕНТЫ'
+	- var content_title= 'ЛОКАЦИИ'
 
 block header_include
 	- var include_css = ['add.css']
 	- var include_js = ['lists.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/') Назад
+	a.sub_item.back_link(href='/admin') Назад
 	span.sub_item.toggle_rm Удалить
-	span.sub_item.toggle_copy Копировать
 	.sub_right_block
 
-		.sub_drop.status(style='z-index: 2;')
+		.sub_drop.status(style='z-index: 1;')
 			.drop_title Статус
 			.drop_inner
 				.drop_item(class='all').select Все
@@ -26,11 +24,9 @@ block sub_menu
 block content
 	.title= content_title
 	br
-	a.add(href='/admin/ribbons/add') + Добавить ленту
+	- var locations = { 'shop': 'магазин', 'city': 'город', 'device': 'устройство' }
+	a.add(href='/admin/places/add/' + ((type && parent) ? ('?type=' + type) + '&' + ('parent=' + parent) : ''))= '+ Добавить ' + (type ? locations[type] : locations['city'])
 	br
 	br
 	.lists_block
-		.list_items
-			+items(ribbons)
-		.list_counter
-			+counters(count)
+		include _places.pug

@@ -1,11 +1,11 @@
-mixin items(ribbons)
+.list_items
 	each ribbon in ribbons
 		.list_item(id=ribbon._id)
 			a.item_rm.ribbon(href='#') -- удалить
 			a.item_copy(href='#') копировать
 			a.item_title(href='/admin/ribbons/edit/' + ribbon._id, class=ribbon.status)= (ribbon.i18n.title.get('ru') || '!!! ПУСТОЕ ПОЛЕ !!!')
 
-mixin counters(count, skip)
+.list_counter
 	a.list_back(href='#'): b назад
 	span= ' - '
 	select.list_select
@@ -15,10 +15,3 @@ mixin counters(count, skip)
 			- i++
 	span= ' - '
 	a.list_next(href='#'): b вперед
-
-
-if load_list
-	.list_items
-		+items(ribbons)
-	.list_counter
-		+counters(count, skip)

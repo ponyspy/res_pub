@@ -10,21 +10,25 @@ block header_include
 	- var include_js = ['terminals.js']
 
 block panel
-	input.place_url(type='text')
+	.place_title
 	.buttons
 		.button.places Локации
 		.button.reboot Обновить
 		.button.reset Сброс
 		.separator
-		.button.controls Плеер
-		.button.url URL
+		.button.start Старт
+		.button.stop.active Стоп
+		.button.ribbon Лента
 
 
 block content
 	.places_block
 		.places_title
 		.places_list
-			include _places.jade
+			include _places.pug
 		.places_connect Подключить
 
-	video.video(autoplay=true, loop=true, muted=true, controls=false, poster='/stuff/terminals/backgrounds/bg.png')
+	.slider_block: .slider_inner
+
+	.view_block
+		video.video(autoplay=false, loop=false, muted=true, controls=false, poster='/stuff/terminals/backgrounds/bg.png')

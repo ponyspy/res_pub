@@ -1,4 +1,4 @@
-var jade = require('jade');
+var pug = require('pug');
 
 module.exports = function(Model) {
 	var Place = Model.Place;
@@ -19,7 +19,7 @@ module.exports = function(Model) {
 				compileDebug: false, debug: false, cache: false, pretty: false
 			};
 
-			res.send(jade.renderFile(__app_root + '/views/terminals/_places.jade', opts));
+			res.send(pug.renderFile(__app_root + '/views/terminals/_places.pug', opts));
 		});
 	};
 

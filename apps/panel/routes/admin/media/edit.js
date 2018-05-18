@@ -12,7 +12,7 @@ module.exports = function(Model, Params) {
 		Media.find().sort('-date').exec(function(err, media) {
 			if (err) return next(err);
 
-			res.render('admin/media.jade', { moment: moment, media: media });
+			res.render('admin/media.pug', { moment: moment, media: media });
 		});
 	};
 

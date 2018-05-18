@@ -1,4 +1,4 @@
-var jade = require('jade');
+var pug = require('pug');
 
 module.exports = function(Model) {
 	var module = {};
@@ -39,13 +39,12 @@ module.exports = function(Model) {
 				if (ribbons.length > 0) {
 					var opts = {
 						ribbons: ribbons,
-						load_list: true,
 						count: Math.ceil(count / 10),
 						skip: +post.context.skip,
 						compileDebug: false, debug: false, cache: true, pretty: false
 					};
 
-					res.send(jade.renderFile(__app_root + '/views/admin/ribbons/_ribbons.jade', opts));
+					res.send(pug.renderFile(__app_root + '/views/admin/ribbons/_ribbons.pug', opts));
 				} else {
 					res.send('end');
 				}

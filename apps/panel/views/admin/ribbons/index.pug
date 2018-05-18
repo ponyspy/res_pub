@@ -1,19 +1,19 @@
 extends ../layout
-include _ads.jade
 
 block header_meta
-	- var content_title= 'ОБЪЯВЛЕНИЯ'
+	- var content_title= 'ЛЕНТЫ'
 
 block header_include
 	- var include_css = ['add.css']
 	- var include_js = ['lists.js']
 
 block sub_menu
-	a.sub_item.back_link(href='/admin') Назад
+	a.sub_item.back_link(href='/') Назад
 	span.sub_item.toggle_rm Удалить
+	span.sub_item.toggle_copy Копировать
 	.sub_right_block
 
-		.sub_drop.status(style='z-index: 1;')
+		.sub_drop.status(style='z-index: 2;')
 			.drop_title Статус
 			.drop_inner
 				.drop_item(class='all').select Все
@@ -25,11 +25,8 @@ block sub_menu
 block content
 	.title= content_title
 	br
-	a.add(href='/admin/ads/add') + Добавить объявление
+	a.add(href='/admin/ribbons/add') + Добавить ленту
 	br
 	br
 	.lists_block
-		.list_items
-			+items(ads)
-		.list_counter
-			+counters(count)
+		include _ribbons

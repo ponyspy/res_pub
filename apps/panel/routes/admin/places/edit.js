@@ -18,7 +18,7 @@ module.exports = function(Model, Params) {
 			Ribbon.find().sort('-date').exec(function(err, ribbons) {
 				if (err) return next(err);
 
-				res.render('admin/places/edit.jade', { place: place, ribbons: ribbons });
+				res.render('admin/places/edit.pug', { place: place, ribbons: ribbons });
 			});
 		});
 

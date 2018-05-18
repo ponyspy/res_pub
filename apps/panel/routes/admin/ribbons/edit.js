@@ -18,7 +18,7 @@ module.exports = function(Model, Params) {
 			Media.find().sort('-date').exec(function(err, media) {
 				if (err) return next(err);
 
-				res.render('admin/ribbons/edit.jade', { ribbon: ribbon, media: media, moment: moment });
+				res.render('admin/ribbons/edit.pug', { ribbon: ribbon, media: media, moment: moment });
 			});
 		});
 

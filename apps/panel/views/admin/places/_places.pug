@@ -1,4 +1,4 @@
-mixin items(places)
+.list_items
 	each place in places
 		.list_item(id=place._id)
 			a.item_rm.place(href='#') -- удалить
@@ -14,7 +14,7 @@ mixin items(places)
 				else
 					a(href='/admin/places/?type=shop&parent=' + place._id) магазины
 
-mixin counters(count, skip)
+.list_counter
 	a.list_back(href='#'): b назад
 	span= ' - '
 	select.list_select
@@ -24,10 +24,3 @@ mixin counters(count, skip)
 			- i++
 	span= ' - '
 	a.list_next(href='#'): b вперед
-
-
-if load_list
-	.list_items
-		+items(places)
-	.list_counter
-		+counters(count, skip)
