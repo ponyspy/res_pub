@@ -40,12 +40,10 @@ module.exports = function(io, i18n) {
 
 				async.eachSeries(ribbons, function(ribbon, callback) {
 					calcHash(ribbon, function(err, calc_hash) {
-						if (err) return setTimeout(tick, err_interval);
-
-						if (ribbon.hash == calc_hash) return callback();
+						if (err || ribbon.hash == calc_hash) return callback();
 
 						videoCompile(ribbon, function(err, build) {
-							if (err) return setTimeout(tick, err_interval);
+							if (err) return callback();
 
 							ribbon.build = build;
 							ribbon.hash = calc_hash;

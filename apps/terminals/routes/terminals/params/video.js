@@ -15,6 +15,8 @@ module.exports.videoCompile = function(ribbon, callback) {
 	var tmp_path = __glob_root + '/tmp';
 	var build_path = '/cdn/ribbons/' + ribbon._id;
 
+	if (ribbon.media.length === 0) return callback('no media');
+
 	async.series({
 
 		// Transcode video
