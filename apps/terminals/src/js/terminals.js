@@ -38,6 +38,10 @@ $(function() {
 		$(this).toggleClass('active');
 	});
 
+	$('.place_url').on('click', function() {
+		$(this).trigger('select');
+	});
+
 
 	// ---
 	// Connect block
@@ -61,7 +65,6 @@ $(function() {
 		socket.on('content', function(data) {
 			video.pause();
 			video.src = data.content;
-			// video.poster = '/stuff/terminals/backgrounds/bg.png';
 			video.load();
 			video.play();
 		});
