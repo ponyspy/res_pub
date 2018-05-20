@@ -69,7 +69,6 @@ module.exports.videoCompile = function(ribbon, callback) {
 			mkdirp.sync(public_path + build_path);
 
 			ribbon.media.forEach(function(item, i) {
-
 				var counter = item.meta.counter
 					? item.meta.counter
 					: item.object.meta.counter;
@@ -77,7 +76,6 @@ module.exports.videoCompile = function(ribbon, callback) {
 				var item_path = tmp_path + '/' + item.object._id + '_' + counter + '.mp4';
 
 				if (item.object.type == 'video') {
-
 					Array.from({ length: counter }).forEach(function() {
 						command.input(item_path);
 					});
