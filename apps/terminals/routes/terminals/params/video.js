@@ -28,9 +28,13 @@ module.exports.videoCompile = function(ribbon, callback) {
 					? item.meta.counter
 					: item.object.meta.counter;
 
+				var item_path = tmp_path + '/' + item.object._id + '_' + counter + '.mp4';
+
+				if (fs.existsSync(item_path)) return call_item(null, 'ok');
+
 				command = item.object.type == 'image'
-					? command.input(public_path + item.object.path.main).loop(counter).output(tmp_path + '/' + i + '.mp4')
-					: command.input(public_path + item.object.path.main).output(tmp_path + '/' + i + '.mp4');
+					? command.input(public_path + item.object.path.main).loop(counter).output(item_path)
+					: command.input(public_path + item.object.path.main).output(item_path);
 
 				command
 					.outputOptions('-threads 2')
@@ -65,17 +69,20 @@ module.exports.videoCompile = function(ribbon, callback) {
 			mkdirp.sync(public_path + build_path);
 
 			ribbon.media.forEach(function(item, i) {
+
+				var counter = item.meta.counter
+					? item.meta.counter
+					: item.object.meta.counter;
+
+				var item_path = tmp_path + '/' + item.object._id + '_' + counter + '.mp4';
+
 				if (item.object.type == 'video') {
 
-					var counter = item.meta.counter
-						? item.meta.counter
-						: item.object.meta.counter;
-
 					Array.from({ length: counter }).forEach(function() {
-						command.input(tmp_path + '/' + i + '.mp4');
+						command.input(item_path);
 					});
 				} else {
-					command.input(tmp_path + '/' + i + '.mp4');
+					command.input(item_path);
 				}
 			});
 
@@ -98,7 +105,6 @@ module.exports.videoCompile = function(ribbon, callback) {
 
 	}, function(err, results) {
 		fs.renameSync(public_path + build_path + '/new.mp4', public_path + build_path + '/build.mp4');
-		rimraf.sync(tmp_path + '/*');
 		rimraf.sync(public_path + build_path + '/new.mp4');
 
 		console.log('Build complete!');
