@@ -3,6 +3,10 @@ $(function() {
 	var $video = $('.video');
 	var video = $video[0];
 
+	setTimeout(function() {
+		location.reload();
+	}, 1000 * 60 * 60 * 3);
+
 
 	// ---
 	// Buttons block
