@@ -3,6 +3,15 @@ $(function() {
 	var $video = $('.video');
 	var video = $video[0];
 
+	// setTimeout(function() {
+	// 	video.pause();
+	// 	video.src = '';
+	// 	video.load();
+	// 	$video.remove().length = 0;
+
+	// 	location.reload();
+	// }, 1000 * 10); // 1000 * 60 * 60 * 3
+
 	setTimeout(function() {
 		location.reload();
 	}, 1000 * 60 * 60 * 3);
