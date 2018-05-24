@@ -17,6 +17,8 @@ module.exports = function(io, i18n) {
 		var term_id = socket.handshake.query.terminal;
 
 		extractTable([term_id], function(err, data_table) {
+			if (err) return false;
+
 			Ribbon.findOne({ _id: data_table[0].ribbon }).exec(function(err, ribbon) {
 
 				socket.terminal = term_id;

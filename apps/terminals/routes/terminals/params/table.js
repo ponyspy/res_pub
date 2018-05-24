@@ -14,6 +14,7 @@ module.exports.extractTable = function(ids, callback) {
 		}
 	}).exec(function(err, devices) {
 		if (err) return callback(err);
+		if (devices.length == 0) return callback(null, []);
 
 		var data_table = devices.map(function(device) {
 			if (device.ribbon) {
@@ -22,8 +23,12 @@ module.exports.extractTable = function(ids, callback) {
 					return { device_id: device._id, ribbon: device.meta.parent.ribbon };
 				} else if (device.meta.parent.meta.parent.ribbon) {
 					return { device_id: device._id, ribbon: device.meta.parent.meta.parent.ribbon };
+			} else {
+				return null;
 			}
 		});
+
+		if (data_table[0] == null) return callback('no ribbon')
 
 		callback(null, data_table);
 	});
