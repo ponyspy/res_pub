@@ -88,7 +88,7 @@ module.exports.videoCompile = function(ribbon, callback) {
 				.on('progress', progressHandler)
 				.on('error', function(err) {
 					command.kill();
-					console.log('media id: ' + item.object._id);
+					console.log(err);
 					console.log(err.message);
 					callback(err);
 				})
