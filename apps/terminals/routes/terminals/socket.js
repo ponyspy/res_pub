@@ -37,7 +37,7 @@ module.exports = function(io, i18n) {
 		// name timer
 		return setTimeout(function tick() {
 
-			Ribbon.find().populate('media.object').exec(function(err, ribbons) {
+			Ribbon.find().where('status').ne('hidden').populate('media.object').exec(function(err, ribbons) {
 				if (err) return setTimeout(tick, err_interval);
 
 				async.eachSeries(ribbons, function(ribbon, callback) {
