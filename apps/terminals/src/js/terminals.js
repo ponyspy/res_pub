@@ -32,7 +32,7 @@ $(function() {
 			return M.join(' ');
 	})();
 
-	alert(navigator.sayswho);
+	$('.panel_block').text(navigator.sayswho);
 
 
 	// ---
