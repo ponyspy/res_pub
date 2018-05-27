@@ -20,7 +20,7 @@ module.exports = function(Model) {
 			ribbon.media.forEach(function(item, i) {
 				m3u.addPlaylistItem({
 					title: 'item_' + i,
-					duration: 30,
+					duration: 8,
 					uri: req.protocol + '://' + req.hostname + ':8002' + item.object.path.main
 				});
 			});
