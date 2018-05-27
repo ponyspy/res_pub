@@ -19,7 +19,7 @@ module.exports = function(Model) {
 				m3u.addPlaylistItem({
 					title: 'item_' + i,
 					duration: 30,
-					uri: req.protocol + '://' + req.hostname + ':3002' + item.object.path.main
+					uri: req.protocol + '://' + req.hostname + ':8002' + item.object.path.main
 				});
 			});
 
