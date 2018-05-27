@@ -14,7 +14,9 @@ module.exports = function(Model) {
 	module.m3u = function(req, res) {
 		var m3u = m3u8.M3U.create();
 
-		Ribbon.findOne().sort('-date').populate('media.object').exec(function(err, ribbon) {
+		Ribbon.findOne().sort('-date').skip(+req.params.num).populate('media.object').exec(function(err, ribbon) {
+			if (err || !ribbon || !ribbon.media || ribbon.media.length == 0) return res.send('none');
+
 			ribbon.media.forEach(function(item, i) {
 				m3u.addPlaylistItem({
 					title: 'item_' + i,
