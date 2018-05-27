@@ -17,7 +17,7 @@ $(function() {
 	}, 1000 * 60 * 60 * 3);
 
 
-	// $('.panel_block').text(navigator.userAgent);
+	$('.stats_block').text(navigator.userAgent);
 
 
 	// ---
