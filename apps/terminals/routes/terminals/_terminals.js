@@ -17,5 +17,8 @@ module.exports = (function() {
 	router.route('/test')
 		.get(terminals.test.test1);
 
+	router.route('/test.m3u')
+		.get(terminals.test.m3u);
+
 	return router;
 })();
