@@ -17,7 +17,9 @@ $(function() {
 	}, 1000 * 60 * 60 * 3);
 
 
-	$('.stats_block').text(navigator.userAgent);
+	$('.stats_block').text(navigator.userAgent).on('click', function(e) {
+		$(this).remove();
+	});
 
 
 	// ---
