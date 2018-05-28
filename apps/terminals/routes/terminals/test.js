@@ -11,6 +11,22 @@ module.exports = function(Model) {
 		res.send('test1 ok!');
 	};
 
+	module.ribbons = function(req, res) {
+		Ribbon.findOne().sort('-date').skip(+req.params.num).populate('media.object').exec(function(err, ribbon) {
+			if (err || !ribbon || !ribbon.media || ribbon.media.length == 0) return res.json({'msg': 'none'});
+
+			var result = ribbon.media.map(function(item) {
+				return {
+					'type': item.object.type,
+					'counter': item.object.meta.counter,
+					'url': req.protocol + '://' + req.hostname + ':8002' + item.object.path.main
+				}
+			});
+
+			res.json(result);
+		});
+	}
+
 	module.m3u = function(req, res) {
 		var m3u = m3u8.M3U.create();
 
