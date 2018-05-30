@@ -15,13 +15,7 @@ module.exports = (function() {
 		.post(terminals.index.get_places);
 
 	router.route('/test')
-		.get(terminals.test.test1);
-
-	router.route('/test/pls/:num/test.m3u')
-		.get(terminals.test.m3u);
-
-	router.route('/test/ribbons/:num')
-		.get(terminals.test.ribbons);
+		.get(terminals.test.index);
 
 	return router;
 })();
