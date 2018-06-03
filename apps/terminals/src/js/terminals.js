@@ -11,7 +11,7 @@ $(function() {
 	// });
 
 	if (!window.exoJs) {
-		$('.video').addClass('show');
+		$('body').addClass('browser');
 	}
 
 
