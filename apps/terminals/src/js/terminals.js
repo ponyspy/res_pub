@@ -86,7 +86,7 @@ $(function() {
 		});
 
 		socket.on('content', function(data) {
-			var video_path = window.location.href.replace(window.location.hash, '') + data.content.replace('/cdn', 'cdn');
+			var video_path = window.location.href.split('#')[0].replace(/\/$/, '') + data.content;
 
 			if (window.exoJs) {
 				window.exoJs.clearCache();
