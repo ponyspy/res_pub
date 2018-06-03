@@ -3,14 +3,6 @@ $(function() {
 	var $video = $('.video');
 	var video = $video[0];
 
-	// setTimeout(function() {
-	// 	video.pause();
-	// 	video.src = '';
-	// 	video.load();
-	// 	$video.remove().length = 0;
-
-	// 	window.location.reload(true);
-	// }, 1000 * 60 * 60 * 3); // 1000 * 60 * 60 * 3
 
 	setTimeout(function() {
 		location.reload();
