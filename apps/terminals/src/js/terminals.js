@@ -1,17 +1,18 @@
 $(function() {
 	var socket = null;
-	var $video = $('.video');
-	var video = $video[0];
 
 
 	setTimeout(function() {
 		location.reload();
-	}, 1000 * 60 * 60 * 3);
+	}, 1000 * 60 * 60 * 6);
 
+	// $('.stats_block').text(navigator.userAgent).on('click', function(e) {
+	// 	$(this).remove();
+	// });
 
-	$('.stats_block').text(navigator.userAgent).on('click', function(e) {
-		$(this).remove();
-	});
+	if (!window.exoJs) {
+		$('.video').addClass('show');
+	}
 
 
 	// ---
@@ -30,8 +31,14 @@ $(function() {
 	});
 
 	$('.button.reset').on('click', function(e) {
-		window.location.hash = '#';
-		window.location.reload();
+		if (window.exoJs) {
+			window.exoJs.clearCache();
+			window.exoJs.clearSavedUrl();
+			$('.panel_block').addClass('show').text('Теперь перезапустите приложение!');
+		} else {
+			window.location.hash = '#';
+			window.location.reload();
+		}
 	});
 
 	$('.button.url').on('click', function(e) {
@@ -41,9 +48,15 @@ $(function() {
 	});
 
 	$('.button.controls').on('click', function(e) {
-		$(this).hasClass('active')
-			? $video.prop('controls', false).trigger('play')
-			: $video.prop('controls', true).trigger('pause');
+		if (window.exoJs) {
+			$(this).hasClass('active')
+				? window.exoJs.playerControls(false)
+				: window.exoJs.playerControls(true);
+		} else {
+			$(this).hasClass('active')
+				? $('video').prop('controls', false).trigger('play')
+				: $('video').prop('controls', true).trigger('pause');
+		}
 
 		$(this).toggleClass('active');
 	});
@@ -73,14 +86,35 @@ $(function() {
 		});
 
 		socket.on('content', function(data) {
-			video.pause();
-			video.src = data.content;
-			video.load();
-			video.play();
+			var video_path = window.location.href.replace(window.location.hash, '') + data.content.replace('/cdn', 'cdn');
+
+			if (window.exoJs) {
+				window.exoJs.clearCache();
+				window.exoJs.loadVideoUrl(video_path,
+					0 /* margin left */ ,
+					0 /* margin top */ ,
+					0 /* margin right */ ,
+					0 /* margin bottom */ ,
+					true /* mute audio */ );
+
+				window.exoJs.playerPlay();
+			} else {
+				var video = $('video')[0];
+
+				video.pause();
+				video.src = video_path;
+				video.load();
+				video.play();
+			}
 		});
 
 		socket.on('update', function(data) {
-			window.location.reload();
+			if (window.exoJs) {
+				window.exoJs.clearCache();
+				window.location.reload();
+			} else {
+				window.location.reload();
+			}
 		});
 
 		socket.on('push_reload', function(data) {
