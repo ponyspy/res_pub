@@ -34,6 +34,7 @@ $(function() {
 		if (window.exoJs) {
 			window.exoJs.clearCache();
 			window.exoJs.clearSavedUrl();
+			window.exoJs.playerStop();
 			$('.panel_block').addClass('show').text('Теперь перезапустите приложение!');
 		} else {
 			window.location.hash = '#';
@@ -89,7 +90,6 @@ $(function() {
 			var video_path = window.location.href.split('#')[0].replace(/\/$/, '') + data.content;
 
 			if (window.exoJs) {
-				window.exoJs.clearCache();
 				window.exoJs.loadVideoUrl(video_path,
 					0 /* margin left */ ,
 					0 /* margin top */ ,
@@ -118,7 +118,12 @@ $(function() {
 		});
 
 		socket.on('push_reload', function(data) {
-			window.location.reload();
+			if (window.exoJs) {
+				window.exoJs.clearCache();
+				window.location.reload();
+			} else {
+				window.location.reload();
+			}
 		});
 	});
 
