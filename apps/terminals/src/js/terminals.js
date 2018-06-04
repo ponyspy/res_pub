@@ -130,9 +130,14 @@ $(function() {
 
 	$(document)
 		.on('click', '.places_connect.active', function(e, data) {
-			var $active = $('.places_list').children('.active');
+			var active_place = $('.places_list').children('.active').attr('place_id');
 
-			window.location.hash = '#' + $active.attr('place_id');
+			if (window.exoJs) {
+				window.exoJs.saveUrl(window.location.href.split('#')[0] + '#' + active_place);
+				window.location.hash = '#' + active_place;
+			} else {
+				window.location.hash = '#' + active_place;
+			}
 		})
 		.on('click', '.p_title', function(e) {
 			var $this = $(this);
@@ -168,9 +173,6 @@ $(function() {
 				$('.places_title').children('[place_type=device]').remove().end().append($title);
 				$('.places_list').children().removeClass('active').filter(this).addClass('active');
 				$('.places_connect').addClass('active');
-
-				$('.button.url').addClass('active');
-				$('.place_url').show().val(window.location.href.split('#')[0] + '#' + place_id);
 			}
 		});
 
