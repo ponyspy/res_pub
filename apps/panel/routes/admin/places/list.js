@@ -49,6 +49,7 @@ module.exports = function(Model) {
 
 				if (places.length > 0) {
 					var opts = {
+						type: query.type,
 						places: places,
 						count: Math.ceil(count / 10),
 						skip: +post.context.skip,
