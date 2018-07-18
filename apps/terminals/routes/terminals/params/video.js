@@ -46,6 +46,7 @@ module.exports.videoCompile = function(ribbon, callback) {
 					.outputFormat('mp4')
 					.outputFPS(25)
 					.size('1920x1080').autopad('black')
+					.videoFilter('crop=1920:1080')
 					.on('progress', progressHandler)
 					.on('error', function(err) {
 						command.kill();
