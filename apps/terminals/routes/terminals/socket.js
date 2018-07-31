@@ -27,6 +27,18 @@ module.exports = function(io, i18n) {
 				io.to(socket.id).emit('content', { content: ribbon.build });
 			});
 		});
+
+		socket.on('reload', function(data) {
+			var rooms = Object.keys(io.sockets.adapter.rooms);
+
+			rooms.forEach(function(room_id) {
+				var socket_item = io.sockets.connected[room_id];
+
+				if (term_id == socket_item.terminal) {
+					io.to(socket_item.id).emit('push_reload');
+				}
+			});
+		});
 	};
 
 

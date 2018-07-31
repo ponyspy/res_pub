@@ -27,7 +27,11 @@ $(function() {
 	});
 
 	$('.button.reboot').on('click', function(e) {
-		window.location.reload();
+		if (socket) {
+			socket.emit('reload');
+		} else {
+			window.location.reload();
+		}
 	});
 
 	$('.button.reset').on('click', function(e) {
