@@ -3,6 +3,7 @@ var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
 var async = require('async');
 var ffmpeg = require('fluent-ffmpeg');
+var moment = require('moment');
 
 
 var progressHandler = function(progress) {
@@ -69,6 +70,20 @@ module.exports.videoCompile = function(ribbon, callback) {
 			mkdirp.sync(public_path + build_path);
 
 			ribbon.media.forEach(function(item, i) {
+				var meta = {};
+
+				if (item.meta.date_start && item.meta.date_end) {
+					meta.date_start = item.meta.date_start;
+					meta.date_end = item.meta.date_end;
+					meta.counter = item.meta.counter;
+				} else {
+					meta.date_start = item.object.meta.date_start;
+					meta.date_end = item.object.meta.date_end;
+					meta.counter = item.object.meta.counter;
+				}
+
+				if (!moment().isBetween(meta.date_start, meta.date_end, 'day', '[]')) return true;
+
 				var counter = item.meta.counter
 					? item.meta.counter
 					: item.object.meta.counter;
