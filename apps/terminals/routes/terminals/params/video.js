@@ -90,6 +90,8 @@ module.exports.videoCompile = function(ribbon, callback) {
 
 				var item_path = tmp_path + '/' + item.object._id + '_' + counter + '.mp4';
 
+				console.log('media id: ' + item.object._id);
+
 				if (item.object.type == 'video') {
 					Array.from({ length: counter }).forEach(function() {
 						command.input(item_path);
@@ -105,6 +107,7 @@ module.exports.videoCompile = function(ribbon, callback) {
 				.on('error', function(err) {
 					command.kill();
 					console.log(err.message);
+					console.log('ribbon id: ' + ribbon._id);
 					callback(err);
 				})
 				.on('end', function() {
