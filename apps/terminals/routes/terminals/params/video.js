@@ -82,22 +82,22 @@ module.exports.videoCompile = function(ribbon, callback) {
 					meta.counter = item.object.meta.counter;
 				}
 
-				if (!moment().isBetween(meta.date_start, meta.date_end, 'day', '[]')) return true;
+				if (!moment().isBetween(meta.date_start, meta.date_end, 'day', '[]')) {
+					var counter = item.meta.counter
+						? item.meta.counter
+						: item.object.meta.counter;
 
-				var counter = item.meta.counter
-					? item.meta.counter
-					: item.object.meta.counter;
+					var item_path = tmp_path + '/' + item.object._id + '_' + counter + '.mp4';
 
-				var item_path = tmp_path + '/' + item.object._id + '_' + counter + '.mp4';
+					console.log('media id: ' + item.object._id);
 
-				console.log('media id: ' + item.object._id);
-
-				if (item.object.type == 'video') {
-					Array.from({ length: counter }).forEach(function() {
+					if (item.object.type == 'video') {
+						Array.from({ length: counter }).forEach(function() {
+							command.input(item_path);
+						});
+					} else {
 						command.input(item_path);
-					});
-				} else {
-					command.input(item_path);
+					}
 				}
 			});
 
